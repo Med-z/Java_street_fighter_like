@@ -24,5 +24,6 @@ public class Character extends GameObject implements Renderable {
     @Override
     public void update() {
         // TODO: bouger si on doit bouger
+        // Probablement à réécrire dans Ryu/Ken.java
     }
 }
