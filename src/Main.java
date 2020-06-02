@@ -1,3 +1,4 @@
+import interfaces.Renderable;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,6 +26,13 @@ public class Main extends Application {
         // Initialisation des gameObjects
         List<GameObject> gameObjects = new ArrayList<>();
         // Ajouter ici le background (doit extend de GameObect)
+
+        // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
+        for(GameObject go : gameObjects) {
+            if (go instanceof Renderable) {
+                root.getChildren().add(((Renderable) go).getRenderer());
+            }
+        }
 
         // Game Loop
         timer = new Timer();
