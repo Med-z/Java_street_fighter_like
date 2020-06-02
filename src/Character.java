@@ -1,4 +1,5 @@
 import interfaces.Renderable;
+import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import other.GameObject;
 import other.Hitbox;
@@ -14,6 +15,11 @@ public class Character extends GameObject implements Renderable {
         this.renderer = new Rectangle(x, y, width, height);
 
         this.speed = speed;
+    }
+
+    @Override
+    public Node getRenderer() {
+        return renderer;
     }
 
     @Override
