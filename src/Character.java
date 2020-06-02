@@ -26,6 +26,18 @@ public class Character extends GameObject implements Renderable {
         this.healthPoint = healthPoint;
     }
 
+    public void takeDamage(int damage, HealthBar HB){
+        setHealthPoint(getHealthPoint()-damage);
+        HB.getHealthBar().setWidth(getHealthPoint());
+    }
+
+    public void heal(int heal, HealthBar HB){
+        setHealthPoint(getHealthPoint() + heal);
+        if(healthPoint>100)
+            setHealthPoint(100);
+        HB.getHealthBar().setWidth(getHealthPoint());
+    }
+
     @Override
     public Node getRenderer() {
         return renderer;
