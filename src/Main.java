@@ -23,13 +23,15 @@ public class Main extends Application {
         //
         //
 
-
-        // Fils de pute je teste les conflits
-
     }
 
 
     public static void main(String[] args) {
         launch(args);
+        
+        String imagePath = "D:\\_Documents\\_MateoPontoizeau\\_DUTInformatique\\SEMESTRE-2\\_PTS2\\_StreetFighter";
+        ImageFond fond = new ImageFond(imagePath);
+        fond.pack();
+        fond.setVisible(true);
     }
 }
