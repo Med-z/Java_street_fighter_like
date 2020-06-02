@@ -16,12 +16,12 @@ public class HealthBar extends GameObject implements Renderable {
 
 
     public void DamageTaken(int damage){
-        this.healthBar.setWidth((1 - damage) * this.originalWidth);
+        this.healthBar.setWidth();
     }
 
     public void Heal(int heal){
         if(healthPoint!=100)
-            this.healthBar.setWidth(this.originalWidth*(1+heal));
+            this.healthBar.setWidth();
     }
 
     @Override
@@ -31,7 +31,7 @@ public class HealthBar extends GameObject implements Renderable {
 
     @Override
     public void draw() {
-
+        this.healthBar.resizeRelocate(x, y, width, height);
     }
 
     @Override
