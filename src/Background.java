@@ -16,14 +16,12 @@ import javax.swing.JPanel;
  *
  * @author mateo
  */
-public class Background
-{
-    public class ImageFond extends JFrame
+public class Background extends JFrame
     {
         private Container c;
         private JPanel imagePanel;
         private String filePath;
-        public ImageFond(String filePath)
+        public Background(String filePath)
         {
             super("background de la zone de combat");
             this.filePath = filePath;
@@ -53,4 +51,3 @@ public class Background
             c.add(imagePanel);
         }
     }
-}

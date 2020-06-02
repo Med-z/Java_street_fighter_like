@@ -29,8 +29,8 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
         
-        String imagePath = "D:\\_Documents\\_MateoPontoizeau\\_DUTInformatique\\SEMESTRE-2\\_PTS2\\_StreetFighter";
-        ImageFond fond = new ImageFond(imagePath);
+        String URL = "https://www.google.com/search?q=background+street+fighter+gif&sxsrf=ALeKk03zVLsD32E_DMyJjXCnivPli9rNpw:1591088481236&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjrtOu94uLpAhWlDGMBHU4PB1QQ_AUoAXoECAsQAw&biw=1604&bih=792#imgrc=ecQJz6dGNhbgWM";
+        Background fond = new Background(URL);
         fond.pack();
         fond.setVisible(true);
     }
