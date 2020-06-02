@@ -5,7 +5,11 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Main extends Application {
+    Timer timer; // Timer déclaré ici pour l'arrêter dans stop()
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -14,17 +18,22 @@ public class Main extends Application {
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
 
-        // Ajoutez un commentaire ci-dessous !
-        // cbuchmul: ok! test git pull!
-        // ldorn : coucou les zamis ! 
-        // mpontoiz : salut les ptits copaing !
-        // zkaddour : saluuuuuuuuuut !!!!!!
-        // rderouel : yop les loustiks !
-        //
-        //
-
+        timer = new Timer();
+        TimerTask gameLoop = new TimerTask() {
+            @Override
+            public void run() {
+                System.out.println("Game running");
+            }
+        };
+        timer.schedule(gameLoop, 0, 16);
     }
 
+    // Je réécris la méthode stop() pour pouvoir arrêter le timer
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        timer.cancel();
+    }
 
     public static void main(String[] args) {
         launch(args);
