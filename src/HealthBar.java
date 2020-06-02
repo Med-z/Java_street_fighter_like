@@ -1,5 +1,6 @@
 import interfaces.Renderable;
 import javafx.scene.Node;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import other.GameObject;
 
@@ -10,18 +11,23 @@ public class HealthBar extends GameObject implements Renderable {
 
     public HealthBar(double posX, double posY, double width, double height) {
         super(posX, posY, width, height);
+        healthBar = new Rectangle(width, height, Color.RED);
+        healthBar.setX(posX);
+        healthBar.setY(posY);
         this.originalWidth = width;
-        this.healthPoint = 100;
     }
 
 
-    public void DamageTaken(int damage){
-        this.healthBar.setWidth();
+    public void takeDamage(int damage, Character character){
+        character.setHealthPoint(character.getHealthPoint()-damage);
+        this.healthBar.setWidth(character.getHealthPoint());
     }
 
-    public void Heal(int heal){
-        if(healthPoint!=100)
-            this.healthBar.setWidth();
+    public void heal(int heal, Character character){
+        if(healthPoint!=100) {
+            character.setHealthPoint(character.getHealthPoint() + heal);
+            this.healthBar.setWidth(character.getHealthPoint());
+        }
     }
 
     @Override
