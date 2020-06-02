@@ -4,7 +4,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import other.GameObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,11 +16,17 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        // Déclarations JavaFX
         AnchorPane root = new AnchorPane();
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Street Fighter");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
 
+        // Initialisation des gameObjects
+        List<GameObject> gameObjects = new ArrayList<>();
+        // Ajouter ici le background (doit extend de GameObect)
+
+        // Game Loop
         timer = new Timer();
         TimerTask gameLoop = new TimerTask() {
             @Override
