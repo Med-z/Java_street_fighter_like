@@ -1,7 +1,5 @@
 package other;
 
-import javafx.scene.Node;
-
 public abstract class GameObject {
     protected double x, y, width, height;
 
@@ -11,4 +9,6 @@ public abstract class GameObject {
         this.width = width;
         this.height = height;
     }
+
+    public abstract void update();
 }
