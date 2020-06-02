@@ -8,6 +8,7 @@ public class Character extends GameObject implements Renderable {
     private double speed;
     private Rectangle renderer;
     private Hitbox hitbox;
+    private int healthPoint = 100;
 
     public Character(double x, double y, double width, double height, double speed) {
         super(x, y, width, height);
@@ -15,6 +16,14 @@ public class Character extends GameObject implements Renderable {
         this.renderer = new Rectangle(x, y, width, height);
 
         this.speed = speed;
+    }
+
+    public int getHealthPoint() {
+        return healthPoint;
+    }
+
+    public void setHealthPoint(int healthPoint) {
+        this.healthPoint = healthPoint;
     }
 
     @Override
