@@ -1,9 +1,12 @@
 import interfaces.Renderable;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import other.GameObject;
 
@@ -20,9 +23,26 @@ public class Main extends Application {
         // Déclarations JavaFX
         AnchorPane root = new AnchorPane();
         primaryStage.setTitle("Street Fighter");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
 
+        // Affichage du splashscreen
+        HBox hbox_center = new HBox(); // La HBox permet de centrer le Label (ou pas mdr faut fix ça) TODO: Fix lbl_startHint's alignment
+        root.getChildren().add(hbox_center);
+        Label lbl_startHint = new Label("Press any key to start the game");
+        hbox_center.getChildren().add(lbl_startHint);
+        hbox_center.setAlignment(Pos.CENTER);
+
+        // Appuyer pour démarrer
+        primaryStage.getScene().setOnKeyPressed(event -> {
+            root.getChildren().removeAll(root.getChildren()); // Retire tous les éléments de la collection, peu importe l'allure du splash-screen
+            startGame(root);
+        });
+    }
+
+    // startGame : démarrer le Timer de la boucle principale du jeu
+    // root : AnchorPane : l'élement parent principal, créé dans start()
+    public void startGame(AnchorPane root) {
         // Initialisation des gameObjects
         List<GameObject> gameObjects = new ArrayList<>();
         // Ajouter ici le background (doit extend de GameObect)
@@ -39,7 +59,7 @@ public class Main extends Application {
         TimerTask gameLoop = new TimerTask() {
             @Override
             public void run() {
-                System.out.println("Game running");
+                System.out.println("lunette de soleil même la nuit");
             }
         };
         timer.schedule(gameLoop, 0, 16);
@@ -49,7 +69,11 @@ public class Main extends Application {
     @Override
     public void stop() throws Exception {
         super.stop();
-        timer.cancel();
+        try {
+            timer.cancel();
+        } catch(Exception e) {
+
+        }
     }
 
     public static void main(String[] args) {
