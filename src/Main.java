@@ -25,7 +25,7 @@ public class Main extends Application {
         // Déclarations JavaFX
         AnchorPane root = new AnchorPane();
         primaryStage.setTitle("Street Fighter");
-        primaryStage.setScene(new Scene(root, 1920, 1080));
+        primaryStage.setScene(new Scene(root, 1306, 560));
         primaryStage.show();
 
         // Affichage du splashscreen
@@ -55,7 +55,7 @@ public class Main extends Application {
         final Image backgroundImage = new Image(backgroundURL.toExternalForm());
         
         //Création du background ( ici pour modifier la taille de l'image)
-        Background background = new Background(1,1,1920,1080,backgroundImage);
+        Background background = new Background(1,1,1306,560,backgroundImage);
         
         gameObjects.add(background);
         
