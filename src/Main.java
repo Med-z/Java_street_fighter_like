@@ -1,4 +1,5 @@
 import interfaces.Renderable;
+import java.net.URL;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import javafx.scene.image.Image;
 
 public class Main extends Application {
     Timer timer; // Timer déclaré ici pour l'arrêter dans stop()
@@ -23,7 +25,7 @@ public class Main extends Application {
         // Déclarations JavaFX
         AnchorPane root = new AnchorPane();
         primaryStage.setTitle("Street Fighter");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 1920, 1080));
         primaryStage.show();
 
         // Affichage du splashscreen
@@ -46,7 +48,18 @@ public class Main extends Application {
         // Initialisation des gameObjects
         List<GameObject> gameObjects = new ArrayList<>();
         // Ajouter ici le background (doit extend de GameObect)
-
+        
+        //Initialisation de l'image ( ici pour modifier le background)
+        //Leo : J'ai essayé de mettre le gif dans un package "Background" mais je n'ai pas réussis à y acceder pour avoir l'URL
+        final URL backgroundURL = getClass().getResource("Background0.gif");  
+        final Image backgroundImage = new Image(backgroundURL.toExternalForm());
+        
+        //Création du background ( ici pour modifier la taille de l'image)
+        Background background = new Background(1,1,1920,1080,backgroundImage);
+        
+        gameObjects.add(background);
+        
+        
         // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
         for(GameObject go : gameObjects) {
             if (go instanceof Renderable) {
