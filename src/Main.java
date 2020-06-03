@@ -6,9 +6,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import managers.InputManager;
 import other.GameObject;
 
 import java.util.ArrayList;
@@ -52,8 +54,8 @@ public class Main extends Application {
         final Image backgroundImage = new Image(backgroundURL.toExternalForm()); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
         Background background = new Background(1,1,1306,560,backgroundImage);
         gameObjects.add(background);
-        
-        
+
+
         // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
         for(GameObject go : gameObjects) {
             if (go instanceof Renderable) {
@@ -61,12 +63,16 @@ public class Main extends Application {
             }
         }
 
+        // Initialiser l'InputManager
+        root.getScene().setOnKeyPressed(new InputManager.KeyPressed());
+        root.getScene().setOnKeyReleased(new InputManager.KeyReleased());
+
         // Game Loop
         timer = new Timer();
         TimerTask gameLoop = new TimerTask() {
             @Override
             public void run() {
-                System.out.println("lunette de soleil même la nuit");
+                System.out.println(InputManager.getKey(KeyCode.D));
             }
         };
         timer.schedule(gameLoop, 0, 16);
