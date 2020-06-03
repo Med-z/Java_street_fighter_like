@@ -47,16 +47,10 @@ public class Main extends Application {
     public void startGame(AnchorPane root) {
         // Initialisation des gameObjects
         List<GameObject> gameObjects = new ArrayList<>();
-        // Ajouter ici le background (doit extend de GameObect)
-        
-        //Initialisation de l'image ( ici pour modifier le background)
-        //Leo : J'ai essayé de mettre le gif dans un package "Background" mais je n'ai pas réussis à y acceder pour avoir l'URL
+
         final URL backgroundURL = getClass().getResource("Background0.gif");  
-        final Image backgroundImage = new Image(backgroundURL.toExternalForm());
-        
-        //Création du background ( ici pour modifier la taille de l'image)
+        final Image backgroundImage = new Image(backgroundURL.toExternalForm()); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
         Background background = new Background(1,1,1306,560,backgroundImage);
-        
         gameObjects.add(background);
         
         
@@ -84,19 +78,12 @@ public class Main extends Application {
         super.stop();
         try {
             timer.cancel();
-        } catch(Exception e) {
-
+        } catch(NullPointerException e) {
+            System.out.println("Impossible d'arrêter le Timer, il n'est pas démarré.");
         }
     }
 
     public static void main(String[] args) {
         launch(args);
-
-        //test
-        
-        // String URL = "https://www.google.com/search?q=background+street+fighter+gif&sxsrf=ALeKk03zVLsD32E_DMyJjXCnivPli9rNpw:1591088481236&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjrtOu94uLpAhWlDGMBHU4PB1QQ_AUoAXoECAsQAw&biw=1604&bih=792#imgrc=ecQJz6dGNhbgWM";
-        // Background fond = new Background(URL);
-        // fond.pack();
-        // fond.setVisible(true);
     }
 }
