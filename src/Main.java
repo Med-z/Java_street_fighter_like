@@ -72,7 +72,13 @@ public class Main extends Application {
         TimerTask gameLoop = new TimerTask() {
             @Override
             public void run() {
-                System.out.println(InputManager.getKey(KeyCode.D));
+                for(GameObject go : gameObjects) {
+                    go.update();
+
+                    if (go instanceof Renderable) {
+                        ((Renderable) go).draw();
+                    }
+                }
             }
         };
         timer.schedule(gameLoop, 0, 16);
