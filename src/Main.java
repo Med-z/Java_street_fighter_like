@@ -20,14 +20,15 @@ import java.util.TimerTask;
 import javafx.scene.image.Image;
 
 public class Main extends Application {
-    Timer timer; // Timer déclaré ici pour l'arrêter dans stop()
+    private Timer timer; // Timer déclaré ici pour l'arrêter dans stop()
+    private final int WIDTH = 1306, HEIGHT = 560;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         // Déclarations JavaFX
         AnchorPane root = new AnchorPane();
         primaryStage.setTitle("Street Fighter");
-        primaryStage.setScene(new Scene(root, 1306, 560));
+        primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
         primaryStage.show();
 
         // Affichage du splashscreen
@@ -47,13 +48,15 @@ public class Main extends Application {
     // startGame : démarrer le Timer de la boucle principale du jeu
     // root : AnchorPane : l'élement parent principal, créé dans start()
     public void startGame(AnchorPane root) {
-        // Initialisation des gameObjects
+        // Initialisations et ajouts des gameObjects
         List<GameObject> gameObjects = new ArrayList<>();
 
         final URL backgroundURL = getClass().getResource("Background0.gif");  
         final Image backgroundImage = new Image(backgroundURL.toExternalForm()); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
-        Background background = new Background(1,1,1306,560,backgroundImage);
+        Background background = new Background(1,1, WIDTH, HEIGHT, backgroundImage);
         gameObjects.add(background);
+
+        gameObjects.add(new Ryu(20, HEIGHT - 120, 30, 120, 7));
 
 
         // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
