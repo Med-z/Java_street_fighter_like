@@ -14,7 +14,9 @@ import managers.InputManager;
 import other.GameObject;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.image.Image;
@@ -51,12 +53,18 @@ public class Main extends Application {
         // Initialisations et ajouts des gameObjects
         List<GameObject> gameObjects = new ArrayList<>();
 
-        final URL backgroundURL = getClass().getResource("Background0.gif");  
-        final Image backgroundImage = new Image(backgroundURL.toExternalForm()); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
+       
+        final Image backgroundImage = new Image("Background/Background0.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
         Background background = new Background(1,1, WIDTH, HEIGHT, backgroundImage);
         gameObjects.add(background);
-
-        gameObjects.add(new Ryu(20, HEIGHT - 120, 30, 120, 7));
+        
+        Ryu ryu = new Ryu(20, 340, 30, 120, 7);
+        Alex alex = new Alex(600, 340 , 30, 120, 7);
+        alex.setOtherPlayer(ryu);
+        ryu.setOtherPlayer(alex);
+        gameObjects.add(ryu);
+        gameObjects.add(alex);
+        
 
 
         // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"

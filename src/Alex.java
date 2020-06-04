@@ -10,33 +10,34 @@ import managers.InputManager;
 import other.GameObject;
 import other.Hitbox;
 
-public class Ryu extends Character implements Collidable, Renderable {
+public class Alex extends Character implements Collidable, Renderable {
 
-    final Image idle = new Image("Ryu/RyuIdle.gif");
-    final Image idleRight = new Image("Ryu/RyuIdleRight.gif");
-    final Image forwardRight = new Image("Ryu/RyuForward.gif"); 
-    final Image forwardLeft = new Image("Ryu/RyuForwardRight.gif"); 
-    final Image backwardRight = new Image("Ryu/RyuBackward.gif");
-    final Image backwardLeft = new Image("Ryu/RyuBackwardR.gif");
+    final Image idleRight = new Image("Alex/AlexIdleRight.gif");
+    final Image idle = new Image("Alex/AlexIdle.gif");
+    final Image forwardRight = new Image("Alex/AlexForward.gif"); 
+    final Image forwardLeft = new Image("Alex/AlexForwardRight.gif"); 
+    final Image backwardRight = new Image("Alex/AlexBackward.gif");
+    final Image backwardLeft = new Image("Alex/AlexBackwardRight.gif");
     
-    Alex alex;
+    Ryu ryu;
+    
     ImageView renderer;
     
 //    Rectangle renderer;
 
-    public Ryu(double x, double y, double width, double height, double speed) {
+    public Alex(double x, double y, double width, double height, double speed) {
         super(x, y, width, height, speed);
 //        this.renderer = new Rectangle(x, y, width, height);
-        renderer = new ImageView(idle);
+        renderer = new ImageView(idleRight);
         renderer.setX(x);
         renderer.setY(y);
 //        renderer.setFitWidth(224);
 //        renderer.setFitHeight(226);
     }
-    
+
     @Override
     public void update() {
-        if(alex.getX() > x)
+        if(ryu.getX() > x)
         {
             MoveRight();
         }
@@ -48,12 +49,12 @@ public class Ryu extends Character implements Collidable, Renderable {
     
     private void MoveRight()
     {
-        if(InputManager.getKey(KeyCode.D))
+        if(InputManager.getKey(KeyCode.NUMPAD6))
         {
             this.x += speed;
             renderer.setImage(forwardRight);
         } 
-        else if(InputManager.getKey(KeyCode.Q)) 
+        else if(InputManager.getKey(KeyCode.NUMPAD4)) 
         {
             this.x += -speed;
             renderer.setImage(backwardRight);
@@ -66,12 +67,12 @@ public class Ryu extends Character implements Collidable, Renderable {
     
     private void MoveLeft()
     {
-         if(InputManager.getKey(KeyCode.D))
+         if(InputManager.getKey(KeyCode.NUMPAD6))
         {
             this.x += speed;
             renderer.setImage(backwardLeft);
         } 
-        else if(InputManager.getKey(KeyCode.Q)) 
+        else if(InputManager.getKey(KeyCode.NUMPAD4)) 
         {
             this.x += -speed;
             renderer.setImage(forwardLeft);
@@ -102,8 +103,8 @@ public class Ryu extends Character implements Collidable, Renderable {
         renderer.resizeRelocate(x, y, width, height);
     }
     
-     public void setOtherPlayer(Alex alex)
+    public void setOtherPlayer(Ryu ryu)
     {
-        this.alex = alex;
+        this.ryu = ryu;
     }
 }

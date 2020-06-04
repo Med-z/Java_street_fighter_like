@@ -9,6 +9,11 @@ public abstract class GameObject {
         this.width = width;
         this.height = height;
     }
+    
+    public double getX()
+    {
+        return x;
+    }
 
     public abstract void update();
 }
