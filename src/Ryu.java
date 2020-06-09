@@ -17,7 +17,7 @@ public class Ryu extends Character implements Collidable, Renderable {
 
     final Image idle = new Image("Ryu/RyuIdle.gif");
     final Image idleRight = new Image("Ryu/RyuIdleRight.gif");
-    final Image forwardRight = new Image("Ryu/RyuForward.gif"); 
+    final Image forwardRight = new Image("Ryu/RyuForward.gif");
     final Image forwardLeft = new Image("Ryu/RyuForwardRight.gif"); 
     final Image backwardRight = new Image("Ryu/RyuBackward.gif");
     final Image backwardLeft = new Image("Ryu/RyuBackwardR.gif");
@@ -42,49 +42,29 @@ public class Ryu extends Character implements Collidable, Renderable {
     
     @Override
     public void update() {
+        Image leftDirectionAnimation, rightDirectionAnimation, idleAnimation;
+
         if(alex.getX() > x)
         {
-            MoveRight();
+            leftDirectionAnimation = backwardRight;
+            rightDirectionAnimation = forwardRight;
+            idleAnimation = idle;
         }
         else
         {
-            MoveLeft();
+            leftDirectionAnimation = forwardLeft;
+            rightDirectionAnimation = backwardLeft;
+            idleAnimation = idleRight;
         }
-    }
-    
-    private void MoveRight()
-    {
-        if(InputManager.getKey(KeyCode.D))
-        {
+
+        if(InputManager.getKey(KeyCode.D)) {
             this.x += speed;
-            renderer.setImage(forwardRight);
-        } 
-        else if(InputManager.getKey(KeyCode.Q)) 
-        {
+            renderer.setImage(rightDirectionAnimation);
+        } else if(InputManager.getKey(KeyCode.Q)) {
             this.x += -speed;
-            renderer.setImage(backwardRight);
-        }
-        else
-        {
-            renderer.setImage(idle);
-        }
-    }
-    
-    private void MoveLeft()
-    {
-         if(InputManager.getKey(KeyCode.D))
-        {
-            this.x += speed;
-            renderer.setImage(backwardLeft);
-        } 
-        else if(InputManager.getKey(KeyCode.Q)) 
-        {
-            this.x += -speed;
-            renderer.setImage(forwardLeft);
-        }
-        else
-        {
-            renderer.setImage(idleRight);
+            renderer.setImage(leftDirectionAnimation);
+        } else {
+            renderer.setImage(idleAnimation);
         }
     }
 
