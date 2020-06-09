@@ -8,7 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class InputManager {
-    private static Map<KeyCode, Boolean> keys = new HashMap<>();;
+    private static Map<KeyCode, Boolean> keys = new HashMap<>();
 
     private InputManager() {
 

@@ -1,6 +1,9 @@
 import interfaces.Collidable;
 import interfaces.Renderable;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -22,6 +25,7 @@ public class Alex extends Character implements Collidable, Renderable {
     Ryu ryu;
     
     ImageView renderer;
+    final List<KeyCode> specialAttack = new ArrayList<>();
     
 //    Rectangle renderer;
 
@@ -33,6 +37,9 @@ public class Alex extends Character implements Collidable, Renderable {
         renderer.setY(y);
 //        renderer.setFitWidth(224);
 //        renderer.setFitHeight(226);
+        specialAttack.add(KeyCode.DIGIT7);
+        specialAttack.add(KeyCode.DIGIT9);
+        specialAttack.add(KeyCode.DIGIT3);
     }
 
     @Override
