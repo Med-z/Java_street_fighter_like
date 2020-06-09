@@ -37,49 +37,29 @@ public class Alex extends Character implements Collidable, Renderable {
 
     @Override
     public void update() {
+        Image leftDirectionAnimation, rightDirectionAnimation, idleAnimation;
+
         if(ryu.getX() > x)
         {
-            MoveRight();
+            leftDirectionAnimation = backwardRight;
+            rightDirectionAnimation = forwardRight;
+            idleAnimation = idle;
         }
         else
         {
-            MoveLeft();
+            leftDirectionAnimation = forwardLeft;
+            rightDirectionAnimation = backwardLeft;
+            idleAnimation = idleRight;
         }
-    }
-    
-    private void MoveRight()
-    {
-        if(InputManager.getKey(KeyCode.NUMPAD6))
-        {
+
+        if(InputManager.getKey(KeyCode.NUMPAD6)) {
             this.x += speed;
-            renderer.setImage(forwardRight);
-        } 
-        else if(InputManager.getKey(KeyCode.NUMPAD4)) 
-        {
+            renderer.setImage(rightDirectionAnimation);
+        } else if(InputManager.getKey(KeyCode.NUMPAD4)) {
             this.x += -speed;
-            renderer.setImage(backwardRight);
-        }
-        else
-        {
-            renderer.setImage(idle);
-        }
-    }
-    
-    private void MoveLeft()
-    {
-         if(InputManager.getKey(KeyCode.NUMPAD6))
-        {
-            this.x += speed;
-            renderer.setImage(backwardLeft);
-        } 
-        else if(InputManager.getKey(KeyCode.NUMPAD4)) 
-        {
-            this.x += -speed;
-            renderer.setImage(forwardLeft);
-        }
-        else
-        {
-            renderer.setImage(idleRight);
+            renderer.setImage(leftDirectionAnimation);
+        } else {
+            renderer.setImage(idleAnimation);
         }
     }
 
