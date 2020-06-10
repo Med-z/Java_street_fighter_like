@@ -9,15 +9,15 @@ import javafx.stage.Stage;
 import managers.InputManager;
 import other.GameObject;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+
 import javafx.scene.image.Image;
 
 public class Main extends Application {
     private Timer timer; // Timer déclaré ici pour l'arrêter dans stop()
     private final int WIDTH = 1306, HEIGHT = 560;
+    private static List<GameObject> gameObjects;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -45,10 +45,10 @@ public class Main extends Application {
     // root : AnchorPane : l'élement parent principal, créé dans start()
     public void startGame(AnchorPane root) {
         // Initialisations et ajouts des gameObjects
-        List<GameObject> gameObjects = new ArrayList<>();
+        gameObjects = new ArrayList<>();
 
        
-        final Image backgroundImage = new Image("Background/Background0.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
+        final Image backgroundImage = new Image("Background/Background1.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
         Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImage);
         gameObjects.add(background);
         
@@ -80,18 +80,26 @@ public class Main extends Application {
         TimerTask gameLoop = new TimerTask() {
             @Override
             public void run() {
-                for(GameObject go : gameObjects) {
-                    go.update();
+                try {
+                    for (GameObject go : gameObjects) {
+                        go.update();
 
-                    if (go instanceof Renderable) {
-                        ((Renderable) go).draw();
+                        if (go instanceof Renderable) {
+                            ((Renderable) go).draw();
+                        }
                     }
-                }
 
+                } catch (ConcurrentModificationException exception) {
+
+                }
                 InputManager.resetTempKeys();
             }
         };
         timer.schedule(gameLoop, 0, 16);
+    }
+
+    public static List<GameObject> getGameObjects() {
+        return gameObjects;
     }
 
     // Je réécris la méthode stop() pour pouvoir arrêter le timer
