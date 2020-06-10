@@ -1,23 +1,16 @@
 import interfaces.Renderable;
-import java.net.URL;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import jdk.internal.util.xml.impl.Input;
 import managers.InputManager;
 import other.GameObject;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.image.Image;
@@ -56,19 +49,19 @@ public class Main extends Application {
 
        
         final Image backgroundImage = new Image("Background/Background0.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
-        Background background = new Background(1,1, WIDTH, HEIGHT, backgroundImage);
+        Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImage);
         gameObjects.add(background);
         
         Ryu ryu = new Ryu(20, 340, 30, 120, 7);
-        Alex alex = new Alex(600, 340 , 30, 120, 7);
-        alex.setOtherPlayer(ryu);
-        ryu.setOtherPlayer(alex);
+        Ken ken = new Ken(600, 340 , 30, 120, 7);
+        ken.setOtherPlayer(ryu);
+        ryu.setOtherPlayer(ken);
         gameObjects.add(ryu);
-        gameObjects.add(alex);
+        gameObjects.add(ken);
 
         HealthBar HBryu = new HealthBar(0, 0, ryu.getHealthPoint()*5, 50, ryu);
-        HealthBar HBalex = new HealthBar(806, 0, alex.getHealthPoint()*5, 50, alex);
-        gameObjects.add(HBalex);
+        HealthBar HBken = new HealthBar(806, 0, ken.getHealthPoint()*5, 50, ken);
+        gameObjects.add(HBken);
         gameObjects.add(HBryu);
 
         // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
