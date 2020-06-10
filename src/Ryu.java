@@ -66,6 +66,20 @@ public class Ryu extends Character implements Collidable, Renderable {
         } else {
             renderer.setImage(idleAnimation);
         }
+
+        if(InputManager.getTempKey(KeyCode.A)) {
+            System.out.println("Appui sur A");
+        }
+        if(InputManager.getTempKey(KeyCode.W)) {
+            System.out.println("Appui sur W");
+        }
+        if(InputManager.getTempKey(KeyCode.E)) {
+            System.out.println("Appui sur E");
+        }
+        if(InputManager.getTempKey(KeyCode.C)) {
+            System.out.println("Appui sur C");
+        }
+
     }
 
     @Override
