@@ -1,6 +1,6 @@
 import interfaces.Collidable;
 import interfaces.Renderable;
-import java.net.URL;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,33 +8,26 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.shape.Rectangle;
 import managers.InputManager;
 import other.GameObject;
 import other.Hitbox;
 
 public class Ryu extends Character implements Collidable, Renderable {
 
-    final Image idle = new Image("Ryu/RyuIdle.gif");
-    final Image idleRight = new Image("Ryu/RyuIdleRight.gif");
-    final Image forwardRight = new Image("Ryu/RyuForward.gif");
-    final Image forwardLeft = new Image("Ryu/RyuForwardRight.gif"); 
-    final Image backwardRight = new Image("Ryu/RyuBackward.gif");
-    final Image backwardLeft = new Image("Ryu/RyuBackwardR.gif");
+    final Image iStance = new Image("Ryu/Stance.gif", 156, 222, true, false);
+    final Image iWalkForward = new Image("Ryu/WalkForward.gif", 224, 226, true, false);
+    final Image iWalkBackward = new Image("Ryu/WalkBackward.gif", 224, 226, true, false);
     
-    Alex alex;
+    Ken ken;
     ImageView renderer;
     final List<KeyCode> specialAttack = new ArrayList<>();
 //    Rectangle renderer;
 
     public Ryu(double x, double y, double width, double height, double speed) {
         super(x, y, width, height, speed);
-//        this.renderer = new Rectangle(x, y, width, height);
-        renderer = new ImageView(idle);
+        renderer = new ImageView(iStance);
         renderer.setX(x);
         renderer.setY(y);
-//        renderer.setFitWidth(224);
-//        renderer.setFitHeight(226);
         specialAttack.add(KeyCode.A);
         specialAttack.add(KeyCode.E);
         specialAttack.add(KeyCode.C);
@@ -42,29 +35,33 @@ public class Ryu extends Character implements Collidable, Renderable {
     
     @Override
     public void update() {
-        Image leftDirectionAnimation, rightDirectionAnimation, idleAnimation;
+        boolean rightIsForward = true;
 
-        if(alex.getX() > x)
-        {
-            leftDirectionAnimation = backwardRight;
-            rightDirectionAnimation = forwardRight;
-            idleAnimation = idle;
-        }
-        else
-        {
-            leftDirectionAnimation = forwardLeft;
-            rightDirectionAnimation = backwardLeft;
-            idleAnimation = idleRight;
+        if(ken.getX() > x) {
+            rightIsForward = true;
+            renderer.setScaleX(1);
+        } else {
+            rightIsForward = false;
+            renderer.setScaleX(-1);
         }
 
         if(InputManager.getKey(KeyCode.D)) {
             this.x += speed;
-            renderer.setImage(rightDirectionAnimation);
+            if(rightIsForward) {
+                renderer.setImage(iWalkForward);
+            } else {
+                renderer.setImage(iWalkBackward);
+            }
+
         } else if(InputManager.getKey(KeyCode.Q)) {
             this.x += -speed;
-            renderer.setImage(leftDirectionAnimation);
+            if(rightIsForward) {
+                renderer.setImage(iWalkBackward);
+            } else {
+                renderer.setImage(iWalkForward);
+            }
         } else {
-            renderer.setImage(idleAnimation);
+            renderer.setImage(iStance);
         }
 
         if(InputManager.getTempKey(KeyCode.A)) {
@@ -102,8 +99,8 @@ public class Ryu extends Character implements Collidable, Renderable {
         renderer.resizeRelocate(x, y, width, height);
     }
     
-     public void setOtherPlayer(Alex alex)
+     public void setOtherPlayer(Ken ken)
     {
-        this.alex = alex;
+        this.ken = ken;
     }
 }

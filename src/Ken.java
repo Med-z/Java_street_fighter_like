@@ -13,30 +13,23 @@ import managers.InputManager;
 import other.GameObject;
 import other.Hitbox;
 
-public class Alex extends Character implements Collidable, Renderable {
+public class Ken extends Character implements Collidable, Renderable {
 
-    final Image idleRight = new Image("Alex/AlexIdleRight.gif");
-    final Image idle = new Image("Alex/AlexIdle.gif");
-    final Image forwardRight = new Image("Alex/AlexForward.gif"); 
-    final Image forwardLeft = new Image("Alex/AlexForwardRight.gif"); 
-    final Image backwardRight = new Image("Alex/AlexBackward.gif");
-    final Image backwardLeft = new Image("Alex/AlexBackwardRight.gif");
+    final Image iStance = new Image("Ken/Stance.gif", 156, 222, true, false);
+    final Image iWalkForward = new Image("Ken/WalkForward.gif", 224, 226, true, false);
+    final Image iWalkBackward = new Image("Ken/WalkBackward.gif", 224, 226, true, false);
     
     Ryu ryu;
-    
     ImageView renderer;
     final List<KeyCode> specialAttack = new ArrayList<>();
     
 //    Rectangle renderer;
 
-    public Alex(double x, double y, double width, double height, double speed) {
+    public Ken(double x, double y, double width, double height, double speed) {
         super(x, y, width, height, speed);
-//        this.renderer = new Rectangle(x, y, width, height);
-        renderer = new ImageView(idleRight);
+        renderer = new ImageView(iStance);
         renderer.setX(x);
         renderer.setY(y);
-//        renderer.setFitWidth(224);
-//        renderer.setFitHeight(226);
         specialAttack.add(KeyCode.DIGIT7);
         specialAttack.add(KeyCode.DIGIT9);
         specialAttack.add(KeyCode.DIGIT3);
@@ -44,29 +37,46 @@ public class Alex extends Character implements Collidable, Renderable {
 
     @Override
     public void update() {
-        Image leftDirectionAnimation, rightDirectionAnimation, idleAnimation;
+        boolean leftIsForward = true;
 
-        if(ryu.getX() > x)
-        {
-            leftDirectionAnimation = backwardRight;
-            rightDirectionAnimation = forwardRight;
-            idleAnimation = idle;
-        }
-        else
-        {
-            leftDirectionAnimation = forwardLeft;
-            rightDirectionAnimation = backwardLeft;
-            idleAnimation = idleRight;
+        if(ryu.getX() > x) {
+            leftIsForward = true;
+            renderer.setScaleX(1);
+        } else {
+            leftIsForward = false;
+            renderer.setScaleX(-1);
         }
 
         if(InputManager.getKey(KeyCode.NUMPAD6)) {
             this.x += speed;
-            renderer.setImage(rightDirectionAnimation);
+            if(leftIsForward) {
+                renderer.setImage(iWalkForward);
+            } else {
+                renderer.setImage(iWalkBackward);
+            }
+
         } else if(InputManager.getKey(KeyCode.NUMPAD4)) {
             this.x += -speed;
-            renderer.setImage(leftDirectionAnimation);
+            if(leftIsForward) {
+                renderer.setImage(iWalkBackward);
+            } else {
+                renderer.setImage(iWalkForward);
+            }
         } else {
-            renderer.setImage(idleAnimation);
+            renderer.setImage(iStance);
+        }
+
+        if(InputManager.getTempKey(KeyCode.NUMPAD7)) {
+            System.out.println("Appui sur 7");
+        }
+        if(InputManager.getTempKey(KeyCode.NUMPAD1)) {
+            System.out.println("Appui sur 1");
+        }
+        if(InputManager.getTempKey(KeyCode.NUMPAD9)) {
+            System.out.println("Appui sur 9");
+        }
+        if(InputManager.getTempKey(KeyCode.NUMPAD3)) {
+            System.out.println("Appui sur 3");
         }
     }
 
