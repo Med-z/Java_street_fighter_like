@@ -64,8 +64,11 @@ public class Main extends Application {
         ryu.setOtherPlayer(alex);
         gameObjects.add(ryu);
         gameObjects.add(alex);
-        
 
+        HealthBar HBryu = new HealthBar(0, 0, ryu.getHealthPoint()*5, 50, ryu);
+        HealthBar HBalex = new HealthBar(806, 0, alex.getHealthPoint()*5, 50, alex);
+        gameObjects.add(HBalex);
+        gameObjects.add(HBryu);
 
         // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
         for(GameObject go : gameObjects) {
