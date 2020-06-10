@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import jdk.internal.util.xml.impl.Input;
 import managers.InputManager;
 import other.GameObject;
 
@@ -90,6 +91,8 @@ public class Main extends Application {
                         ((Renderable) go).draw();
                     }
                 }
+
+                InputManager.resetTempKeys();
             }
         };
         timer.schedule(gameLoop, 0, 16);
