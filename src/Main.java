@@ -90,7 +90,7 @@ public class Main extends Application {
                     }
 
                 } catch (ConcurrentModificationException exception) {
-
+                    // TODO: un jour faudra changer le type de boucle ou autre chose psk sinon tout le jeu va être paralysé lol
                 }
                 InputManager.resetTempKeys();
             }

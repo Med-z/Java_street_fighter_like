@@ -71,7 +71,7 @@ public class Ryu extends Character implements Collidable, Renderable {
                 state = CharacterState.MOVING_LEFT;
                 this.x += -speed;
             } else {
-
+                state = CharacterState.STANCE;
             }
 
             if (InputManager.getTempKey(KeyCode.A)) {
