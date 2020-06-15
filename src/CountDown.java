@@ -24,12 +24,15 @@ public class CountDown {
     int interval;
     static Timer timer;
     SimpleIntegerProperty integer;
+    Character player1,player2;
     
-    public CountDown(Label label,int interval)
+    public CountDown(Label label,int interval,Character player1,Character player2)
     {
         this.interval = interval;
         integer = new SimpleIntegerProperty(this.interval);
         label.textProperty().bind(integer.asString());
+        this.player1 = player1;
+        this.player2 = player2;
 }
    
        
@@ -42,7 +45,6 @@ public class CountDown {
         
        timer = new Timer();
        interval = 100;
-       System.out.println(interval);
        timer.scheduleAtFixedRate(new TimerTask(){
 
            @Override
@@ -52,6 +54,18 @@ public class CountDown {
                     interval--;
                     integer.set(interval);
                     if(interval <= 1) {
+                        if(player1.getHealthPoint() < player2.getHealthPoint())
+                        {
+                            System.out.println("Player 2 won ! ");
+                        }
+                        else if (player2.getHealthPoint() < player1.getHealthPoint())
+                        {
+                            System.out.println("Player 1 won ! ");
+                        }
+                        else if (player2.getHealthPoint() ==  player1.getHealthPoint())
+                        {
+                            System.out.println("Egalité ! "); //Je sais pas le dire en anglais
+                        }
                         timer.cancel();
                     }
                 });

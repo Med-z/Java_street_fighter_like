@@ -79,7 +79,7 @@ public class Main extends Application {
         counterLabel.setTranslateZ(100);
         counterLabel.setTextFill(Color.RED);
         root.getChildren().add(counterLabel);
-        countDown = new CountDown(counterLabel,100);
+        countDown = new CountDown(counterLabel,100,ryu,ken);
         countDown.startTimer();
 
         // Initialiser l'InputManager
