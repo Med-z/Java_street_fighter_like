@@ -28,6 +28,8 @@ public class FightManager {
    Character player1,player2;
    private CountDown countDown;
    private static List<GameObject> gameObjects;
+    private static List<GameObject> goWaitList;
+    private static List<GameObject> goGarbage;
    private Background background;
    AnchorPane root;
    private Timer timer;
@@ -48,6 +50,8 @@ public class FightManager {
    public void startRound()
    {
         gameObjects = new ArrayList<>();
+        goWaitList = new ArrayList<>();
+        goGarbage = new ArrayList<>();
         gameObjects.add(background);
         player1.setOtherPlayer(player2);
         player2.setOtherPlayer(player1);
@@ -81,18 +85,21 @@ public class FightManager {
         TimerTask gameLoop = new TimerTask() {
             @Override
             public void run() {
-                try {
-                    for (GameObject go : gameObjects) {
-                        go.update();
+                // Ajouter les objets de la waitlist
+                gameObjects.addAll(goWaitList);
+                goWaitList.removeAll(goWaitList);
 
-                        if (go instanceof Renderable) {
-                            ((Renderable) go).draw();
-                        }
+                for (GameObject go : gameObjects) {
+                    go.update();
+
+                    if (go instanceof Renderable) {
+                        ((Renderable) go).draw();
                     }
-
-                } catch (ConcurrentModificationException exception) {
-                    // TODO: un jour faudra changer le type de boucle ou autre chose psk sinon tout le jeu va être paralysé lol
                 }
+
+                gameObjects.removeAll(goGarbage);
+                goGarbage.removeAll(goGarbage);
+
                 InputManager.resetTempKeys();
             }
         };
@@ -101,7 +108,14 @@ public class FightManager {
    
     public static List<GameObject> getGameObjects() {
         return gameObjects;
-    }  
-   
-    
+    }
+    public static List<GameObject> getGoWaitList() {
+        return goWaitList;
+    }
+    public static List<GameObject> getGoGarbage() {
+        return goGarbage;
+    }
+
+
+
 }

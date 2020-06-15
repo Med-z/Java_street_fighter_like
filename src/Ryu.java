@@ -48,7 +48,7 @@ public class Ryu extends Character implements Collidable, Renderable {
 
     public void attack(Attack attack) {
         Hurtbox hurtbox = new Hurtbox(x + attack.getXOff(), y + attack.getYOff(), attack.getWidth(), attack.getHeight());
-        Main.getGameObjects().add(hurtbox);
+        FightManager.getGoWaitList().add(hurtbox);
         state = CharacterState.ATTACKING;
         renderer.setImage(attack.getSprite("Ryu"));
         Timer timer = new Timer();
@@ -57,7 +57,7 @@ public class Ryu extends Character implements Collidable, Renderable {
             public void run() {
                 renderer.setImage(iStance);
                 state = CharacterState.STANCE;
-                Main.getGameObjects().remove(hurtbox);
+                FightManager.getGoGarbage().add(hurtbox);
             }
         };
         timer.schedule(decay, attack.getDuration());
