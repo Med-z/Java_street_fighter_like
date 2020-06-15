@@ -4,10 +4,11 @@ import javafx.scene.shape.Rectangle;
 import other.GameObject;
 import other.Hitbox;
 
-public class Character extends GameObject {
+public abstract class Character extends GameObject {
     protected double speed;
     protected Hitbox hitbox;
     private int healthPoint = 100;
+    protected boolean canMove = true;
 
     public Character(double x, double y, double width, double height, double speed) {
         super(x, y, width, height);
@@ -33,6 +34,10 @@ public class Character extends GameObject {
         if(healthPoint>100)
             setHealthPoint(100);
     }
+    
+    public abstract void Win();
+          
+            
 
     @Override
     public void update() {

@@ -22,6 +22,8 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Image iStance = new Image("Ryu/Stance.gif", 156, 222, true, false);
     final Image iWalkForward = new Image("Ryu/WalkForward.gif", 224, 226, true, false);
     final Image iWalkBackward = new Image("Ryu/WalkBackward.gif", 224, 226, true, false);
+    
+    final Image iWin  = new Image("Ryu/Win.gif",224, 226, true, false);
 
     final Attack atkLightPunch = new Attack(400, 6, "PunchLight", width, height, 40, 20);
     final Attack atkHeavyPunch = new Attack(840, 6, "PunchHeavy", width, height, 40, 20);
@@ -63,7 +65,9 @@ public class Ryu extends Character implements Collidable, Renderable {
 
     @Override
     public void update() {
-        if (state != CharacterState.ATTACKING) {
+        if(canMove)
+        {
+             if (state != CharacterState.ATTACKING) {
             if (InputManager.getKey(KeyCode.D)) {
                 state = CharacterState.MOVING_RIGHT;
                 this.x += speed;
@@ -87,6 +91,8 @@ public class Ryu extends Character implements Collidable, Renderable {
                 attack(atkHeavyKick);
             }
         }
+        }
+       
     }
 
     @Override
@@ -106,7 +112,9 @@ public class Ryu extends Character implements Collidable, Renderable {
 
     @Override
     public void draw() {
-        renderer.resizeRelocate(x, y, width, height);
+        if(canMove)
+        {
+            renderer.resizeRelocate(x, y, width, height);
 
         boolean rightIsForward = true;
         if(ken.getX() > x) {
@@ -137,10 +145,17 @@ public class Ryu extends Character implements Collidable, Renderable {
                 }
                 break;
         }
+        }
+        
     }
     
      public void setOtherPlayer(Ken ken)
     {
         this.ken = ken;
+    }
+     
+      @Override
+    public void Win() {
+        renderer.setImage(iWin); //To change body of generated methods, choose Tools | Templates.
     }
 }

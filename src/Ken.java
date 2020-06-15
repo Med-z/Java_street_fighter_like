@@ -18,6 +18,7 @@ public class Ken extends Character implements Collidable, Renderable {
     final Image iStance = new Image("Ken/Stance.gif", 156, 222, true, false);
     final Image iWalkForward = new Image("Ken/WalkForward.gif", 224, 226, true, false);
     final Image iWalkBackward = new Image("Ken/WalkBackward.gif", 224, 226, true, false);
+    final Image iWin = new Image("Ken/Win.gif",224, 226, true, false);
     
     Ryu ryu;
     ImageView renderer;
@@ -38,8 +39,9 @@ public class Ken extends Character implements Collidable, Renderable {
     @Override
     public void update() {
         boolean leftIsForward = true;
-
-        if(ryu.getX() > x) {
+        if(canMove)
+        {
+            if(ryu.getX() > x) {
             leftIsForward = true;
             renderer.setScaleX(1);
         } else {
@@ -78,6 +80,8 @@ public class Ken extends Character implements Collidable, Renderable {
         if(InputManager.getTempKey(KeyCode.NUMPAD3)) {
             System.out.println("Appui sur 3");
         }
+        }
+        
     }
 
     @Override
@@ -104,4 +108,13 @@ public class Ken extends Character implements Collidable, Renderable {
     {
         this.ryu = ryu;
     }
+
+    @Override
+    public void Win() {
+        System.out.println("Hello");
+        renderer.setImage(iWin); 
+    }
+    
+
+            
 }
