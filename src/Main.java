@@ -1,31 +1,24 @@
 import interfaces.Renderable;
-import java.net.URL;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import managers.InputManager;
 import other.GameObject;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 public class Main extends Application {
     private Timer timer; // Timer déclaré ici pour l'arrêter dans stop()
     private final int WIDTH = 1306, HEIGHT = 560;
-    CountDown countDown;
+    private static List<GameObject> gameObjects;
+    private CountDown countDown;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -53,21 +46,25 @@ public class Main extends Application {
     // root : AnchorPane : l'élement parent principal, créé dans start()
     public void startGame(AnchorPane root) {
         // Initialisations et ajouts des gameObjects
-        List<GameObject> gameObjects = new ArrayList<>();
+        gameObjects = new ArrayList<>();
 
        
-        final Image backgroundImage = new Image("Background/Background0.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
-        Background background = new Background(1,1, WIDTH, HEIGHT, backgroundImage);
+        final Image backgroundImage = new Image("Background/Background1.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
+        Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImage);
         gameObjects.add(background);
         
         Ryu ryu = new Ryu(20, 340, 30, 120, 7);
-        Alex alex = new Alex(600, 340 , 30, 120, 7);
-        alex.setOtherPlayer(ryu);
-        ryu.setOtherPlayer(alex);
+        Ken ken = new Ken(600, 340 , 30, 120, 7);
+        ken.setOtherPlayer(ryu);
+        ryu.setOtherPlayer(ken);
         gameObjects.add(ryu);
-        gameObjects.add(alex);
-        
-        
+        gameObjects.add(ken);
+
+        HealthBar HBryu = new HealthBar(0, 0, ryu.getHealthPoint()*5, 50, ryu);
+        HealthBar HBken = new HealthBar(806, 0, ken.getHealthPoint()*5, 50, ken);
+        gameObjects.add(HBken);
+        gameObjects.add(HBryu);
+
 
 
         // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
@@ -94,16 +91,26 @@ public class Main extends Application {
         TimerTask gameLoop = new TimerTask() {
             @Override
             public void run() {
-                for(GameObject go : gameObjects) {
-                    go.update();
+                try {
+                    for (GameObject go : gameObjects) {
+                        go.update();
 
-                    if (go instanceof Renderable) {
-                        ((Renderable) go).draw();
+                        if (go instanceof Renderable) {
+                            ((Renderable) go).draw();
+                        }
                     }
+
+                } catch (ConcurrentModificationException exception) {
+                    // TODO: un jour faudra changer le type de boucle ou autre chose psk sinon tout le jeu va être paralysé lol
                 }
+                InputManager.resetTempKeys();
             }
         };
         timer.schedule(gameLoop, 0, 16);
+    }
+
+    public static List<GameObject> getGameObjects() {
+        return gameObjects;
     }
 
     // Je réécris la méthode stop() pour pouvoir arrêter le timer
@@ -112,8 +119,6 @@ public class Main extends Application {
         super.stop();
         try {
             timer.cancel();
-            countDown.stopTimer();
-            
         } catch(NullPointerException e) {
             System.out.println("Impossible d'arrêter le Timer, il n'est pas démarré.");
         }

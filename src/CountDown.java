@@ -30,7 +30,7 @@ public class CountDown {
         this.interval = interval;
         integer = new SimpleIntegerProperty(this.interval);
         label.textProperty().bind(integer.asString());
-    }
+}
    
        
         
