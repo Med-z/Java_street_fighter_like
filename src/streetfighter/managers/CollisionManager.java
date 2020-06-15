@@ -1,7 +1,7 @@
-package managers;
+package streetfighter.managers;
 
-import interfaces.Collidable;
-import other.GameObject;
+import streetfighter.interfaces.Collidable;
+import streetfighter.other.GameObject;
 
 import java.util.ArrayList;
 

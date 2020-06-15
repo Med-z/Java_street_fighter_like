@@ -1,4 +1,4 @@
-package interfaces;
+package streetfighter.interfaces;
 
 import javafx.scene.Node;
 

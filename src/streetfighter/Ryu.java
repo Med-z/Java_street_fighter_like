@@ -1,5 +1,7 @@
-import interfaces.Collidable;
-import interfaces.Renderable;
+package streetfighter;
+
+import streetfighter.interfaces.Collidable;
+import streetfighter.interfaces.Renderable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,20 +12,20 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import managers.InputManager;
-import other.GameObject;
-import other.Hitbox;
-import other.Hurtbox;
+import streetfighter.managers.InputManager;
+import streetfighter.other.GameObject;
+import streetfighter.other.Hitbox;
+import streetfighter.other.Hurtbox;
 
 public class Ryu extends Character implements Collidable, Renderable {
 
     private CharacterState state;
 
-    final Image iStance = new Image("Ryu/Stance.gif", 156, 222, true, false);
-    final Image iWalkForward = new Image("Ryu/WalkForward.gif", 224, 226, true, false);
-    final Image iWalkBackward = new Image("Ryu/WalkBackward.gif", 224, 226, true, false);
+    final Image iStance = new Image("streetfighter/Ryu/Stance.gif", 156, 222, true, false);
+    final Image iWalkForward = new Image("streetfighter/Ryu/WalkForward.gif", 224, 226, true, false);
+    final Image iWalkBackward = new Image("streetfighter/Ryu/WalkBackward.gif", 224, 226, true, false);
     
-    final Image iWin  = new Image("Ryu/Win.gif",224, 226, true, false);
+    final Image iWin  = new Image("streetfighter/Ryu/Win.gif",224, 226, true, false);
 
     final Attack atkLightPunch = new Attack(400, 6, "PunchLight", width, height, 40, 20);
     final Attack atkHeavyPunch = new Attack(840, 6, "PunchHeavy", width, height, 40, 20);
@@ -47,10 +49,10 @@ public class Ryu extends Character implements Collidable, Renderable {
     }
 
     public void attack(Attack attack) {
-        Hurtbox hurtbox = new Hurtbox(x + attack.getXOff(), y + attack.getYOff(), attack.getWidth(), attack.getHeight());
+        Hurtbox hurtbox = new Hurtbox(x + attack.getXOff(), y + attack.getYOff(), attack.getWidth(), attack.getHeight(), attack.getDamage(), (Character) this);
         FightManager.getGoWaitList().add(hurtbox);
         state = CharacterState.ATTACKING;
-        renderer.setImage(attack.getSprite("Ryu"));
+        renderer.setImage(attack.getSprite("streetfighter/Ryu"));
         Timer timer = new Timer();
         TimerTask decay = new TimerTask() {
             @Override

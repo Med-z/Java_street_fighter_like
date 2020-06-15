@@ -1,14 +1,14 @@
-/*
+package streetfighter;/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import interfaces.Renderable;
+import streetfighter.interfaces.Renderable;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import other.GameObject;
+import streetfighter.other.GameObject;
 /**
  *
  * @author leo
@@ -65,7 +65,7 @@ public class Background extends GameObject implements Renderable
 //        private Container c;
 //        private JPanel imagePanel;
 //        private String filePath;
-//        public Background(String filePath)
+//        public streetfighter.streetfighter.Background(String filePath)
 //        {
 //            super("background de la zone de combat");
 //            this.filePath = filePath;

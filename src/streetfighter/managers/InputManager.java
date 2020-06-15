@@ -1,4 +1,4 @@
-package managers;
+package streetfighter.managers;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;

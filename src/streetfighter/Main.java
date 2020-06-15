@@ -1,4 +1,5 @@
-import interfaces.Renderable;
+package streetfighter;
+
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -6,13 +7,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import managers.InputManager;
-import other.GameObject;
+import streetfighter.other.GameObject;
 
 import java.util.*;
 
 import javafx.scene.image.Image;
-import javafx.scene.paint.Color;
 
 public class Main extends Application {
     private Timer timer; // Timer déclaré ici pour l'arrêter dans stop()
@@ -48,7 +47,7 @@ public class Main extends Application {
         // Initialisations et ajouts des gameObjects
 
        
-        final Image backgroundImage = new Image("Background/Background1.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
+        final Image backgroundImage = new Image("streetfighter/Background/Background1.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans streetfighter.streetfighter.Background
         Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImage);
         
         

@@ -1,13 +1,10 @@
+package streetfighter;
 
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

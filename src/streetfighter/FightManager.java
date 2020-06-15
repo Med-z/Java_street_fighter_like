@@ -1,15 +1,15 @@
+package streetfighter;
 
-import interfaces.Renderable;
+import streetfighter.interfaces.Renderable;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import managers.InputManager;
-import other.GameObject;
+import streetfighter.managers.InputManager;
+import streetfighter.other.GameObject;
 
 /*
  * To change this license header, choose License Headers in Project Properties.

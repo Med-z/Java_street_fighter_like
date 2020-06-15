@@ -1,9 +1,6 @@
-import interfaces.Collidable;
-import javafx.geometry.Point2D;
+package streetfighter;
+
 import javafx.scene.image.Image;
-import javafx.scene.shape.Rectangle;
-import other.GameObject;
-import other.Hitbox;
 
 public class Attack {
     private int duration;

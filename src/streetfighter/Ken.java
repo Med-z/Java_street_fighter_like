@@ -1,6 +1,8 @@
-import interfaces.Collidable;
-import interfaces.Renderable;
-import java.net.URL;
+package streetfighter;
+
+import streetfighter.interfaces.Collidable;
+import streetfighter.interfaces.Renderable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,17 +10,17 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.scene.shape.Rectangle;
-import managers.InputManager;
-import other.GameObject;
-import other.Hitbox;
+import streetfighter.managers.InputManager;
+import streetfighter.other.GameObject;
+import streetfighter.other.Hitbox;
+import streetfighter.other.Hurtbox;
 
 public class Ken extends Character implements Collidable, Renderable {
 
-    final Image iStance = new Image("Ken/Stance.gif", 156, 222, true, false);
-    final Image iWalkForward = new Image("Ken/WalkForward.gif", 224, 226, true, false);
-    final Image iWalkBackward = new Image("Ken/WalkBackward.gif", 224, 226, true, false);
-    final Image iWin = new Image("Ken/Win.gif",224, 226, true, false);
+    final Image iStance = new Image("streetfighter/Ken/Stance.gif", 156, 222, true, false);
+    final Image iWalkForward = new Image("streetfighter/Ken/WalkForward.gif", 224, 226, true, false);
+    final Image iWalkBackward = new Image("streetfighter/Ken/WalkBackward.gif", 224, 226, true, false);
+    final Image iWin = new Image("streetfighter/Ken/Win.gif",224, 226, true, false);
     
     Character ryu;
     ImageView renderer;
@@ -86,7 +88,10 @@ public class Ken extends Character implements Collidable, Renderable {
 
     @Override
     public void onCollision(GameObject go) {
-
+        if(go instanceof Hurtbox) {
+            this.takeDamage(((Hurtbox) go).getDamage());
+            FightManager.getGoGarbage().add(go);
+        }
     }
 
     @Override

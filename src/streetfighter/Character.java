@@ -1,13 +1,12 @@
-import interfaces.Renderable;
-import javafx.scene.Node;
-import javafx.scene.shape.Rectangle;
-import other.GameObject;
-import other.Hitbox;
+package streetfighter;
+
+import streetfighter.other.GameObject;
+import streetfighter.other.Hitbox;
 
 public abstract class Character extends GameObject {
     protected double speed;
     protected Hitbox hitbox;
-    private int healthPoint = 100;
+    private double healthPoint = 100;
     protected boolean canMove = true;
     protected int roundWon = 0;
 
@@ -18,15 +17,15 @@ public abstract class Character extends GameObject {
         this.speed = speed;
     }
 
-    public int getHealthPoint() {
+    public double getHealthPoint() {
         return healthPoint;
     }
 
-    public void setHealthPoint(int healthPoint) {
+    public void setHealthPoint(double healthPoint) {
         this.healthPoint = healthPoint;
     }
 
-    public void takeDamage(int damage){
+    public void takeDamage(double damage){
         setHealthPoint(getHealthPoint()-damage);
     }
 

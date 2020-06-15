@@ -1,8 +1,10 @@
-import interfaces.Renderable;
+package streetfighter;
+
+import streetfighter.interfaces.Renderable;
 import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import other.GameObject;
+import streetfighter.other.GameObject;
 
 public class HealthBar extends GameObject implements Renderable {
     private Rectangle renderer;

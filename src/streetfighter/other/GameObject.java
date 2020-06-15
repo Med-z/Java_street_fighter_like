@@ -1,4 +1,4 @@
-package other;
+package streetfighter.other;
 
 public abstract class GameObject {
     protected double x, y, width, height;

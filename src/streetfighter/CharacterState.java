@@ -1,3 +1,5 @@
+package streetfighter;
+
 public enum CharacterState {
     STANCE,
     ATTACKING,

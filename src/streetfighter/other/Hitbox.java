@@ -1,4 +1,4 @@
-package other;
+package streetfighter.other;
 
 import javafx.geometry.Bounds;
 import javafx.scene.shape.Rectangle;
