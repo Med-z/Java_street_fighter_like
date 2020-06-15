@@ -1,6 +1,4 @@
-import database.ConnexionBD;
 import interfaces.Renderable;
-import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -115,10 +113,7 @@ public class Main extends Application {
         }
     }
 
-    public static void main(String[] args) throws SQLException {
-        ConnexionBD con;
-        con = new ConnexionBD("jdbc:derby://localhost:1527/StreetFighterDatabase"); // URL BDD
-        con.ConnexionBDD(); // Connexion à la BDD
+    public static void main(String[] args) {
         launch(args);
     }
 }
