@@ -119,6 +119,7 @@ public class Main extends Application {
         super.stop();
         try {
             timer.cancel();
+            countDown.stopTimer();
         } catch(NullPointerException e) {
             System.out.println("Impossible d'arrêter le Timer, il n'est pas démarré.");
         }
