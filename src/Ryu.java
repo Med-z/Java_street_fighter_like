@@ -51,13 +51,18 @@ public class Ryu extends Character implements Collidable, Renderable {
             idleAnimation = idleRight;
         }
 
-        if(InputManager.getKey(KeyCode.D)) {
+        if(InputManager.getKey(KeyCode.D)) 
+        {
             this.x += speed;
             renderer.setImage(rightDirectionAnimation);
-        } else if(InputManager.getKey(KeyCode.Q)) {
+        } 
+        else if(InputManager.getKey(KeyCode.Q)) 
+        {
             this.x += -speed;
             renderer.setImage(leftDirectionAnimation);
-        } else {
+        } 
+        else
+        {
             renderer.setImage(idleAnimation);
         }
     }

@@ -20,10 +20,12 @@ import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 
 public class Main extends Application {
     private Timer timer; // Timer déclaré ici pour l'arrêter dans stop()
     private final int WIDTH = 1306, HEIGHT = 560;
+    CountDown countDown;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -65,6 +67,7 @@ public class Main extends Application {
         gameObjects.add(ryu);
         gameObjects.add(alex);
         
+        
 
 
         // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
@@ -73,6 +76,14 @@ public class Main extends Application {
                 root.getChildren().add(((Renderable) go).getRenderer());
             }
         }
+        //Set the timer fight
+        Label counterLabel = new Label("Yo la team");
+        counterLabel.setTranslateX(WIDTH/2);
+        counterLabel.setTranslateZ(100);
+        counterLabel.setTextFill(Color.RED);
+        root.getChildren().add(counterLabel);
+        countDown = new CountDown(counterLabel,100);
+        countDown.startTimer();
 
         // Initialiser l'InputManager
         root.getScene().setOnKeyPressed(new InputManager.KeyPressed());
@@ -101,6 +112,8 @@ public class Main extends Application {
         super.stop();
         try {
             timer.cancel();
+            countDown.stopTimer();
+            
         } catch(NullPointerException e) {
             System.out.println("Impossible d'arrêter le Timer, il n'est pas démarré.");
         }
