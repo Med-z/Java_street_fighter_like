@@ -30,7 +30,7 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Attack atkLightKick = new Attack(420, 6, "KickLight", width, height, 40, 20);
     final Attack atkHeavyKick = new Attack(590, 6, "KickHeavy", width, height, 40, 20);
 
-    Ken ken;
+    Character ken;
     ImageView renderer;
     final List<KeyCode> specialAttack = new ArrayList<>();
 //    Rectangle renderer;
@@ -149,13 +149,15 @@ public class Ryu extends Character implements Collidable, Renderable {
         
     }
     
-     public void setOtherPlayer(Ken ken)
+    @Override
+     public void setOtherPlayer(Character ken)
     {
         this.ken = ken;
     }
      
       @Override
     public void Win() {
+        roundWon++;
         renderer.setImage(iWin); //To change body of generated methods, choose Tools | Templates.
     }
 }

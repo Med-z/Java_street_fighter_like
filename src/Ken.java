@@ -20,7 +20,7 @@ public class Ken extends Character implements Collidable, Renderable {
     final Image iWalkBackward = new Image("Ken/WalkBackward.gif", 224, 226, true, false);
     final Image iWin = new Image("Ken/Win.gif",224, 226, true, false);
     
-    Ryu ryu;
+    Character ryu;
     ImageView renderer;
     final List<KeyCode> specialAttack = new ArrayList<>();
     
@@ -104,16 +104,19 @@ public class Ken extends Character implements Collidable, Renderable {
         renderer.resizeRelocate(x, y, width, height);
     }
     
-    public void setOtherPlayer(Ryu ryu)
+    @Override
+    public void setOtherPlayer(Character ryu)
     {
         this.ryu = ryu;
     }
 
     @Override
     public void Win() {
-        System.out.println("Hello");
+        roundWon++;
         renderer.setImage(iWin); 
     }
+
+   
     
 
             

@@ -9,6 +9,7 @@ public abstract class Character extends GameObject {
     protected Hitbox hitbox;
     private int healthPoint = 100;
     protected boolean canMove = true;
+    protected int roundWon = 0;
 
     public Character(double x, double y, double width, double height, double speed) {
         super(x, y, width, height);
@@ -36,7 +37,7 @@ public abstract class Character extends GameObject {
     }
     
     public abstract void Win();
-          
+    public abstract void setOtherPlayer(Character otherPlayer);      
             
 
     @Override

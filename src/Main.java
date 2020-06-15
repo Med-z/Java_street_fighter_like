@@ -46,68 +46,25 @@ public class Main extends Application {
     // root : AnchorPane : l'élement parent principal, créé dans start()
     public void startGame(AnchorPane root) {
         // Initialisations et ajouts des gameObjects
-        gameObjects = new ArrayList<>();
 
        
         final Image backgroundImage = new Image("Background/Background1.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans Background
         Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImage);
-        gameObjects.add(background);
+        
         
         Ryu ryu = new Ryu(20, 340, 30, 120, 7);
         Ken ken = new Ken(600, 340 , 30, 120, 7);
-        ken.setOtherPlayer(ryu);
-        ryu.setOtherPlayer(ken);
-        gameObjects.add(ryu);
-        gameObjects.add(ken);
+        
+        FightManager fightManager = new FightManager(ryu,ken,background,root);
+        FightManager.instance.startRound();
+        
 
-        HealthBar HBryu = new HealthBar(0, 0, ryu.getHealthPoint()*5, 50, ryu);
-        HealthBar HBken = new HealthBar(806, 0, ken.getHealthPoint()*5, 50, ken);
-        gameObjects.add(HBken);
-        gameObjects.add(HBryu);
+        
+       
 
 
-
-        // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
-        for(GameObject go : gameObjects) {
-            if (go instanceof Renderable) {
-                root.getChildren().add(((Renderable) go).getRenderer());
-            }
-        }
-        //Set the timer fight
-        Label counterLabel = new Label("Yo la team");
-        counterLabel.setTranslateX(WIDTH/2);
-        counterLabel.setTranslateZ(100);
-        counterLabel.setTextFill(Color.RED);
-        root.getChildren().add(counterLabel);
-        countDown = new CountDown(counterLabel,100,ryu,ken);
-        countDown.startTimer();
-
-        // Initialiser l'InputManager
-        root.getScene().setOnKeyPressed(new InputManager.KeyPressed());
-        root.getScene().setOnKeyReleased(new InputManager.KeyReleased());
-
-        // Game Loop
-        timer = new Timer();
-        TimerTask gameLoop = new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    for (GameObject go : gameObjects) {
-                        go.update();
-
-                        if (go instanceof Renderable) {
-                            ((Renderable) go).draw();
-                        }
-                    }
-
-                } catch (ConcurrentModificationException exception) {
-                    // TODO: un jour faudra changer le type de boucle ou autre chose psk sinon tout le jeu va être paralysé lol
-                }
-                InputManager.resetTempKeys();
-            }
-        };
-        timer.schedule(gameLoop, 0, 16);
     }
+        
 
     public static List<GameObject> getGameObjects() {
         return gameObjects;
