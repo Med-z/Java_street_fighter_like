@@ -44,6 +44,7 @@ public final class InputManager {
         return false;
     }
 
+
     public static class KeyPressed implements EventHandler<KeyEvent> {
         @Override
         public void handle(KeyEvent event) {

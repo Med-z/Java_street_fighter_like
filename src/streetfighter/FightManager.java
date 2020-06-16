@@ -1,7 +1,11 @@
 package streetfighter;
 
 import javafx.application.Platform;
+import javafx.scene.Node;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
+import jdk.internal.util.xml.impl.Input;
 import streetfighter.interfaces.Renderable;
 import java.util.ArrayList;
 import java.util.List;
@@ -115,10 +119,7 @@ public class FightManager {
                                 });
                             }
                         }, 16);
-
-
                     }
-
                 }
 
                 CollisionManager.checkForCollisions(gameObjects);

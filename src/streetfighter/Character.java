@@ -6,6 +6,8 @@ import streetfighter.other.Hitbox;
 import streetfighter.other.Hurtbox;
 
 public abstract class Character extends GameObject {
+    protected CharacterState state;
+    protected FacingDirection facing;
     protected double speed;
     protected Hitbox hitbox;
     private double healthPoint = 100;
