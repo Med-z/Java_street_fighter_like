@@ -1,9 +1,10 @@
 package streetfighter.other;
 
 import streetfighter.Character;
+import streetfighter.FightManager;
 import streetfighter.interfaces.Collidable;
 
-public class Hurtbox extends streetfighter.other.GameObject implements Collidable {
+public class Hurtbox extends GameObject implements Collidable {
     Hitbox hitbox;
     Character owner;
     double damage;
@@ -21,8 +22,9 @@ public class Hurtbox extends streetfighter.other.GameObject implements Collidabl
     }
 
     @Override
-    public void onCollision(streetfighter.other.GameObject go) {
-
+    public void onCollision(GameObject go) {
+        if (go instanceof Character)
+            FightManager.getGoGarbage().add(this);
     }
 
     @Override
