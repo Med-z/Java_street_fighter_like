@@ -124,10 +124,6 @@ public class Ryu extends Character implements Collidable, Renderable {
         specialAttack.add(KC);
     }
 
-    @Override
-    public void onCollision(GameObject go) {
-
-    }
 
 
     @Override

@@ -42,6 +42,8 @@ public class FightManager {
     AnchorPane root;
     private Timer timer;
     private final int WIDTH = 1306, HEIGHT = 560;
+    
+    public List<Timer> listTimer;
    
    public FightManager(Character player1,Character player2,Background background,AnchorPane root)
    {
@@ -53,6 +55,7 @@ public class FightManager {
        this.player2 = player2;
        this.background = background;
        this.root = root;
+       listTimer = new ArrayList<>();
    }
    
    public void startRound()
@@ -134,6 +137,52 @@ public class FightManager {
         timer.schedule(gameLoop, 0, 16);
     }
    
+   public void finishRound()
+   {
+       checkWinner();
+       stopAllTimer();
+   }
+   
+   public void stopAllTimer()
+   {
+      for(Timer timer : listTimer)
+       {
+           if(timer != null)
+           {
+               System.out.println("Coupé ! ");
+              timer.cancel();
+           }
+           
+       } 
+   }
+   
+   public void checkWinner()
+   {
+       if(player1.getHealthPoint() < player2.getHealthPoint())
+        {
+            System.out.println("Player 2 won ! ");
+            player2.Win();
+            player2.roundWon++;
+        }
+        else if (player2.getHealthPoint() < player1.getHealthPoint())
+        {
+            System.out.println("Player 1 won ! ");
+            player1.Win();
+            player1.roundWon++;
+        }
+        else if (player2.getHealthPoint() ==  player1.getHealthPoint())
+        {
+            System.out.println("Egalité ! "); //Je sais pas le dire en anglais
+            player2.Win();
+            player1.Win();
+            player2.roundWon++;
+            player1.roundWon++;
+        }
+        player1.canMove = false;
+        player2.canMove = false;
+   }
+           
+   
     public static List<GameObject> getGameObjects() {
         return gameObjects;
     }
@@ -144,13 +193,10 @@ public class FightManager {
         return goGarbage;
     }
 
-    public void stop() {
-        try {
-            timer.cancel();
-            countDown.stopTimer();
-        } catch(NullPointerException e) {
-            System.out.println("Impossible d'arrêter le Timer, il n'est pas démarré.");
-        }
+    public void stop()
+    {      
+        timer.cancel();
+        stopAllTimer();
     }
 
 
