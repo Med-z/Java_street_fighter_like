@@ -50,8 +50,8 @@ public class Main extends Application {
         final Image backgroundImage = new Image("streetfighter/Background/Background1.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans streetfighter.streetfighter.Background
         Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImage);
         
-        Ryu ryu = new Ryu(20, 340, 30, 120, 7);
-        Ken ken = new Ken(1000, 340 , 30, 120, 7);
+        Ryu ryu = new Ryu(20, HEIGHT-222, 156, 222, 7);
+        Ken ken = new Ken(1000, HEIGHT-222 , 156, 222, 7);
         
         FightManager fightManager = new FightManager(ryu,ken,background,root);
         FightManager.instance.startRound();
