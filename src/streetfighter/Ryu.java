@@ -28,7 +28,7 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Image iWin  = new Image("streetfighter/Ryu/Win.gif",224, 226, true, false);
 
     final Attack atkLightPunch = new Attack(400, 6, "PunchLight", 180, 30, 60, 20);
-    final Attack atkHeavyPunch = new Attack(840, 6, "PunchHeavy", width, height, 40, 20);
+    final Attack atkHeavyPunch = new Attack(840, 6, "PunchHeavy", 170, 20, 80, 30);
     final Attack atkLightKick = new Attack(420, 6, "KickLight", width, height, 40, 20);
     final Attack atkHeavyKick = new Attack(590, 6, "KickHeavy", width, height, 40, 20);
 

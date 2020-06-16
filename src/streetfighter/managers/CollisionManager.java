@@ -18,7 +18,6 @@ public class CollisionManager {
 
                 if(go1 instanceof Collidable && go2 instanceof Collidable && !go1.equals(go2)) {
                     if(((Collidable) go1).getHitbox().getRectangle().intersects(((Collidable) go2).getHitbox().getBounds())) {
-                        System.out.println("collision! " + go1.getClass().getName() + " - " + go2.getClass().getName());
                         ((Collidable) go1).onCollision(go2);
                         ((Collidable) go2).onCollision(go1);
                     }

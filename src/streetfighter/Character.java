@@ -1,5 +1,6 @@
 package streetfighter;
 
+import javafx.scene.shape.Rectangle;
 import streetfighter.other.GameObject;
 import streetfighter.other.Hitbox;
 import streetfighter.other.Hurtbox;
@@ -52,6 +53,6 @@ public abstract class Character extends GameObject {
 
     @Override
     public void update() {
-        this.hitbox.getRectangle().resizeRelocate(x, y, width, height);
+        this.hitbox.getRectangle().setX(x);
     }
 }
