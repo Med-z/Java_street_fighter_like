@@ -1,17 +1,12 @@
 package streetfighter;
 
 import javafx.application.Application;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-import streetfighter.other.GameObject;
-
-import java.util.*;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class Main extends Application {
     private final int WIDTH = 1306, HEIGHT = 560;
@@ -25,14 +20,20 @@ public class Main extends Application {
         primaryStage.show();
 
         // Affichage du splashscreen
-        HBox hbox_center = new HBox(); // La HBox permet de centrer le Label (ou pas mdr faut fix ça) TODO: Fix lbl_startHint's alignment
-        root.getChildren().add(hbox_center);
-        Label lbl_startHint = new Label("Press any key to start the game");
-        hbox_center.getChildren().add(lbl_startHint);
-        hbox_center.setAlignment(Pos.CENTER);
         final Image backgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif"); // Créer le background du Splash Screen
         Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImageSC);
         root.getChildren().add(background.renderer);
+        final Image logoImageSC = new Image("streetfighter/Background/StreetFighterLogo.png"); // Créer le Logo du Splash Screen
+        ImageView logoImageViewSC = new ImageView(logoImageSC);
+        AnchorPane.setTopAnchor(logoImageViewSC, 10.0); 
+        AnchorPane.setLeftAnchor(logoImageViewSC, 653-(logoImageSC.getWidth())/2); // Positionne l'image au centre
+        root.getChildren().add(logoImageViewSC);
+        final Image PressAnyKeyImageSC = new Image("streetfighter/Background/PressAnyKey.png", 425, 50, false, false); // Créer le texte du Splash Screen
+        ImageView PressAnyKeyImageViewSC = new ImageView(PressAnyKeyImageSC);
+        AnchorPane.setTopAnchor(PressAnyKeyImageViewSC, 500.0); 
+        AnchorPane.setLeftAnchor(PressAnyKeyImageViewSC, 653-(PressAnyKeyImageSC.getWidth())/2); // Positionne l'image au centre
+        root.getChildren().add(PressAnyKeyImageViewSC);
+     
 
         // Appuyer pour démarrer
         primaryStage.getScene().setOnKeyPressed(event -> {
