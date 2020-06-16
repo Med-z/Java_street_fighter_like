@@ -32,7 +32,7 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Attack atkLightKick = new Attack(420, 6, "KickLight", width, height, 40, 20);
     final Attack atkHeavyKick = new Attack(590, 6, "KickHeavy", width, height, 40, 20);
 
-    final Attack specialAtk =new Attack(500, 20, "SpecialAttack", width, height, 40, 20);
+    final Attack specialAtk =new Attack(500, 0, "SpecialAttack", width, height, 40, 20);
 
     Character ken;
     ImageView renderer;
@@ -101,10 +101,9 @@ public class Ryu extends Character implements Collidable, Renderable {
                 setSpecialAttack(KeyCode.C);
             }
 
-            if(specialAttack==specialAttackFinal){
+            if(specialAttack.equals(specialAttackFinal)){
                 attack(specialAtk);
-                System.out.println("atkSpe");
-                specialAttack=null;
+                specialAttack.clear();
             }
         }
         }
