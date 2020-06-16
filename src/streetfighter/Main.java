@@ -14,10 +14,7 @@ import java.util.*;
 import javafx.scene.image.Image;
 
 public class Main extends Application {
-    private Timer timer; // Timer déclaré ici pour l'arrêter dans stop()
     private final int WIDTH = 1306, HEIGHT = 560;
-    private static List<GameObject> gameObjects;
-    private CountDown countDown;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -50,35 +47,18 @@ public class Main extends Application {
         final Image backgroundImage = new Image("streetfighter/Background/Background1.gif"); // Ici est créée l'image (à partir de l'URL) afin de l'utiliser dans streetfighter.streetfighter.Background
         Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImage);
         
-        
         Ryu ryu = new Ryu(20, 340, 30, 120, 7);
         Ken ken = new Ken(600, 340 , 30, 120, 7);
         
         FightManager fightManager = new FightManager(ryu,ken,background,root);
         FightManager.instance.startRound();
-        
-
-        
-       
-
 
     }
-        
 
-    public static List<GameObject> getGameObjects() {
-        return gameObjects;
-    }
-
-    // Je réécris la méthode stop() pour pouvoir arrêter le timer
     @Override
     public void stop() throws Exception {
         super.stop();
-        try {
-            timer.cancel();
-            countDown.stopTimer();
-        } catch(NullPointerException e) {
-            System.out.println("Impossible d'arrêter le Timer, il n'est pas démarré.");
-        }
+        FightManager.instance.stop();
     }
 
     public static void main(String[] args) {
