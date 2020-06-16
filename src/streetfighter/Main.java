@@ -30,6 +30,9 @@ public class Main extends Application {
         Label lbl_startHint = new Label("Press any key to start the game");
         hbox_center.getChildren().add(lbl_startHint);
         hbox_center.setAlignment(Pos.CENTER);
+        final Image backgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif"); // Créer le background du Splash Screen
+        Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImageSC);
+        root.getChildren().add(background.renderer);
 
         // Appuyer pour démarrer
         primaryStage.getScene().setOnKeyPressed(event -> {
@@ -48,7 +51,7 @@ public class Main extends Application {
         Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImage);
         
         Ryu ryu = new Ryu(20, 340, 30, 120, 7);
-        Ken ken = new Ken(600, 340 , 30, 120, 7);
+        Ken ken = new Ken(1000, 340 , 30, 120, 7);
         
         FightManager fightManager = new FightManager(ryu,ken,background,root);
         FightManager.instance.startRound();

@@ -32,9 +32,12 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Attack atkLightKick = new Attack(420, 6, "KickLight", width, height, 40, 20);
     final Attack atkHeavyKick = new Attack(590, 6, "KickHeavy", width, height, 40, 20);
 
+    final Attack specialAtk =new Attack(500, 20, "SpecialAttack", width, height, 40, 20);
+
     Character ken;
     ImageView renderer;
-    final List<KeyCode> specialAttack = new ArrayList<>();
+    final List<KeyCode> specialAttackFinal = new ArrayList<>();
+    List<KeyCode> specialAttack = new ArrayList<>();
 //    Rectangle renderer;
 
     public Ryu(double x, double y, double width, double height, double speed) {
@@ -42,9 +45,9 @@ public class Ryu extends Character implements Collidable, Renderable {
         renderer = new ImageView(iStance);
         renderer.setX(x);
         renderer.setY(y);
-        specialAttack.add(KeyCode.A);
-        specialAttack.add(KeyCode.E);
-        specialAttack.add(KeyCode.C);
+        specialAttackFinal.add(KeyCode.A);
+        specialAttackFinal.add(KeyCode.E);
+        specialAttackFinal.add(KeyCode.C);
         state = CharacterState.STANCE;
     }
 
@@ -68,8 +71,7 @@ public class Ryu extends Character implements Collidable, Renderable {
     @Override
     public void update() {
         super.update();
-        if(canMove)
-        {
+        if (canMove) {
             if (state != CharacterState.ATTACKING) {
                 if (InputManager.getKey(KeyCode.D)) {
                     state = CharacterState.MOVING_RIGHT;
@@ -80,26 +82,45 @@ public class Ryu extends Character implements Collidable, Renderable {
                 } else {
                     state = CharacterState.STANCE;
                 }
+
                 if (InputManager.getTempKey(KeyCode.A)) {
                     attack(atkLightPunch);
+                    setSpecialAttack(KeyCode.A);
                 }
                 if (InputManager.getTempKey(KeyCode.W)) {
                     attack(atkHeavyPunch);
+                    setSpecialAttack(KeyCode.W);
                 }
                 if (InputManager.getTempKey(KeyCode.E)) {
                     attack(atkLightKick);
+                    setSpecialAttack(KeyCode.E);
                 }
                 if (InputManager.getTempKey(KeyCode.C)) {
                     attack(atkHeavyKick);
+                    setSpecialAttack(KeyCode.C);
+                }
+
+                if (specialAttack == specialAttackFinal) {
+                    attack(specialAtk);
+                    System.out.println("atkSpe");
+                    specialAttack = null;
                 }
             }
         }
+    }
+
+    public void setSpecialAttack(KeyCode KC){
+        if (specialAttack.size() >= 3) {
+            specialAttack.remove(0);
+        }
+        specialAttack.add(KC);
     }
 
     @Override
     public void onCollision(GameObject go) {
 
     }
+
 
     @Override
     public Hitbox getHitbox() {

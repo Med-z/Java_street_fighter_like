@@ -61,8 +61,8 @@ public class FightManager {
         player2.setOtherPlayer(player1);
         gameObjects.add(player1);
         gameObjects.add(player2);
-        HealthBar HBryu = new HealthBar(0, 0, player1.getHealthPoint()*5, 50, player1);
-        HealthBar HBken = new HealthBar(806, 0, player2.getHealthPoint()*5, 50, player2);
+        HealthBar HBryu = new HealthBar(0, 0, player1.getHealthPoint(), 50, player1, false);
+        HealthBar HBken = new HealthBar(806, 0, player2.getHealthPoint(), 50, player2, true);
         gameObjects.add(HBken);
         gameObjects.add(HBryu);
         // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"

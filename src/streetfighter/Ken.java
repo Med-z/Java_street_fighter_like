@@ -33,9 +33,9 @@ public class Ken extends Character implements Collidable, Renderable {
         renderer = new ImageView(iStance);
         renderer.setX(x);
         renderer.setY(y);
-        specialAttack.add(KeyCode.DIGIT7);
-        specialAttack.add(KeyCode.DIGIT9);
-        specialAttack.add(KeyCode.DIGIT3);
+        specialAttack.add(KeyCode.NUMPAD7);
+        specialAttack.add(KeyCode.NUMPAD9);
+        specialAttack.add(KeyCode.NUMPAD3);
     }
 
     @Override
@@ -85,15 +85,7 @@ public class Ken extends Character implements Collidable, Renderable {
         }
     }
 
-    @Override
-    public void onCollision(GameObject go) {
-        if(go instanceof Hurtbox) {
-            if(!((Hurtbox) go).getOwner().equals(this)) {
-                this.takeDamage(((Hurtbox) go).getDamage());
-                FightManager.getGoGarbage().add(go);
-            }
-        }
-    }
+    
 
     @Override
     public Hitbox getHitbox() {
