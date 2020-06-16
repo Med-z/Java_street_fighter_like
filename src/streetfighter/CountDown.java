@@ -41,6 +41,7 @@ public class CountDown {
         /* -------------------- Timer ------------------- */
         
        timer = new Timer();
+       FightManager.instance.listTimer.add(timer);
        timer.scheduleAtFixedRate(new TimerTask(){
 
            @Override
@@ -50,28 +51,7 @@ public class CountDown {
                     interval--;
                     integer.set(interval);
                     if(interval <= 1) {
-                        if(player1.getHealthPoint() < player2.getHealthPoint())
-                        {
-                            System.out.println("Player 2 won ! ");
-                            player2.Win();
-                            player2.roundWon++;
-                        }
-                        else if (player2.getHealthPoint() < player1.getHealthPoint())
-                        {
-                            System.out.println("Player 1 won ! ");
-                            player1.Win();
-                            player1.roundWon++;
-                        }
-                        else if (player2.getHealthPoint() ==  player1.getHealthPoint())
-                        {
-                            System.out.println("Egalité ! "); //Je sais pas le dire en anglais
-                            player2.Win();
-                            player1.Win();
-                            player2.roundWon++;
-                            player1.roundWon++;
-                        }
-                        player1.canMove = false;
-                        player2.canMove = false;
+                        FightManager.instance.finishRound();
                         timer.cancel();
                     }
                 });

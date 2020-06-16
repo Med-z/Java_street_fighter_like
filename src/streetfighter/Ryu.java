@@ -167,6 +167,7 @@ public class Ryu extends Character implements Collidable, Renderable {
         state = CharacterState.ATTACKING;
         renderer.setImage(attack.getSprite("streetfighter/Ryu"));
         Timer timer = new Timer();
+        FightManager.instance.listTimer.add(timer);
         TimerTask decay = new TimerTask() {
             @Override
             public void run() {

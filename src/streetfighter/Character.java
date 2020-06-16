@@ -29,6 +29,10 @@ public abstract class Character extends GameObject {
 
     public void takeDamage(double damage){
         setHealthPoint(getHealthPoint()-damage);
+        if(healthPoint<=0)
+        {
+            FightManager.instance.finishRound();
+        }
     }
 
     public void heal(int heal){
