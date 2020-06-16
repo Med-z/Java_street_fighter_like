@@ -1,5 +1,7 @@
 package streetfighter;
 
+import javafx.application.Platform;
+import javafx.scene.shape.Rectangle;
 import streetfighter.interfaces.Renderable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +10,10 @@ import java.util.TimerTask;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import streetfighter.managers.CollisionManager;
 import streetfighter.managers.InputManager;
 import streetfighter.other.GameObject;
+import streetfighter.other.Hurtbox;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -85,22 +89,32 @@ public class FightManager {
         TimerTask gameLoop = new TimerTask() {
             @Override
             public void run() {
+            Platform.runLater(() -> {
                 // Ajouter les objets de la waitlist
                 gameObjects.addAll(goWaitList);
                 goWaitList.removeAll(goWaitList);
 
                 for (GameObject go : gameObjects) {
                     go.update();
-
+                    Rectangle rect = new Rectangle(go.getX(), go.getY(), go.getWidth(), go.getHeight());
                     if (go instanceof Renderable) {
                         ((Renderable) go).draw();
                     }
+
+                    // Permet d'afficher les hurtbox en noir, ça ne s'en va pas mais osef, c'est pour un intérêt temporaire
+                    if(go instanceof Hurtbox) {
+                        //root.getChildren().add(rect);
+                    }
+
                 }
+
+                CollisionManager.checkForCollisions(gameObjects);
 
                 gameObjects.removeAll(goGarbage);
                 goGarbage.removeAll(goGarbage);
 
                 InputManager.resetTempKeys();
+            });
             }
         };
         timer.schedule(gameLoop, 0, 16);

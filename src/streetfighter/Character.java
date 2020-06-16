@@ -41,6 +41,6 @@ public abstract class Character extends GameObject {
 
     @Override
     public void update() {
-
+        this.hitbox.getRectangle().resizeRelocate(x, y, width, height);
     }
 }

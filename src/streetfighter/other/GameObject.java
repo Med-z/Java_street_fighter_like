@@ -9,11 +9,23 @@ public abstract class GameObject {
         this.width = width;
         this.height = height;
     }
+
+    public abstract void update();
     
     public double getX()
     {
         return x;
     }
 
-    public abstract void update();
+    public double getY() {
+        return y;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
 }

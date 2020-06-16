@@ -18,13 +18,9 @@ public class HealthBar extends GameObject implements Renderable {
         this.character = character;
     }
 
-    public Rectangle getHealthBar() {
-        return renderer;
-    }
-
     @Override
     public void update() {
-        this.renderer.setWidth(character.getHealthPoint());
+        this.width = character.getHealthPoint();
     }
 
     @Override
@@ -34,6 +30,6 @@ public class HealthBar extends GameObject implements Renderable {
 
     @Override
     public void draw() {
-        renderer.setWidth(character.getHealthPoint()*5);
+        renderer.setWidth(width * 5);
     }
 }
