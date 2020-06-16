@@ -55,7 +55,7 @@ public class Main extends Application {
         
         
         Ryu ryu = new Ryu(20, 340, 30, 120, 7);
-        Ken ken = new Ken(600, 340 , 30, 120, 7);
+        Ken ken = new Ken(1000, 340 , 30, 120, 7);
         
         FightManager fightManager = new FightManager(ryu,ken,background,root);
         FightManager.instance.startRound();
