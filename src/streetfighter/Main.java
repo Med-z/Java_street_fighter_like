@@ -18,7 +18,10 @@ public class Main extends Application {
         primaryStage.setTitle("Street Fighter");
         primaryStage.setScene(new Scene(root, WIDTH, HEIGHT));
         primaryStage.show();
-
+        // Affichage du logo
+        Image IconeImage = new Image("streetfighter/Background/Icone.png");
+        primaryStage.getIcons().add(IconeImage);
+        
         // Affichage du splashscreen
         final Image backgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif"); // Créer le background du Splash Screen
         Background background = new Background(0,0, WIDTH, HEIGHT, backgroundImageSC);
@@ -34,7 +37,7 @@ public class Main extends Application {
         AnchorPane.setLeftAnchor(PressAnyKeyImageViewSC, 653-(PressAnyKeyImageSC.getWidth())/2); // Positionne l'image au centre
         root.getChildren().add(PressAnyKeyImageViewSC);
      
-
+        
         // Appuyer pour démarrer
         primaryStage.getScene().setOnKeyPressed(event -> {
             root.getChildren().removeAll(root.getChildren()); // Retire tous les éléments de la collection, peu importe l'allure du splash-screen
