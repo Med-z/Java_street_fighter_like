@@ -47,6 +47,8 @@ public abstract class Character extends GameObject {
         }
     }
     
+   
+    
     public abstract void Win();
     public abstract void setOtherPlayer(Character otherPlayer);      
             

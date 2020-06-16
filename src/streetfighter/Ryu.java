@@ -51,22 +51,7 @@ public class Ryu extends Character implements Collidable, Renderable {
         state = CharacterState.STANCE;
     }
 
-    public void attack(Attack attack) {
-        Hurtbox hurtbox = new Hurtbox(x + attack.getXOff(), y + attack.getYOff(), attack.getWidth(), attack.getHeight(), attack.getDamage(), (Character) this);
-        FightManager.getGoWaitList().add(hurtbox);
-        state = CharacterState.ATTACKING;
-        renderer.setImage(attack.getSprite("streetfighter/Ryu"));
-        Timer timer = new Timer();
-        TimerTask decay = new TimerTask() {
-            @Override
-            public void run() {
-                renderer.setImage(iStance);
-                state = CharacterState.STANCE;
-                FightManager.getGoGarbage().add(hurtbox);
-            }
-        };
-        timer.schedule(decay, attack.getDuration());
-    }
+   
 
     @Override
     public void update() {
@@ -178,5 +163,22 @@ public class Ryu extends Character implements Collidable, Renderable {
     public void Win() {
         roundWon++;
         renderer.setImage(iWin); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void attack(Attack attack) {
+        Hurtbox hurtbox = new Hurtbox(x + attack.getXOff(), y + attack.getYOff(), attack.getWidth(), attack.getHeight(), attack.getDamage(), (Character) this);
+        FightManager.getGoWaitList().add(hurtbox);
+        state = CharacterState.ATTACKING;
+        renderer.setImage(attack.getSprite("streetfighter/Ryu"));
+        Timer timer = new Timer();
+        TimerTask decay = new TimerTask() {
+            @Override
+            public void run() {
+                renderer.setImage(iStance);
+                state = CharacterState.STANCE;
+                FightManager.getGoGarbage().add(hurtbox);
+            }
+        };
+        timer.schedule(decay, attack.getDuration());
     }
 }
