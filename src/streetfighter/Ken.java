@@ -40,50 +40,49 @@ public class Ken extends Character implements Collidable, Renderable {
 
     @Override
     public void update() {
+        super.update();
         boolean leftIsForward = true;
         if(canMove)
         {
             if(ryu.getX() > x) {
-            leftIsForward = true;
-            renderer.setScaleX(1);
-        } else {
-            leftIsForward = false;
-            renderer.setScaleX(-1);
-        }
-
-        if(InputManager.getKey(KeyCode.NUMPAD6)) {
-            this.x += speed;
-            if(leftIsForward) {
-                renderer.setImage(iWalkForward);
+                leftIsForward = true;
+                renderer.setScaleX(1);
             } else {
-                renderer.setImage(iWalkBackward);
+                leftIsForward = false;
+                renderer.setScaleX(-1);
             }
 
-        } else if(InputManager.getKey(KeyCode.NUMPAD4)) {
-            this.x += -speed;
-            if(leftIsForward) {
-                renderer.setImage(iWalkBackward);
+            if(InputManager.getKey(KeyCode.NUMPAD6)) {
+                this.x += speed;
+                if(leftIsForward) {
+                    renderer.setImage(iWalkForward);
+                } else {
+                    renderer.setImage(iWalkBackward);
+                }
+            } else if(InputManager.getKey(KeyCode.NUMPAD4)) {
+                this.x += -speed;
+                if(leftIsForward) {
+                    renderer.setImage(iWalkBackward);
+                } else {
+                    renderer.setImage(iWalkForward);
+                }
             } else {
-                renderer.setImage(iWalkForward);
+                renderer.setImage(iStance);
             }
-        } else {
-            renderer.setImage(iStance);
-        }
 
-        if(InputManager.getTempKey(KeyCode.NUMPAD7)) {
-            System.out.println("Appui sur 7");
+            if(InputManager.getTempKey(KeyCode.NUMPAD7)) {
+                System.out.println("Appui sur 7");
+            }
+            if(InputManager.getTempKey(KeyCode.NUMPAD1)) {
+                System.out.println("Appui sur 1");
+            }
+            if(InputManager.getTempKey(KeyCode.NUMPAD9)) {
+                System.out.println("Appui sur 9");
+            }
+            if(InputManager.getTempKey(KeyCode.NUMPAD3)) {
+                System.out.println("Appui sur 3");
+            }
         }
-        if(InputManager.getTempKey(KeyCode.NUMPAD1)) {
-            System.out.println("Appui sur 1");
-        }
-        if(InputManager.getTempKey(KeyCode.NUMPAD9)) {
-            System.out.println("Appui sur 9");
-        }
-        if(InputManager.getTempKey(KeyCode.NUMPAD3)) {
-            System.out.println("Appui sur 3");
-        }
-        }
-        
     }
 
     

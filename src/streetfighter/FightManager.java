@@ -27,17 +27,17 @@ import streetfighter.other.Hurtbox;
  */
 public class FightManager {
     
-   public static FightManager instance;
-   int round = 0;
-   Character player1,player2;
-   private CountDown countDown;
-   private static List<GameObject> gameObjects;
+    public static FightManager instance;
+    int round = 0;
+    Character player1,player2;
+    private CountDown countDown;
+    private static List<GameObject> gameObjects;
     private static List<GameObject> goWaitList;
     private static List<GameObject> goGarbage;
-   private Background background;
-   AnchorPane root;
-   private Timer timer;
-   private final int WIDTH = 1306, HEIGHT = 560;
+    private Background background;
+    AnchorPane root;
+    private Timer timer;
+    private final int WIDTH = 1306, HEIGHT = 560;
    
    public FightManager(Character player1,Character player2,Background background,AnchorPane root)
    {
@@ -97,13 +97,14 @@ public class FightManager {
                 for (GameObject go : gameObjects) {
                     go.update();
                     Rectangle rect = new Rectangle(go.getX(), go.getY(), go.getWidth(), go.getHeight());
+                    rect.setOpacity(0.4);
                     if (go instanceof Renderable) {
                         ((Renderable) go).draw();
                     }
 
                     // Permet d'afficher les hurtbox en noir, ça ne s'en va pas mais osef, c'est pour un intérêt temporaire
-                    if(go instanceof Hurtbox) {
-                        //root.getChildren().add(rect);
+                    if(!(go instanceof Background)) {
+                        root.getChildren().add(rect);
                     }
 
                 }
@@ -128,6 +129,15 @@ public class FightManager {
     }
     public static List<GameObject> getGoGarbage() {
         return goGarbage;
+    }
+
+    public void stop() {
+        try {
+            timer.cancel();
+            countDown.stopTimer();
+        } catch(NullPointerException e) {
+            System.out.println("Impossible d'arrêter le Timer, il n'est pas démarré.");
+        }
     }
 
 

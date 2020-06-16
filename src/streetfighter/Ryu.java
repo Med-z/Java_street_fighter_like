@@ -70,48 +70,42 @@ public class Ryu extends Character implements Collidable, Renderable {
 
     @Override
     public void update() {
-        if(canMove)
-        {
-             if (state != CharacterState.ATTACKING) {
-            if (InputManager.getKey(KeyCode.D)) {
-                state = CharacterState.MOVING_RIGHT;
-                this.x += speed;
-            } else if (InputManager.getKey(KeyCode.Q)) {
-                state = CharacterState.MOVING_LEFT;
-                this.x += -speed;
-            } else {
-                state = CharacterState.STANCE;
-            }
+        super.update();
+        if (canMove) {
+            if (state != CharacterState.ATTACKING) {
+                if (InputManager.getKey(KeyCode.D)) {
+                    state = CharacterState.MOVING_RIGHT;
+                    this.x += speed;
+                } else if (InputManager.getKey(KeyCode.Q)) {
+                    state = CharacterState.MOVING_LEFT;
+                    this.x += -speed;
+                } else {
+                    state = CharacterState.STANCE;
+                }
 
-            if (InputManager.getTempKey(KeyCode.A)) {
-                attack(atkLightPunch);
-                setSpecialAttack(KeyCode.A);
-            }
-            if (InputManager.getTempKey(KeyCode.W)) {
-                attack(atkHeavyPunch);
-                setSpecialAttack(KeyCode.W);
-
-            }
-            if (InputManager.getTempKey(KeyCode.E)) {
-                attack(atkLightKick);
-                setSpecialAttack(KeyCode.E);
-            }
-            if (InputManager.getTempKey(KeyCode.C)) {
-                attack(atkHeavyKick);
-                setSpecialAttack(KeyCode.C);
-            }
-
-            if(specialAttack.equals(specialAttackFinal)){
-                attack(specialAtk);
-                specialAttack.clear();
+                if (InputManager.getTempKey(KeyCode.A)) {
+                    attack(atkLightPunch);
+                    setSpecialAttack(KeyCode.A);
+                }
+                if (InputManager.getTempKey(KeyCode.W)) {
+                    attack(atkHeavyPunch);
+                    setSpecialAttack(KeyCode.W);
+                }
+                if (InputManager.getTempKey(KeyCode.E)) {
+                    attack(atkLightKick);
+                    setSpecialAttack(KeyCode.E);
+                }
+                if (InputManager.getTempKey(KeyCode.C)) {
+                    attack(atkHeavyKick);
+                    setSpecialAttack(KeyCode.C);
+                }
+                if (specialAttack.equals(specialAttackFinal)) {
+                    attack(specialAtk);
+                    specialAttack.clear();
+                }
             }
         }
-        }
-       
     }
-
-
-    
 
     public void setSpecialAttack(KeyCode KC){
         if (specialAttack.size() >= 3) {
@@ -142,37 +136,36 @@ public class Ryu extends Character implements Collidable, Renderable {
         {
             renderer.resizeRelocate(x, y, width, height);
 
-        boolean rightIsForward = true;
-        if(ken.getX() > x) {
-            rightIsForward = true;
-            renderer.setScaleX(1);
-        } else {
-            rightIsForward = false;
-            renderer.setScaleX(-1);
-        }
+            boolean rightIsForward = true;
+            if(ken.getX() > x) {
+                rightIsForward = true;
+                renderer.setScaleX(1);
+            } else {
+                rightIsForward = false;
+                renderer.setScaleX(-1);
+            }
 
 
-        switch (state) {
-            case STANCE:
-                renderer.setImage(iStance);
-                break;
-            case MOVING_LEFT:
-                if(rightIsForward) {
-                    renderer.setImage(iWalkBackward);
-                } else {
-                    renderer.setImage(iWalkForward);
-                }
-                break;
-            case MOVING_RIGHT:
-                if(rightIsForward) {
-                    renderer.setImage(iWalkForward);
-                } else {
-                    renderer.setImage(iWalkBackward);
-                }
-                break;
+            switch (state) {
+                case STANCE:
+                    renderer.setImage(iStance);
+                    break;
+                case MOVING_LEFT:
+                    if(rightIsForward) {
+                        renderer.setImage(iWalkBackward);
+                    } else {
+                        renderer.setImage(iWalkForward);
+                    }
+                    break;
+                case MOVING_RIGHT:
+                    if(rightIsForward) {
+                        renderer.setImage(iWalkForward);
+                    } else {
+                        renderer.setImage(iWalkBackward);
+                    }
+                    break;
+            }
         }
-        }
-        
     }
     
     @Override
