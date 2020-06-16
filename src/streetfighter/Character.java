@@ -2,6 +2,7 @@ package streetfighter;
 
 import streetfighter.other.GameObject;
 import streetfighter.other.Hitbox;
+import streetfighter.other.Hurtbox;
 
 public abstract class Character extends GameObject {
     protected double speed;
@@ -33,6 +34,16 @@ public abstract class Character extends GameObject {
         setHealthPoint(getHealthPoint() + heal);
         if(healthPoint>100)
             setHealthPoint(100);
+    }
+    
+    
+    public void onCollision(GameObject go) {
+        if(go instanceof Hurtbox) {
+            if(!((Hurtbox) go).getOwner().equals(this)) {
+                this.takeDamage(((Hurtbox) go).getDamage());
+                FightManager.getGoGarbage().add(go);
+            }
+        }
     }
     
     public abstract void Win();

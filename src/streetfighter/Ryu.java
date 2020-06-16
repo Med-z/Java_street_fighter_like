@@ -97,10 +97,7 @@ public class Ryu extends Character implements Collidable, Renderable {
        
     }
 
-    @Override
-    public void onCollision(GameObject go) {
-
-    }
+    
 
     @Override
     public Hitbox getHitbox() {

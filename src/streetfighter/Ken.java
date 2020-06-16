@@ -86,15 +86,7 @@ public class Ken extends Character implements Collidable, Renderable {
         
     }
 
-    @Override
-    public void onCollision(GameObject go) {
-        if(go instanceof Hurtbox) {
-            if(!((Hurtbox) go).getOwner().equals(this)) {
-                this.takeDamage(((Hurtbox) go).getDamage());
-                FightManager.getGoGarbage().add(go);
-            }
-        }
-    }
+    
 
     @Override
     public Hitbox getHitbox() {
