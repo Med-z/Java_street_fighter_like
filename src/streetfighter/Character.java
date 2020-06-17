@@ -54,8 +54,8 @@ public abstract class Character extends GameObject {
     }
     
    
-    
-    public abstract void Win();
+    public abstract void ko();
+    public abstract void win();
     public abstract void setOtherPlayer(Character otherPlayer);      
             
 

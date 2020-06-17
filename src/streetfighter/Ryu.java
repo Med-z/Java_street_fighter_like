@@ -25,6 +25,7 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Image iWalkBackward = new Image("streetfighter/Ryu/WalkBackward.gif", 224, 226, true, false);
     
     final Image iWin  = new Image("streetfighter/Ryu/Win.gif",224, 226, true, false);
+    final Image iKO = new Image("streetfighter/Ryu/KO.gif",224, 226, true, false);
 
     final Attack atkLightPunch = new Attack(400, 4.8, "PunchLight", width + 24, 30, 60, 20);
     final Attack atkHeavyPunch = new Attack(840, 8.4, "PunchHeavy", width + 14, 20, 80, 30);
@@ -62,6 +63,7 @@ public class Ryu extends Character implements Collidable, Renderable {
         }
         FightManager.getGoWaitList().add(hurtbox);
         Timer timer = new Timer();
+        FightManager.instance.listTimer.add(timer);
         TimerTask decay = new TimerTask() {
             @Override
             public void run() {
@@ -185,8 +187,13 @@ public class Ryu extends Character implements Collidable, Renderable {
     }
      
       @Override
-    public void Win() {
+    public void win() {
         roundWon++;
         renderer.setImage(iWin); //To change body of generated methods, choose Tools | Templates.
+    }
+    @Override
+    public void ko()
+    {
+        renderer.setImage(iKO);
     }
 }
