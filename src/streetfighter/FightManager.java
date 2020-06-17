@@ -82,8 +82,7 @@ public class FightManager {
         counterLabel.setTranslateX(WIDTH/2);
         counterLabel.setTranslateZ(100);
         counterLabel.setTextFill(Color.RED);
-        final double MAX_FONT_SIZE = 50.0;
-        counterLabel.setFont(new Font(MAX_FONT_SIZE));
+        counterLabel.setFont(new Font(50));
         root.getChildren().add(counterLabel);
         countDown = new CountDown(counterLabel,100,player1,player2);        
         startRound();
@@ -92,22 +91,14 @@ public class FightManager {
    
    public void startRound()
    {
-        
-        player1.resetPosition();
-        player2.resetPosition();
         player1.canMove = true;
         player2.canMove = true;
+        player1.resetPosition();
+        player2.resetPosition();      
         player1.setHealthPoint(100);
-        player2.setHealthPoint(100);
-        HBryu.update();
+        player2.setHealthPoint(100);       
         countDown.startTimer();
-        // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
-       
-        //Set the timer fight
-        
 
-        // Initialiser l'InputManager
-       
 
         // Game Loop
         timer = new Timer();
