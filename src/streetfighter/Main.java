@@ -112,6 +112,19 @@ public class Main extends Application {
         musicONOImageView.setOnMouseClicked(e-> {
                 music.getMediaPlayer().play();
             });
+        
+        final Image ryuMenuImage = new Image("streetfighter/Menu/RyuMenu.gif", 169.1, 573.8, false, false);
+        ImageView ryuMenuImageView = new ImageView(ryuMenuImage);
+        AnchorPane.setTopAnchor(ryuMenuImageView, -10.0); 
+        AnchorPane.setLeftAnchor(ryuMenuImageView, (653-(ryuMenuImage.getWidth())/2)-570); 
+        root.getChildren().add(ryuMenuImageView);
+        
+        final Image kenMenuImage = new Image("streetfighter/Menu/KenMenu.gif", 218.5, 729.6, false, false);
+        ImageView KenMenuImageView = new ImageView(kenMenuImage);
+        AnchorPane.setTopAnchor(KenMenuImageView, -165.0); 
+        AnchorPane.setLeftAnchor(KenMenuImageView, (653-(kenMenuImage.getWidth())/2)+530); 
+        root.getChildren().add(KenMenuImageView);
+        
     }
     
     // startGame : démarrer le Timer de la boucle principale du jeu
