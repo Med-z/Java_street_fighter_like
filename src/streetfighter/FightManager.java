@@ -92,6 +92,8 @@ public class FightManager {
         
         player1.resetPosition();
         player2.resetPosition();
+        player1.canMove = true;
+        player2.canMove = true;
         player1.setHealthPoint(100);
         player2.setHealthPoint(100);
         HBryu.update();
