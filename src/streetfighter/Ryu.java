@@ -27,7 +27,7 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Image iWin  = new Image("streetfighter/Ryu/Win.gif",224, 226, true, false);
     final Image iKO = new Image("streetfighter/Ryu/KO.gif",224, 226, true, false);
 
-    final Image specialAtk = new Image("streetfighter/Ryu/SpecialAttack.gif", 300, 250, true, false);
+    final Image iSpecialAtk = new Image("streetfighter/Ryu/SpecialAttack.gif", 300, 250, true, false);
 
     final Attack atkLightPunch = new Attack(400, 4.8, "PunchLight", width + 24, 30, 60, 20);
     final Attack atkHeavyPunch = new Attack(840, 8.4, "PunchHeavy", width + 14, 20, 80, 30);
@@ -80,7 +80,7 @@ public class Ryu extends Character implements Collidable, Renderable {
     public void specialAttack() {
         Hadoken hadoken;
         state = CharacterState.ATTACKING;
-        renderer.setImage(specialAtk);
+        renderer.setImage(iSpecialAtk);
 
         if(facing == FacingDirection.RIGHT) {
             hadoken = new Hadoken(x + 180,  y + 31,120, 60, 15, this, 8, 2000);

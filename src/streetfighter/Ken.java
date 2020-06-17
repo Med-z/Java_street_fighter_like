@@ -25,6 +25,8 @@ public class Ken extends Character implements Collidable, Renderable {
     final Image iWin = new Image("streetfighter/Ken/Win.gif",224, 226, true, false);
     
     final Image iKO = new Image("streetfighter/Ken/KO.gif",224, 226, true, false);
+
+    final Image iSpecialAtk = new Image("streetfighter/Ken/SpecialAttack.gif", 300, 250, true, false);
     
     final Attack atkLightPunch = new Attack(400, 6, "PunchLight", 180, 30, 60, 20);
     final Attack atkHeavyPunch = new Attack(840, 6, "PunchHeavy", 170, 20, 80, 30);
@@ -37,7 +39,7 @@ public class Ken extends Character implements Collidable, Renderable {
     ImageView renderer;
     private CharacterState state;
     final List<KeyCode> specialAttack = new ArrayList<>();
-     final List<KeyCode> specialAttackFinal = new ArrayList<>();
+    final List<KeyCode> specialAttackFinal = new ArrayList<>();
     
 //    Rectangle renderer;
 
@@ -48,9 +50,9 @@ public class Ken extends Character implements Collidable, Renderable {
         renderer.setY(y);
         resetXPosition = x;
         resetYPosition = y;
-        specialAttack.add(KeyCode.NUMPAD7);
-        specialAttack.add(KeyCode.NUMPAD9);
-        specialAttack.add(KeyCode.NUMPAD3);
+        specialAttackFinal.add(KeyCode.NUMPAD7);
+        specialAttackFinal.add(KeyCode.NUMPAD9);
+        specialAttackFinal.add(KeyCode.NUMPAD3);
     }
 
     @Override
@@ -71,21 +73,34 @@ public class Ken extends Character implements Collidable, Renderable {
                 if (InputManager.getTempKey(KeyCode.NUMPAD7)) {
                     attack(atkLightPunch);
                     setSpecialAttack(KeyCode.NUMPAD7);
+                    for (KeyCode KC : specialAttack)
+                        System.out.println(KC);
+                    System.out.println();
                 }
                 if (InputManager.getTempKey(KeyCode.NUMPAD1)) {
                     attack(atkHeavyPunch);
                     setSpecialAttack(KeyCode.NUMPAD1);
+                    for (KeyCode KC : specialAttack)
+                        System.out.println(KC);
+                    System.out.println();
                 }
                 if (InputManager.getTempKey(KeyCode.NUMPAD9)) {
                     attack(atkLightKick);
                     setSpecialAttack(KeyCode.NUMPAD9);
+                    for (KeyCode KC : specialAttack)
+                        System.out.println(KC);
+                    System.out.println();
                 }
                 if (InputManager.getTempKey(KeyCode.NUMPAD3)) {
                     attack(atkHeavyKick);
                     setSpecialAttack(KeyCode.NUMPAD3);
+                    for (KeyCode KC : specialAttack)
+                        System.out.println(KC);
+                    System.out.println();
                 }
                 if (specialAttack.equals(specialAttackFinal)) {
-                    attack(specialAtk);
+                    System.out.println("hadoken");
+                    specialAttack();
                     specialAttack.clear();
                 }
             }
@@ -121,7 +136,32 @@ public class Ken extends Character implements Collidable, Renderable {
         };
         timer.schedule(decay, attack.getDuration());
     }
-     
+
+    public void specialAttack() {
+        Hadoken hadoken;
+        state = CharacterState.ATTACKING;
+        renderer.setImage(iSpecialAtk);
+
+        if(facing == FacingDirection.RIGHT) {
+            hadoken = new Hadoken(x + 180,  y + 31,120, 60, 15, this, 8, 2000);
+        } else {
+            hadoken = new Hadoken(x - 180,  y + 31,120, 60, 15, this, -8, 2000);
+            hadoken.setScaleXRenderer(-1);
+        }
+        FightManager.getGoWaitList().add(hadoken);
+        Timer timer = new Timer();
+        FightManager.instance.listTimer.add(timer);
+        TimerTask decay = new TimerTask() {
+            @Override
+            public void run() {
+                renderer.setImage(iStance);
+                state = CharacterState.STANCE;
+                FightManager.getGoGarbage().add(hadoken);
+            }
+        };
+        timer.schedule(decay, hadoken.duration);
+    }
+
     public void setSpecialAttack(KeyCode KC){
         if (specialAttack.size() >= 3) {
             specialAttack.remove(0);
