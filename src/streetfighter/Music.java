@@ -38,4 +38,8 @@ public class Music
 
         return mediaPlayer;
     }
+
+    public void stop() {
+        mediaPlayer.stop();
+    }
 }
