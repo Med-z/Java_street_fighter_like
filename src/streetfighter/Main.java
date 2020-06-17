@@ -1,16 +1,18 @@
 package streetfighter;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class Main extends Application {
     private final int WIDTH = 1306, HEIGHT = 560;
-
+    
     @Override
     public void start(Stage primaryStage) throws Exception{
         // Déclarations JavaFX
@@ -46,17 +48,42 @@ public class Main extends Application {
     }
     // startMenu : lancer le menu
     public void startMenu(AnchorPane root) {
-        final Image menuBackgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif"); // Créer le background du Splash Screen
+        final Image menuBackgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif"); 
         Background background = new Background(0,0, WIDTH, HEIGHT, menuBackgroundImageSC);
         root.getChildren().add(background.renderer);
-        /*
-        final Image menuImage = new Image("streetfighter/Menu/Menu.png"); // Créer le Logo du Splash Screen
+        
+        final Image menuImage = new Image("streetfighter/Menu/Menu.png"); 
         ImageView menuImageView = new ImageView(menuImage);
         AnchorPane.setTopAnchor(menuImageView, 10.0); 
-        AnchorPane.setLeftAnchor(menuImageView, 653-(menuImage.getWidth())/2); // Positionne l'image au centre
+        AnchorPane.setLeftAnchor(menuImageView, 653-(menuImage.getWidth())/2); 
         root.getChildren().add(menuImageView);
-        */
         
+        final Image playImageO = new Image("streetfighter/Menu/PlayOrange.png"); 
+        ImageView playImageViewO = new ImageView(playImageO);
+        AnchorPane.setTopAnchor(playImageViewO, 200.0); 
+        AnchorPane.setLeftAnchor(playImageViewO, 653-(playImageO.getWidth())/2);
+        root.getChildren().add(playImageViewO);
+        
+        final Image playImageY = new Image("streetfighter/Menu/PlayYellow.png"); 
+        ImageView playImageViewY = new ImageView(playImageY);
+        AnchorPane.setTopAnchor(playImageViewY, 200.0); 
+        AnchorPane.setLeftAnchor(playImageViewY, 653-(playImageY.getWidth())/2);
+       
+        playImageViewO.setOnMouseEntered(e-> {
+                root.getChildren().add(playImageViewY);
+            }
+        );
+        playImageViewY.setOnMouseExited(e-> {
+                root.getChildren().remove(playImageViewY);
+            }
+        );
+        /*
+        playImageViewY.setOnMouseClicked(e-> {
+                root.getChildren().removeAll(root.getChildren()); // Retire tous les éléments de la collection, peu importe l'allure du splash-screen
+                startGame(root);
+            }
+        );
+        */
         root.getScene().setOnKeyPressed(event -> {
             root.getChildren().removeAll(root.getChildren()); // Retire tous les éléments de la collection, peu importe l'allure du splash-screen
             startGame(root);
