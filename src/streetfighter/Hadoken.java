@@ -24,19 +24,17 @@ public class Hadoken extends Hurtbox implements Renderable {
 
     @Override
     public void update() {
+        super.update();
         this.x += speed;
-        System.out.println("update");
     }
 
     @Override
     public Node getRenderer() {
-        System.out.println("renderer");
         return renderer;
     }
 
     @Override
     public void draw() {
-        System.out.println("draw");
         renderer.setX(x);
     }
 }

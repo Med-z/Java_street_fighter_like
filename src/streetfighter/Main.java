@@ -13,6 +13,7 @@ import javafx.scene.input.MouseEvent;
 public class Main extends Application {
     private final int WIDTH = 1306, HEIGHT = 560;
     Music music = new Music();
+    FightManager fightManager;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -126,15 +127,15 @@ public class Main extends Application {
         Ryu ryu = new Ryu(20, HEIGHT-222, 156, 222, 7);
         Ken ken = new Ken(1000, HEIGHT-222 , 156, 222, 7);
         
-        FightManager fightManager = new FightManager(ryu,ken,background,root);
-        FightManager.instance.initializeFight();
+        fightManager = new FightManager(ryu,ken,background,root);
+        fightManager.initializeFight();
 
     }
 
     @Override
     public void stop() throws Exception {
         super.stop();
-        FightManager.instance.stop();
+        fightManager.instance.stop();
     }
 
     public static void main(String[] args) {

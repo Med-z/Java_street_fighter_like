@@ -142,12 +142,13 @@ public class FightManager {
 
                 CollisionManager.checkForCollisions(gameObjects);
 
-                gameObjects.removeAll(goGarbage);
-                for(GameObject go : goWaitList) {
+                for(GameObject go : goGarbage) {
                     if(go instanceof Renderable) {
+                        System.out.println(go.getClass().getName());
                         root.getChildren().remove(((Renderable) go).getRenderer());
                     }
                 }
+                gameObjects.removeAll(goGarbage);
                 goGarbage.removeAll(goGarbage);
 
                 InputManager.resetTempKeys();
@@ -168,10 +169,8 @@ public class FightManager {
         player1.setHealthPoint(100);
         player2.setHealthPoint(100);       
         countDown.startTimer();
+   }
 
-
-        
-    }
    public void finishRound()
    {
        checkWinner();
