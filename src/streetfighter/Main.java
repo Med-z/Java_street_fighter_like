@@ -85,7 +85,7 @@ public class Main extends Application {
         final Image musicOFFOImage = new Image("streetfighter/Menu/MusicOFFO.png", 194.5, 46.5, false, false);
         ImageView musicOFFOImageView = new ImageView(musicOFFOImage);
         AnchorPane.setTopAnchor(musicOFFOImageView, 500.0); 
-        AnchorPane.setLeftAnchor(musicOFFOImageView, (653-(musicOFFOImage.getWidth())/2)-200); 
+        AnchorPane.setLeftAnchor(musicOFFOImageView, (653-(musicOFFOImage.getWidth())/2)-150); 
         root.getChildren().add(musicOFFOImageView);
         
         final Image musicOFFYImage = new Image("streetfighter/Menu/MusicOFFY.png", 194.5, 46.5, false, false);
@@ -93,13 +93,13 @@ public class Main extends Application {
         musicOFFOImageView.setOnMouseEntered(e-> { musicOFFOImageView.setImage(musicOFFYImage);});
         musicOFFOImageView.setOnMouseExited(e-> { musicOFFOImageView.setImage(musicOFFOImage);});
         musicOFFOImageView.setOnMouseClicked(e-> {
-                music.stop();
+                music.getMediaPlayer().pause();
             });
         
         final Image musicONOImage = new Image("streetfighter/Menu/MusicONO.png", 194.5, 46.5, false, false);
         ImageView musicONOImageView = new ImageView(musicONOImage);
         AnchorPane.setTopAnchor(musicONOImageView, 500.0); 
-        AnchorPane.setLeftAnchor(musicONOImageView, (653-(musicONOImage.getWidth())/2)+200); 
+        AnchorPane.setLeftAnchor(musicONOImageView, (653-(musicONOImage.getWidth())/2)+150); 
         root.getChildren().add(musicONOImageView);
       
         final Image musicONYImage = new Image("streetfighter/Menu/MusicONY.png", 194.5, 46.5, false, false);
@@ -107,7 +107,7 @@ public class Main extends Application {
         musicONOImageView.setOnMouseEntered(e-> { musicONOImageView.setImage(musicONYImage);});
         musicONOImageView.setOnMouseExited(e-> { musicONOImageView.setImage(musicONOImage);});
         musicONOImageView.setOnMouseClicked(e-> {
-                music.playMusic();
+                music.getMediaPlayer().play();
             });
     }
     
