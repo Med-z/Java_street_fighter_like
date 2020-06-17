@@ -65,30 +65,23 @@ public class Main extends Application {
         root.getChildren().add(playImageViewO);
         
         final Image playImageY = new Image("streetfighter/Menu/PlayYellow.png"); 
-        ImageView playImageViewY = new ImageView(playImageY);
-        AnchorPane.setTopAnchor(playImageViewY, 200.0); 
-        AnchorPane.setLeftAnchor(playImageViewY, 653-(playImageY.getWidth())/2);
-       
+    
         playImageViewO.setOnMouseEntered(e-> {
-                root.getChildren().add(playImageViewY);
+                playImageViewO.setImage(playImageY);
             }
         );
-        playImageViewY.setOnMouseExited(e-> {
-                root.getChildren().remove(playImageViewY);
+        playImageViewO.setOnMouseExited(e-> {
+                playImageViewO.setImage(playImageO);
             }
         );
-        /*
-        playImageViewY.setOnMouseClicked(e-> {
+        playImageViewO.setOnMouseClicked(e-> {
                 root.getChildren().removeAll(root.getChildren()); // Retire tous les éléments de la collection, peu importe l'allure du splash-screen
                 startGame(root);
             }
         );
-        */
-        root.getScene().setOnKeyPressed(event -> {
-            root.getChildren().removeAll(root.getChildren()); // Retire tous les éléments de la collection, peu importe l'allure du splash-screen
-            startGame(root);
-        });
+
     }
+    
     // startGame : démarrer le Timer de la boucle principale du jeu
     // root : AnchorPane : l'élement parent principal, créé dans start()
     public void startGame(AnchorPane root) {
