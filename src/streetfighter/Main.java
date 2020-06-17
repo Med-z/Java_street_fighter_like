@@ -81,7 +81,34 @@ public class Main extends Application {
                 startGame(root);
             }
         );
-
+        
+        final Image musicOFFOImage = new Image("streetfighter/Menu/MusicOFFO.png", 194.5, 46.5, false, false);
+        ImageView musicOFFOImageView = new ImageView(musicOFFOImage);
+        AnchorPane.setTopAnchor(musicOFFOImageView, 500.0); 
+        AnchorPane.setLeftAnchor(musicOFFOImageView, (653-(musicOFFOImage.getWidth())/2)-200); 
+        root.getChildren().add(musicOFFOImageView);
+        
+        final Image musicOFFYImage = new Image("streetfighter/Menu/MusicOFFY.png", 194.5, 46.5, false, false);
+        
+        musicOFFOImageView.setOnMouseEntered(e-> { musicOFFOImageView.setImage(musicOFFYImage);});
+        musicOFFOImageView.setOnMouseExited(e-> { musicOFFOImageView.setImage(musicOFFOImage);});
+        musicOFFOImageView.setOnMouseClicked(e-> {
+                music.stop();
+            });
+        
+        final Image musicONOImage = new Image("streetfighter/Menu/MusicONO.png", 194.5, 46.5, false, false);
+        ImageView musicONOImageView = new ImageView(musicONOImage);
+        AnchorPane.setTopAnchor(musicONOImageView, 500.0); 
+        AnchorPane.setLeftAnchor(musicONOImageView, (653-(musicONOImage.getWidth())/2)+200); 
+        root.getChildren().add(musicONOImageView);
+      
+        final Image musicONYImage = new Image("streetfighter/Menu/MusicONY.png", 194.5, 46.5, false, false);
+        
+        musicONOImageView.setOnMouseEntered(e-> { musicONOImageView.setImage(musicONYImage);});
+        musicONOImageView.setOnMouseExited(e-> { musicONOImageView.setImage(musicONOImage);});
+        musicONOImageView.setOnMouseClicked(e-> {
+                music.playMusic();
+            });
     }
     
     // startGame : démarrer le Timer de la boucle principale du jeu
