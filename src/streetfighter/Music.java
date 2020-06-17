@@ -33,7 +33,7 @@ public class Music
         mediaPlayer = new MediaPlayer(playlist.get((int)(Math.random()*4)+1));
 
         mediaPlayer.setAutoPlay(true);
-        mediaPlayer.setVolume(25);
+        mediaPlayer.setVolume(10);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
 
         return mediaPlayer;
