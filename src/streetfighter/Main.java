@@ -41,10 +41,27 @@ public class Main extends Application {
         // Appuyer pour démarrer
         primaryStage.getScene().setOnKeyPressed(event -> {
             root.getChildren().removeAll(root.getChildren()); // Retire tous les éléments de la collection, peu importe l'allure du splash-screen
+            startMenu(root);
+        });
+    }
+    // startMenu : lancer le menu
+    public void startMenu(AnchorPane root) {
+        final Image menuBackgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif"); // Créer le background du Splash Screen
+        Background background = new Background(0,0, WIDTH, HEIGHT, menuBackgroundImageSC);
+        root.getChildren().add(background.renderer);
+        /*
+        final Image menuImage = new Image("streetfighter/Menu/Menu.png"); // Créer le Logo du Splash Screen
+        ImageView menuImageView = new ImageView(menuImage);
+        AnchorPane.setTopAnchor(menuImageView, 10.0); 
+        AnchorPane.setLeftAnchor(menuImageView, 653-(menuImage.getWidth())/2); // Positionne l'image au centre
+        root.getChildren().add(menuImageView);
+        */
+        
+        root.getScene().setOnKeyPressed(event -> {
+            root.getChildren().removeAll(root.getChildren()); // Retire tous les éléments de la collection, peu importe l'allure du splash-screen
             startGame(root);
         });
     }
-
     // startGame : démarrer le Timer de la boucle principale du jeu
     // root : AnchorPane : l'élement parent principal, créé dans start()
     public void startGame(AnchorPane root) {
