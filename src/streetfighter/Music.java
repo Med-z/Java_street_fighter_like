@@ -11,21 +11,17 @@ import java.util.List;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-/**
- *
- * @author mateo
- */
 public class Music
 {
     private static MediaPlayer mediaPlayer;
 
     public MediaPlayer playMusic()
     {
-        Media song1 = new Media(new File("src\\streetfighter\\Music").toURI().toString());
-        Media song2 = new Media(new File("src\\streetfighter\\Music").toURI().toString());
-        Media song3 = new Media(new File("src\\streetfighter\\Music").toURI().toString());
-        Media song4 = new Media(new File("src\\streetfighter\\Music").toURI().toString());
-        Media song5 = new Media(new File("src\\streetfighter\\Music").toURI().toString());
+        Media song1 = new Media(new File("src/streetfighter/Music/song1.mp3").toURI().toString());
+        Media song2 = new Media(new File("src/streetfighter/Music/song2.mp3").toURI().toString());
+        Media song3 = new Media(new File("src/streetfighter/Music/song3.mp3").toURI().toString());
+        Media song4 = new Media(new File("src/streetfighter/Music/song4.mp3").toURI().toString());
+        Media song5 = new Media(new File("src/streetfighter/Music/song5.mp3").toURI().toString());
 
         List<Media> playlist = new ArrayList<>();
         playlist.add(song1);
