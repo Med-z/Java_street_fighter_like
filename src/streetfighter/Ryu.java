@@ -158,8 +158,10 @@ public class Ryu extends Character implements Collidable, Renderable {
      @Override
     public void resetPosition()
     {
-        renderer.setX(resetXPosition);
-        renderer.setY(resetYPosition);
+        x = resetXPosition;
+        y = resetYPosition;
+        renderer.setImage(iStance);
+        state = CharacterState.STANCE;
     }
 
 
@@ -224,7 +226,8 @@ public class Ryu extends Character implements Collidable, Renderable {
       @Override
     public void win() {
         roundWon++;
-        renderer.setImage(iWin); //To change body of generated methods, choose Tools | Templates.
+        renderer.setImage(iWin);
+
     }
     @Override
     public void ko()

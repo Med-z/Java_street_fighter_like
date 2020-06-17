@@ -187,6 +187,8 @@ public class Ken extends Character implements Collidable, Renderable {
     {
         renderer.setX(resetXPosition);
         renderer.setY(resetYPosition);
+        renderer.setImage(iStance);
+        state = CharacterState.STANCE;
     }
     
     @Override

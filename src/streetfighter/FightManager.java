@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -39,6 +41,11 @@ public class FightManager {
     private Timer timer;
     private Timer deleteLater;
     int interval;
+    int actualRound;
+    private final  Image iPlayer1Won = new Image("streetfighter/Menu/player1_won.png",1000, 145, true, false);
+    private final Image iPlayer2Won = new Image("streetfighter/Menu/player2_won.png",1000, 145, true, false);
+    private final Image iDraw = new Image("streetfighter/Menu/draw.png",1000, 145, true, false);
+    private ImageView ivTextWinnerRound;
     private final int WIDTH = 1306, HEIGHT = 560;
     HealthBar HBryu,HBken;
     
@@ -49,7 +56,7 @@ public class FightManager {
        if(instance == null)
        {
            instance = this;
-       }
+        }
        this.player1 = player1;
        this.player2 = player2;
        this.background = background;
@@ -59,9 +66,12 @@ public class FightManager {
    
    public void initializeFight()
    {
+        
+        actualRound = 0;
         gameObjects = new ArrayList<>();
         goWaitList = new ArrayList<>();
         goGarbage = new ArrayList<>();
+        
         gameObjects.add(background);
         player1.setOtherPlayer(player2);
         player2.setOtherPlayer(player1);
@@ -82,31 +92,15 @@ public class FightManager {
         counterLabel.setTranslateX(WIDTH/2);
         counterLabel.setTranslateZ(100);
         counterLabel.setTextFill(Color.RED);
-        final double MAX_FONT_SIZE = 50.0;
-        counterLabel.setFont(new Font(MAX_FONT_SIZE));
+        counterLabel.setFont(new Font(50));
         root.getChildren().add(counterLabel);
-        countDown = new CountDown(counterLabel,100,player1,player2);        
+        countDown = new CountDown(counterLabel,100,player1,player2);       
+        ivTextWinnerRound = new ImageView();
+        ivTextWinnerRound.setX(100);
+        ivTextWinnerRound.setY(250);
+        root.getChildren().add(ivTextWinnerRound);
         startRound();
         
-   }
-   
-   public void startRound()
-   {
-        
-        player1.resetPosition();
-        player2.resetPosition();
-        player1.setHealthPoint(100);
-        player2.setHealthPoint(100);
-        HBryu.update();
-        countDown.startTimer();
-        // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
-       
-        //Set the timer fight
-        
-
-        // Initialiser l'InputManager
-       
-
         // Game Loop
         timer = new Timer();
         TimerTask gameLoop = new TimerTask() {
@@ -151,33 +145,72 @@ public class FightManager {
             }
         };
         timer.schedule(gameLoop, 0, 16);
-    }
+        
+   }
    
+   public void startRound()
+   {
+        actualRound++;
+        player1.canMove = true;
+        player2.canMove = true;
+        player1.resetPosition();
+        player2.resetPosition();      
+        player1.setHealthPoint(100);
+        player2.setHealthPoint(100);       
+        countDown.startTimer();
+
+
+        
+    }
    public void finishRound()
    {
        checkWinner();
        stopAllTimer();
        interval = 5;
-       Timer timerEndRound = new Timer();
-       FightManager.instance.listTimer.add(timer);
-       timerEndRound.scheduleAtFixedRate(new TimerTask(){
+       System.out.println("C'est fini ! ");
+       if(actualRound == 3)
+       {
+           finishFight();
+       }
+       else
+       {
+            Timer timerEndRound = new Timer();
+            FightManager.instance.listTimer.add(timerEndRound);
+            timerEndRound.scheduleAtFixedRate(new TimerTask(){
 
-           @Override
-           public void run()
-           {
-                Platform.runLater(() -> {
-                    interval--;
-                    if(interval <= 1) {
-                        System.out.println("Round fini mon pote");
-                        startRound();
-                        timerEndRound.cancel();
-                    }
-                });
-           }
-       }, 0, 1000);
+                @Override
+                public void run()
+                {
+                     Platform.runLater(() -> {
+                         interval--;
+                         if(interval <= 1) {
+                             System.out.println("ça recommence ! ");
+                             ivTextWinnerRound.setImage(null);
+                             startRound();
+                             timerEndRound.cancel();
+                         }
+                     });
+                }
+            }, 0, 1000);
+       }
+      
     }
        
-   
+   public void finishFight()
+   {
+       if(player1.roundWon == player2.roundWon)
+       {
+           System.out.println("Egalité parfaite !");
+       }
+       else if( player1.roundWon > player2.roundWon)
+       {
+           System.out.println("Player 1 est le grand gagnant ! ");
+       }
+        else if( player2.roundWon > player1.roundWon)
+       {
+           System.out.println("Player2 est le grand gagnant ! ");
+       }
+   }
    
    public void stopAllTimer()
    {
@@ -197,24 +230,23 @@ public class FightManager {
        if(player1.getHealthPoint() < player2.getHealthPoint())
         {
             System.out.println("Player 2 won ! ");
+            ivTextWinnerRound.setImage(iPlayer2Won);
             player2.win();
             player1.ko();
-            player2.roundWon++;
         }
         else if (player2.getHealthPoint() < player1.getHealthPoint())
         {
             System.out.println("Player 1 won ! ");
+            ivTextWinnerRound.setImage(iPlayer1Won);
             player1.win();
             player2.ko();
-            player1.roundWon++;
         }
         else if (player2.getHealthPoint() ==  player1.getHealthPoint())
         {
-            System.out.println("Egalité ! "); //Je sais pas le dire en anglais
+            System.out.println("Egalité ! ");
+            ivTextWinnerRound.setImage(iDraw);//Je sais pas le dire en anglais
             player2.win();
             player1.win();
-            player2.roundWon++;
-            player1.roundWon++;
         }
         player1.canMove = false;
         player2.canMove = false;
