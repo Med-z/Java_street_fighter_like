@@ -1,8 +1,11 @@
 package streetfighter;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -113,19 +116,39 @@ public class Main extends Application {
         musicONOImageView.setOnMouseClicked(e-> {
                 music.getMediaPlayer().play();
             });
-        
+        // GIFS decoration du menu
         final Image ryuMenuImage = new Image("streetfighter/Menu/RyuMenu.gif", 169.1, 573.8, false, false);
         ImageView ryuMenuImageView = new ImageView(ryuMenuImage);
         AnchorPane.setTopAnchor(ryuMenuImageView, -10.0); 
         AnchorPane.setLeftAnchor(ryuMenuImageView, (653-(ryuMenuImage.getWidth())/2)-570); 
         root.getChildren().add(ryuMenuImageView);
-        
         final Image kenMenuImage = new Image("streetfighter/Menu/KenMenu.gif", 218.5, 729.6, false, false);
         ImageView KenMenuImageView = new ImageView(kenMenuImage);
         AnchorPane.setTopAnchor(KenMenuImageView, -165.0); 
         AnchorPane.setLeftAnchor(KenMenuImageView, (653-(kenMenuImage.getWidth())/2)+530); 
         root.getChildren().add(KenMenuImageView);
         
+        // Selection de profile
+        TextField player1TF = new TextField();
+        player1TF.setPrefWidth(120);
+        player1TF.setPrefHeight(40);
+        AnchorPane.setTopAnchor(player1TF, 350.0); 
+        AnchorPane.setLeftAnchor(player1TF, 250.0); 
+        player1TF.setPromptText("P1 Name");
+        player1TF.setAlignment(Pos.CENTER);
+        root.getChildren().add(player1TF);
+        
+        TextField player2TF = new TextField();
+        player2TF.setPrefWidth(120);
+        player2TF.setPrefHeight(40);
+        AnchorPane.setTopAnchor(player2TF, 350.0); 
+        AnchorPane.setRightAnchor(player2TF, 250.0); 
+        player2TF.setPromptText("P2 Name");
+        player2TF.setAlignment(Pos.CENTER);
+        root.getChildren().add(player2TF);
+        
+        
+        Platform.runLater( () -> root.requestFocus());
     }
     
     // startGame : démarrer le Timer de la boucle principale du jeu
