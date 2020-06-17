@@ -18,13 +18,16 @@ public class Hurtbox extends GameObject implements Collidable {
 
     @Override
     public void update() {
-
+        this.hitbox.getRectangle().setX(x);
     }
 
     @Override
     public void onCollision(GameObject go) {
-        if (go instanceof Character)
-            FightManager.getGoGarbage().add(this);
+        if (go instanceof Character) {
+            if(!owner.equals(go)) {
+                FightManager.getGoGarbage().add(this);
+            }
+        }
     }
 
     @Override

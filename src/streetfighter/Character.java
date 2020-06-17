@@ -50,7 +50,6 @@ public abstract class Character extends GameObject {
         if(go instanceof Hurtbox) {
             if(!((Hurtbox) go).getOwner().equals(this)) {
                 this.takeDamage(((Hurtbox) go).getDamage());
-                FightManager.getGoGarbage().add(go);
             }
         }
     }
