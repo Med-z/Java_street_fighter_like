@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import streetfighter.managers.CollisionManager;
 import streetfighter.managers.InputManager;
 import streetfighter.other.GameObject;
@@ -37,7 +38,9 @@ public class FightManager {
     AnchorPane root;
     private Timer timer;
     private Timer deleteLater;
+    int interval;
     private final int WIDTH = 1306, HEIGHT = 560;
+    HealthBar HBryu,HBken;
     
     public List<Timer> listTimer;
    
@@ -54,7 +57,7 @@ public class FightManager {
        listTimer = new ArrayList<>();
    }
    
-   public void startRound()
+   public void initializeFight()
    {
         gameObjects = new ArrayList<>();
         goWaitList = new ArrayList<>();
@@ -64,28 +67,45 @@ public class FightManager {
         player2.setOtherPlayer(player1);
         gameObjects.add(player1);
         gameObjects.add(player2);
-        HealthBar HBryu = new HealthBar(0, 0, player1.getHealthPoint(), 50, player1, false);
-        HealthBar HBken = new HealthBar(806, 0, player2.getHealthPoint(), 50, player2, true);
+        HBryu = new HealthBar(0, 0, player1.getHealthPoint(), 50, player1, false);
+        HBken = new HealthBar(806, 0, player2.getHealthPoint(), 50, player2, true);   
         gameObjects.add(HBken);
         gameObjects.add(HBryu);
-        // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
-        for(GameObject go : gameObjects) {
+        root.getScene().setOnKeyPressed(new InputManager.KeyPressed());
+        root.getScene().setOnKeyReleased(new InputManager.KeyReleased());
+         for(GameObject go : gameObjects) {
             if (go instanceof Renderable) {
                 root.getChildren().add(((Renderable) go).getRenderer());
             }
         }
-        //Set the timer fight
-        Label counterLabel = new Label("Yo la team");
+        Label counterLabel = new Label();
         counterLabel.setTranslateX(WIDTH/2);
         counterLabel.setTranslateZ(100);
         counterLabel.setTextFill(Color.RED);
+        final double MAX_FONT_SIZE = 50.0;
+        counterLabel.setFont(new Font(MAX_FONT_SIZE));
         root.getChildren().add(counterLabel);
-        countDown = new CountDown(counterLabel,100,player1,player2);
+        countDown = new CountDown(counterLabel,100,player1,player2);        
+        startRound();
+        
+   }
+   
+   public void startRound()
+   {
+        
+        player1.resetPosition();
+        player2.resetPosition();
+        player1.setHealthPoint(100);
+        player2.setHealthPoint(100);
+        HBryu.update();
         countDown.startTimer();
+        // Boucle pour ajouter au AnchorPane les gameObjects "Renderable"
+       
+        //Set the timer fight
+        
 
         // Initialiser l'InputManager
-        root.getScene().setOnKeyPressed(new InputManager.KeyPressed());
-        root.getScene().setOnKeyReleased(new InputManager.KeyReleased());
+       
 
         // Game Loop
         timer = new Timer();
@@ -137,7 +157,27 @@ public class FightManager {
    {
        checkWinner();
        stopAllTimer();
-   }
+       interval = 5;
+       Timer timerEndRound = new Timer();
+       FightManager.instance.listTimer.add(timer);
+       timerEndRound.scheduleAtFixedRate(new TimerTask(){
+
+           @Override
+           public void run()
+           {
+                Platform.runLater(() -> {
+                    interval--;
+                    if(interval <= 1) {
+                        System.out.println("Round fini mon pote");
+                        startRound();
+                        timerEndRound.cancel();
+                    }
+                });
+           }
+       }, 0, 1000);
+    }
+       
+   
    
    public void stopAllTimer()
    {

@@ -13,6 +13,8 @@ public abstract class Character extends GameObject {
     private double healthPoint = 100;
     protected boolean canMove = true;
     protected int roundWon = 0;
+    protected double resetXPosition;
+    protected double resetYPosition;
 
     public Character(double x, double y, double width, double height, double speed) {
         super(x, y, width, height);
@@ -54,13 +56,17 @@ public abstract class Character extends GameObject {
     }
     
    
+    
+   
     public abstract void ko();
     public abstract void win();
-    public abstract void setOtherPlayer(Character otherPlayer);      
-            
+    public abstract void setOtherPlayer(Character otherPlayer);
+    public abstract void resetPosition();       
 
     @Override
     public void update() {
         this.hitbox.getRectangle().setX(x);
     }
+    
+    
 }
