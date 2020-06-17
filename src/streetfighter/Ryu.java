@@ -1,6 +1,5 @@
 package streetfighter;
 
-import javafx.scene.shape.Rectangle;
 import streetfighter.interfaces.Collidable;
 import streetfighter.interfaces.Renderable;
 
@@ -14,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import streetfighter.managers.InputManager;
-import streetfighter.other.GameObject;
 import streetfighter.other.Hitbox;
 import streetfighter.other.Hurtbox;
 
@@ -23,11 +21,15 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Image iStance = new Image("streetfighter/Ryu/Stance.gif", 156, 222, true, false);
     final Image iWalkForward = new Image("streetfighter/Ryu/WalkForward.gif", 224, 226, true, false);
     final Image iWalkBackward = new Image("streetfighter/Ryu/WalkBackward.gif", 224, 226, true, false);
+    final Image iCrouching = new Image("streetfighter/Ryu/Crouching.gif", 230, 190, true, false);
+    final Image iCrouch = new Image("streetfighter/Ryu/Crouch.gif", 224, 277, true, false);
     
     final Image iWin  = new Image("streetfighter/Ryu/Win.gif",224, 226, true, false);
     final Image iKO = new Image("streetfighter/Ryu/KO.gif",224, 226, true, false);
 
     final Image specialAtk = new Image("streetfighter/Ryu/SpecialAttack.gif", 300, 250, true, false);
+
+    Timer crouchTimer = new Timer();
 
     final Attack atkLightPunch = new Attack(400, 4.8, "PunchLight", width + 24, 30, 60, 20);
     final Attack atkHeavyPunch = new Attack(840, 8.4, "PunchHeavy", width + 14, 20, 80, 30);
@@ -105,14 +107,28 @@ public class Ryu extends Character implements Collidable, Renderable {
     @Override
     public void update() {
         super.update();
+        System.out.println(state.toString());
         if (canMove) {
             if (state != CharacterState.ATTACKING) {
-                if (InputManager.getKey(KeyCode.D)) {
+                if (InputManager.getKey(KeyCode.D) && state != CharacterState.CROUCH) {
                     state = CharacterState.MOVING_RIGHT;
                     this.x += speed;
-                } else if (InputManager.getKey(KeyCode.Q)) {
+                } else if (InputManager.getKey(KeyCode.Q) && state != CharacterState.CROUCH) {
                     state = CharacterState.MOVING_LEFT;
                     this.x += -speed;
+                } else if (InputManager.getKey(KeyCode.S) && state != CharacterState.CROUCH && crouchTimer == null) {
+                    state = CharacterState.CROUCHING;
+                    crouchTimer = new Timer();
+                    TimerTask crouch = new TimerTask() {
+                        @Override
+                        public void run() {
+                            state = CharacterState.CROUCH;
+                            crouchTimer.cancel();
+                        }
+                    };
+                    crouchTimer.schedule(crouch, 1700);
+                } else if (InputManager.getKey(KeyCode.S) && state == CharacterState.CROUCH) {
+
                 } else {
                     state = CharacterState.STANCE;
                 }
@@ -178,15 +194,13 @@ public class Ryu extends Character implements Collidable, Renderable {
     public void draw() {
         if(canMove && state != CharacterState.ATTACKING)
         {
-           renderer.setX(x);
+           renderer.resizeRelocate(x, y, width, height);
 
             if(facing == FacingDirection.RIGHT) {
                 renderer.setScaleX(1);
             } else {
                 renderer.setScaleX(-1);
             }
-
-
 
             switch (state) {
                 case STANCE:
@@ -200,7 +214,6 @@ public class Ryu extends Character implements Collidable, Renderable {
                         renderer.setImage(iWalkForward);
                         renderer.setX(x);
                     }
-
                     break;
                 case MOVING_RIGHT:
                     if(facing == FacingDirection.RIGHT) {
@@ -212,6 +225,13 @@ public class Ryu extends Character implements Collidable, Renderable {
                     }
 
                     break;
+                case CROUCHING:
+                    renderer.setImage(iCrouching);
+                    break;
+                case CROUCH:
+                    renderer.setImage(iCrouch);
+                    break;
+
             }
         }
     }
