@@ -10,6 +10,7 @@ import java.util.TimerTask;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import streetfighter.managers.CollisionManager;
 import streetfighter.managers.InputManager;
 import streetfighter.other.GameObject;
@@ -81,6 +82,8 @@ public class FightManager {
         counterLabel.setTranslateX(WIDTH/2);
         counterLabel.setTranslateZ(100);
         counterLabel.setTextFill(Color.RED);
+        final double MAX_FONT_SIZE = 50.0;
+        counterLabel.setFont(new Font(MAX_FONT_SIZE));
         root.getChildren().add(counterLabel);
         countDown = new CountDown(counterLabel,100,player1,player2);        
         startRound();
