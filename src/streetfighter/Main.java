@@ -1,5 +1,6 @@
 package streetfighter;
 
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import streetfighter.database.ConnexionBD;
 
 public class Main extends Application {
     private final int WIDTH = 1306, HEIGHT = 560;
@@ -129,6 +131,7 @@ public class Main extends Application {
         root.getChildren().add(KenMenuImageView);
         
         // Selection de profile
+        // TF 1
         TextField player1TF = new TextField();
         player1TF.setPrefWidth(120);
         player1TF.setPrefHeight(40);
@@ -137,7 +140,7 @@ public class Main extends Application {
         player1TF.setPromptText("P1 Name");
         player1TF.setAlignment(Pos.CENTER);
         root.getChildren().add(player1TF);
-        
+        // TF 2
         TextField player2TF = new TextField();
         player2TF.setPrefWidth(120);
         player2TF.setPrefHeight(40);
@@ -174,7 +177,10 @@ public class Main extends Application {
         fightManager.instance.stop();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        ConnexionBD con;
+        con = new ConnexionBD("jdbc:derby://localhost:1527/StreetFighterDB");
+        con.ConnexionBDD();
         launch(args);
     }
 }
