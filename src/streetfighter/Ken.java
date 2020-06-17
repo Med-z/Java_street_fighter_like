@@ -24,6 +24,8 @@ public class Ken extends Character implements Collidable, Renderable {
     final Image iWalkBackward = new Image("streetfighter/Ken/WalkBackward.gif", 224, 226, true, false);
     final Image iWin = new Image("streetfighter/Ken/Win.gif",224, 226, true, false);
     
+    final Image iKO = new Image("streetfighter/Ken/KO.gif",224, 226, true, false);
+    
     final Attack atkLightPunch = new Attack(400, 6, "PunchLight", 180, 30, 60, 20);
     final Attack atkHeavyPunch = new Attack(840, 6, "PunchHeavy", 170, 20, 80, 30);
     final Attack atkLightKick = new Attack(420, 6, "KickLight", width, height, 40, 20);
@@ -44,6 +46,8 @@ public class Ken extends Character implements Collidable, Renderable {
         renderer = new ImageView(iStance);
         renderer.setX(x);
         renderer.setY(y);
+        resetXPosition = x;
+        resetYPosition = y;
         specialAttack.add(KeyCode.NUMPAD7);
         specialAttack.add(KeyCode.NUMPAD9);
         specialAttack.add(KeyCode.NUMPAD3);
@@ -106,6 +110,7 @@ public class Ken extends Character implements Collidable, Renderable {
         }
         FightManager.getGoWaitList().add(hurtbox);
         Timer timer = new Timer();
+        FightManager.instance.listTimer.add(timer);
         TimerTask decay = new TimerTask() {
             @Override
             public void run() {
@@ -177,7 +182,12 @@ public class Ken extends Character implements Collidable, Renderable {
         return renderer;
     }
 
-    
+    @Override
+    public void resetPosition()
+    {
+        renderer.setX(resetXPosition);
+        renderer.setY(resetYPosition);
+    }
     
     @Override
     public void setOtherPlayer(Character ryu)
@@ -186,10 +196,19 @@ public class Ken extends Character implements Collidable, Renderable {
     }
 
     @Override
-    public void Win() {
+    public void win() {
         roundWon++;
         renderer.setImage(iWin); 
     }
+    @Override
+    public void ko()
+    {
+        renderer.setImage(iKO);
+    }
+    
+    
+    
+    
 
    
     
