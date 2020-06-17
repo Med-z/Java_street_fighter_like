@@ -78,15 +78,15 @@ public class Ryu extends Character implements Collidable, Renderable {
     }
 
     public void specialAttack() {
-        Hadoken hadoken = new Hadoken(width + 40, height + 150,120, 60, 0, 1000);
+        Hadoken hadoken = new Hadoken(width + 40,  height + 150,120, 60, 15, this, 9, 2000);
         state = CharacterState.ATTACKING;
         renderer.setImage(specialAtk);
         Hurtbox hurtbox;
 
         if(facing == FacingDirection.RIGHT) {
-            hadoken.hurtbox = new Hurtbox(x + hadoken.getX(), y + hadoken.getY(), hadoken.getWidth(), hadoken.getHeight(), 28, (Character) this);
+            hurtbox = new Hurtbox(x + hadoken.getX(), y + hadoken.getY(), hadoken.getWidth(), hadoken.getHeight(), 28, (Character) this);
         } else {
-            hadoken.hurtbox = new Hurtbox(x - hadoken.getX() +100, y + hadoken.getY(), hadoken.getWidth(), hadoken.getHeight(), 28, (Character) this);
+            hurtbox = new Hurtbox(x - hadoken.getX() +100, y + hadoken.getY(), hadoken.getWidth(), hadoken.getHeight(), 28, (Character) this);
             renderer.setX(x - renderer.getImage().getWidth() + iStance.getWidth());
         }
         FightManager.getGoWaitList().add(hadoken);

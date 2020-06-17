@@ -7,15 +7,14 @@ import streetfighter.interfaces.Renderable;
 import streetfighter.other.GameObject;
 import streetfighter.other.Hurtbox;
 
-public class Hadoken extends GameObject implements Renderable{
+public class Hadoken extends Hurtbox implements Renderable{
     int duration;
     private double speed;
     private Image hadoken = new Image("streetfighter/Ryu/Hadoken.gif");
     private ImageView renderer;
-    Hurtbox hurtbox;
 
-    public Hadoken(double x, double y, double width, double height, double speed, int duration) {
-        super(x, y, width, height);
+    public Hadoken(double x, double y, double width, double height, double damage, Character owner, double speed, int duration) {
+        super(x, y, width, height, damage, owner);
         this.speed = speed;
         renderer = new ImageView(hadoken);
         renderer.setX(x);
@@ -26,7 +25,6 @@ public class Hadoken extends GameObject implements Renderable{
     @Override
     public void update() {
         this.x += speed;
-        hurtbox.getHitbox().getRectangle().setX(x);
     }
 
     @Override
