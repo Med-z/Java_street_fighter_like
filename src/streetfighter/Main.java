@@ -75,7 +75,7 @@ public class Main extends Application {
         Ken ken = new Ken(1000, HEIGHT-222 , 156, 222, 7);
         
         FightManager fightManager = new FightManager(ryu,ken,background,root);
-        FightManager.instance.startRound();
+        FightManager.instance.initializeFight();
 
     }
 

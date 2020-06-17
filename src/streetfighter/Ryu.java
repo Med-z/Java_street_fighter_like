@@ -44,6 +44,8 @@ public class Ryu extends Character implements Collidable, Renderable {
         renderer = new ImageView(iStance);
         renderer.setX(x);
         renderer.setY(y);
+        resetXPosition = x;
+        resetYPosition = y;
         specialAttackFinal.add(KeyCode.A);
         specialAttackFinal.add(KeyCode.E);
         specialAttackFinal.add(KeyCode.C);
@@ -126,6 +128,13 @@ public class Ryu extends Character implements Collidable, Renderable {
         specialAttack.add(KC);
     }
 
+    
+     @Override
+    public void resetPosition()
+    {
+        renderer.setX(resetXPosition);
+        renderer.setY(resetYPosition);
+    }
 
 
     @Override

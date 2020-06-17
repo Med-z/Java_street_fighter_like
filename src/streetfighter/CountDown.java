@@ -41,6 +41,8 @@ public class CountDown {
         /* -------------------- Timer ------------------- */
         
        timer = new Timer();
+       interval = 100;
+       integer.set(interval);
        FightManager.instance.listTimer.add(timer);
        timer.scheduleAtFixedRate(new TimerTask(){
 

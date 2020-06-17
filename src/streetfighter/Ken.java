@@ -46,6 +46,8 @@ public class Ken extends Character implements Collidable, Renderable {
         renderer = new ImageView(iStance);
         renderer.setX(x);
         renderer.setY(y);
+        resetXPosition = x;
+        resetYPosition = y;
         specialAttack.add(KeyCode.NUMPAD7);
         specialAttack.add(KeyCode.NUMPAD9);
         specialAttack.add(KeyCode.NUMPAD3);
@@ -180,7 +182,12 @@ public class Ken extends Character implements Collidable, Renderable {
         return renderer;
     }
 
-    
+    @Override
+    public void resetPosition()
+    {
+        renderer.setX(resetXPosition);
+        renderer.setY(resetYPosition);
+    }
     
     @Override
     public void setOtherPlayer(Character ryu)
