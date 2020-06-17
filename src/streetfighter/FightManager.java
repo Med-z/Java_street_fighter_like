@@ -1,11 +1,7 @@
 package streetfighter;
 
 import javafx.application.Platform;
-import javafx.scene.Node;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.shape.Rectangle;
-import jdk.internal.util.xml.impl.Input;
 import streetfighter.interfaces.Renderable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +13,6 @@ import javafx.scene.paint.Color;
 import streetfighter.managers.CollisionManager;
 import streetfighter.managers.InputManager;
 import streetfighter.other.GameObject;
-import streetfighter.other.Hurtbox;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
