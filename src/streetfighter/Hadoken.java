@@ -4,7 +4,6 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import streetfighter.interfaces.Renderable;
-import streetfighter.other.GameObject;
 import streetfighter.other.Hurtbox;
 
 public class Hadoken extends Hurtbox implements Renderable {
@@ -20,6 +19,10 @@ public class Hadoken extends Hurtbox implements Renderable {
         renderer.setX(x);
         renderer.setY(y);
         this.duration=duration;
+    }
+
+    public void setScaleXRenderer(int scale){
+        renderer.setScaleX(scale);
     }
 
     @Override
