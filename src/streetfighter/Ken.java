@@ -85,16 +85,27 @@ public class Ken extends Character implements Collidable, Renderable {
                     specialAttack.clear();
                 }
             }
+            if(ryu.getX() > x) {
+            facing = FacingDirection.RIGHT;
+        } else {
+            facing = FacingDirection.LEFT;
+        }
         }
     }
     
      public void attack(Attack attack) {
-        Hurtbox hurtbox = new Hurtbox(x + attack.getXOff(), y + attack.getYOff(), attack.getWidth(), attack.getHeight(), attack.getDamage(), (Character) this);
-        FightManager.getGoWaitList().add(hurtbox);
+        Hurtbox hurtbox;
+
         state = CharacterState.ATTACKING;
         renderer.setImage(attack.getSprite("streetfighter/Ken"));
+        if(facing == FacingDirection.RIGHT) {
+            hurtbox = new Hurtbox(x + attack.getXOff(), y + attack.getYOff(), attack.getWidth(), attack.getHeight(), attack.getDamage(), (Character) this);
+        } else {
+            hurtbox = new Hurtbox(x - attack.getXOff() +100, y + attack.getYOff(), attack.getWidth(), attack.getHeight(), attack.getDamage(), (Character) this);
+            renderer.setX(x - renderer.getImage().getWidth() + iStance.getWidth());
+        }
+        FightManager.getGoWaitList().add(hurtbox);
         Timer timer = new Timer();
-        FightManager.instance.listTimer.add(timer);
         TimerTask decay = new TimerTask() {
             @Override
             public void run() {
@@ -113,20 +124,17 @@ public class Ken extends Character implements Collidable, Renderable {
         specialAttack.add(KC);
     }
     
-    @Override
     public void draw() {
-        if(canMove)
+        if(canMove && state != CharacterState.ATTACKING)
         {
-            renderer.resizeRelocate(x, y, width, height);
+           renderer.setX(x);
 
-            boolean rightIsForward = true;
-            if(ryu.getX() > x) {
-                rightIsForward = true;
+            if(facing == FacingDirection.RIGHT) {
                 renderer.setScaleX(1);
             } else {
-                rightIsForward = false;
                 renderer.setScaleX(-1);
             }
+
 
 
             switch (state) {
@@ -134,18 +142,24 @@ public class Ken extends Character implements Collidable, Renderable {
                     renderer.setImage(iStance);
                     break;
                 case MOVING_LEFT:
-                    if(rightIsForward) {
+                    if(facing == FacingDirection.RIGHT) {
                         renderer.setImage(iWalkBackward);
+                        renderer.setX(x - renderer.getImage().getWidth() / 2 + iStance.getWidth() / 2);
                     } else {
                         renderer.setImage(iWalkForward);
+                        renderer.setX(x);
                     }
+
                     break;
                 case MOVING_RIGHT:
-                    if(rightIsForward) {
+                    if(facing == FacingDirection.RIGHT) {
                         renderer.setImage(iWalkForward);
+                        renderer.setX(x - renderer.getImage().getWidth() / 2 + iStance.getWidth() / 2);
                     } else {
                         renderer.setImage(iWalkBackward);
+                        renderer.setX(x);
                     }
+
                     break;
             }
         }

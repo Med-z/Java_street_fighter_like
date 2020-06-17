@@ -57,7 +57,7 @@ public class Ryu extends Character implements Collidable, Renderable {
         if(facing == FacingDirection.RIGHT) {
             hurtbox = new Hurtbox(x + attack.getXOff(), y + attack.getYOff(), attack.getWidth(), attack.getHeight(), attack.getDamage(), (Character) this);
         } else {
-            hurtbox = new Hurtbox(x - attack.getXOff(), y + attack.getYOff(), attack.getWidth(), attack.getHeight(), attack.getDamage(), (Character) this);
+            hurtbox = new Hurtbox(x - attack.getXOff() +100, y + attack.getYOff(), attack.getWidth(), attack.getHeight(), attack.getDamage(), (Character) this);
             renderer.setX(x - renderer.getImage().getWidth() + iStance.getWidth());
         }
         FightManager.getGoWaitList().add(hurtbox);
@@ -138,9 +138,9 @@ public class Ryu extends Character implements Collidable, Renderable {
 
     @Override
     public void draw() {
-        if(canMove)
+        if(canMove && state != CharacterState.ATTACKING)
         {
-            renderer.setX(x);
+           renderer.setX(x);
 
             if(facing == FacingDirection.RIGHT) {
                 renderer.setScaleX(1);
