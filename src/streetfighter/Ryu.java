@@ -27,12 +27,12 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Image iWin  = new Image("streetfighter/Ryu/Win.gif",224, 226, true, false);
     final Image iKO = new Image("streetfighter/Ryu/KO.gif",224, 226, true, false);
 
+    final Image specialAtk = new Image("streetfighter/Ryu/SpecialAttack.gif", 300, 250, true, false);
+
     final Attack atkLightPunch = new Attack(400, 4.8, "PunchLight", width + 24, 30, 60, 20);
     final Attack atkHeavyPunch = new Attack(840, 8.4, "PunchHeavy", width + 14, 20, 80, 30);
     final Attack atkLightKick = new Attack(420, 4.2, "KickLight", width + 50, height - 80, 40, 50);
     final Attack atkHeavyKick = new Attack(590, 5.9, "KickHeavy", width, height, 40, 20);
-
-    final Attack specialAtk =new Attack(500, 0, "SpecialAttack", width, height, 40, 20);
 
     Character ken;
     ImageView renderer;
@@ -77,6 +77,32 @@ public class Ryu extends Character implements Collidable, Renderable {
         timer.schedule(decay, attack.getDuration());
     }
 
+    public void specialAttack() {
+        Hadoken hadoken = new Hadoken(width + 40, height + 150,120, 60, 0, 1000);
+        state = CharacterState.ATTACKING;
+        renderer.setImage(specialAtk);
+        Hurtbox hurtbox;
+
+        if(facing == FacingDirection.RIGHT) {
+            hadoken.hurtbox = new Hurtbox(x + hadoken.getX(), y + hadoken.getY(), hadoken.getWidth(), hadoken.getHeight(), 28, (Character) this);
+        } else {
+            hadoken.hurtbox = new Hurtbox(x - hadoken.getX() +100, y + hadoken.getY(), hadoken.getWidth(), hadoken.getHeight(), 28, (Character) this);
+            renderer.setX(x - renderer.getImage().getWidth() + iStance.getWidth());
+        }
+        FightManager.getGoWaitList().add(hadoken);
+        Timer timer = new Timer();
+        FightManager.instance.listTimer.add(timer);
+        TimerTask decay = new TimerTask() {
+            @Override
+            public void run() {
+                renderer.setImage(iStance);
+                state = CharacterState.STANCE;
+                FightManager.getGoGarbage().add(hadoken);
+            }
+        };
+        timer.schedule(decay, hadoken.duration);
+    }
+
     @Override
     public void update() {
         super.update();
@@ -109,7 +135,7 @@ public class Ryu extends Character implements Collidable, Renderable {
                     setSpecialAttack(KeyCode.C);
                 }
                 if (specialAttack.equals(specialAttackFinal)) {
-                    attack(specialAtk);
+                    specialAttack();
                     specialAttack.clear();
                 }
             }
