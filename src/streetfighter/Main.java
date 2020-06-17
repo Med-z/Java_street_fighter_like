@@ -50,7 +50,6 @@ public class Main extends Application {
     }
     // startMenu : lancer le menu
     public void startMenu(AnchorPane root) {
-        music.playMusic();
         final Image menuBackgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif");
         Background background = new Background(0,0, WIDTH, HEIGHT, menuBackgroundImageSC);
         root.getChildren().add(background.renderer);
@@ -88,7 +87,6 @@ public class Main extends Application {
     // startGame : démarrer le Timer de la boucle principale du jeu
     // root : AnchorPane : l'élement parent principal, créé dans start()
     public void startGame(AnchorPane root) {
-        music.playMusic();
         // Initialisations et ajouts des gameObjects
 
        
