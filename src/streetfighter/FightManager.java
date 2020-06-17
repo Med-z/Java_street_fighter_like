@@ -36,6 +36,7 @@ public class FightManager {
     private Background background;
     AnchorPane root;
     private Timer timer;
+    private Timer deleteLater;
     private final int WIDTH = 1306, HEIGHT = 560;
     
     public List<Timer> listTimer;
@@ -107,8 +108,8 @@ public class FightManager {
                     // Permet d'afficher les hurtbox en noir, ça ne s'en va pas mais osef, c'est pour un intérêt temporaire
                     if(!(go instanceof Background)) {
                         root.getChildren().add(rect);
-                        Timer deleteLater = new Timer();
-
+                        deleteLater = new Timer();
+                        
                         deleteLater.schedule(new TimerTask() {
                             @Override
                             public void run() {
@@ -156,20 +157,22 @@ public class FightManager {
        if(player1.getHealthPoint() < player2.getHealthPoint())
         {
             System.out.println("Player 2 won ! ");
-            player2.Win();
+            player2.win();
+            player1.ko();
             player2.roundWon++;
         }
         else if (player2.getHealthPoint() < player1.getHealthPoint())
         {
             System.out.println("Player 1 won ! ");
-            player1.Win();
+            player1.win();
+            player2.ko();
             player1.roundWon++;
         }
         else if (player2.getHealthPoint() ==  player1.getHealthPoint())
         {
             System.out.println("Egalité ! "); //Je sais pas le dire en anglais
-            player2.Win();
-            player1.Win();
+            player2.win();
+            player1.win();
             player2.roundWon++;
             player1.roundWon++;
         }
@@ -189,8 +192,15 @@ public class FightManager {
     }
 
     public void stop()
-    {      
-        timer.cancel();
+    {  
+        if(timer != null)
+        {
+            timer.cancel();
+        }
+        if(deleteLater != null)
+        {
+            deleteLater.cancel();
+        }
         stopAllTimer();
     }
 
