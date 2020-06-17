@@ -179,7 +179,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws SQLException {
         ConnexionBD con;
-        con = new ConnexionBD("jdbc:derby://localhost:1527/StreetFighterDB");
+        con = new ConnexionBD("jdbc:derby:StreetFighterDB");
         con.ConnexionBDD();
         launch(args);
     }
