@@ -44,6 +44,7 @@ public class FightManager {
     int actualRound;
     private final  Image iPlayer1Won = new Image("streetfighter/Menu/player1_won.png",1000, 145, true, false);
     private final Image iPlayer2Won = new Image("streetfighter/Menu/player2_won.png",1000, 145, true, false);
+    private final Image iDraw = new Image("streetfighter/Menu/draw.png",1000, 145, true, false);
     private ImageView ivTextWinnerRound;
     private final int WIDTH = 1306, HEIGHT = 560;
     HealthBar HBryu,HBken;
@@ -242,7 +243,8 @@ public class FightManager {
         }
         else if (player2.getHealthPoint() ==  player1.getHealthPoint())
         {
-            System.out.println("Egalité ! "); //Je sais pas le dire en anglais
+            System.out.println("Egalité ! ");
+            ivTextWinnerRound.setImage(iDraw);//Je sais pas le dire en anglais
             player2.win();
             player1.win();
         }
