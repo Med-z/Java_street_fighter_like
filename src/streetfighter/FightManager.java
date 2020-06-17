@@ -109,6 +109,11 @@ public class FightManager {
             Platform.runLater(() -> {
                 // Ajouter les objets de la waitlist
                 gameObjects.addAll(goWaitList);
+                for(GameObject go : goWaitList) {
+                    if(go instanceof Renderable) {
+                        root.getChildren().add(((Renderable) go).getRenderer());
+                    }
+                }
                 goWaitList.removeAll(goWaitList);
 
                 for (GameObject go : gameObjects) {
@@ -138,6 +143,11 @@ public class FightManager {
                 CollisionManager.checkForCollisions(gameObjects);
 
                 gameObjects.removeAll(goGarbage);
+                for(GameObject go : goWaitList) {
+                    if(go instanceof Renderable) {
+                        root.getChildren().remove(((Renderable) go).getRenderer());
+                    }
+                }
                 goGarbage.removeAll(goGarbage);
 
                 InputManager.resetTempKeys();

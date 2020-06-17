@@ -7,7 +7,7 @@ import streetfighter.interfaces.Renderable;
 import streetfighter.other.GameObject;
 import streetfighter.other.Hurtbox;
 
-public class Hadoken extends Hurtbox implements Renderable{
+public class Hadoken extends Hurtbox implements Renderable {
     int duration;
     private double speed;
     private Image hadoken = new Image("streetfighter/Ryu/Hadoken.gif");
@@ -25,15 +25,18 @@ public class Hadoken extends Hurtbox implements Renderable{
     @Override
     public void update() {
         this.x += speed;
+        System.out.println("update");
     }
 
     @Override
     public Node getRenderer() {
+        System.out.println("renderer");
         return renderer;
     }
 
     @Override
     public void draw() {
+        System.out.println("draw");
         renderer.setX(x);
     }
 }
