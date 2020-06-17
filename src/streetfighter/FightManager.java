@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -40,6 +42,9 @@ public class FightManager {
     private Timer deleteLater;
     int interval;
     int actualRound;
+    private final  Image iPlayer1Won = new Image("streetfighter/Menu/player1_won.png",1000, 145, true, false);
+    private final Image iPlayer2Won = new Image("streetfighter/Menu/player2_won.png",1000, 145, true, false);
+    private ImageView ivTextWinnerRound;
     private final int WIDTH = 1306, HEIGHT = 560;
     HealthBar HBryu,HBken;
     
@@ -60,10 +65,12 @@ public class FightManager {
    
    public void initializeFight()
    {
+        
         actualRound = 0;
         gameObjects = new ArrayList<>();
         goWaitList = new ArrayList<>();
         goGarbage = new ArrayList<>();
+        
         gameObjects.add(background);
         player1.setOtherPlayer(player2);
         player2.setOtherPlayer(player1);
@@ -86,7 +93,11 @@ public class FightManager {
         counterLabel.setTextFill(Color.RED);
         counterLabel.setFont(new Font(50));
         root.getChildren().add(counterLabel);
-        countDown = new CountDown(counterLabel,100,player1,player2);        
+        countDown = new CountDown(counterLabel,100,player1,player2);       
+        ivTextWinnerRound = new ImageView();
+        ivTextWinnerRound.setX(100);
+        ivTextWinnerRound.setY(250);
+        root.getChildren().add(ivTextWinnerRound);
         startRound();
         
         // Game Loop
@@ -173,6 +184,7 @@ public class FightManager {
                          interval--;
                          if(interval <= 1) {
                              System.out.println("ça recommence ! ");
+                             ivTextWinnerRound.setImage(null);
                              startRound();
                              timerEndRound.cancel();
                          }
@@ -217,12 +229,14 @@ public class FightManager {
        if(player1.getHealthPoint() < player2.getHealthPoint())
         {
             System.out.println("Player 2 won ! ");
+            ivTextWinnerRound.setImage(iPlayer2Won);
             player2.win();
             player1.ko();
         }
         else if (player2.getHealthPoint() < player1.getHealthPoint())
         {
             System.out.println("Player 1 won ! ");
+            ivTextWinnerRound.setImage(iPlayer1Won);
             player1.win();
             player2.ko();
         }
