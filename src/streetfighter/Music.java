@@ -39,7 +39,7 @@ public class Music
         return mediaPlayer;
     }
 
-    public void stop() {
-        mediaPlayer.stop();
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 }
