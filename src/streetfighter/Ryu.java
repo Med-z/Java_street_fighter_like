@@ -21,8 +21,8 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Image iStance = new Image("streetfighter/Ryu/Stance.gif", 156, 222, true, false);
     final Image iWalkForward = new Image("streetfighter/Ryu/WalkForward.gif", 224, 226, true, false);
     final Image iWalkBackward = new Image("streetfighter/Ryu/WalkBackward.gif", 224, 226, true, false);
-    final Image iCrouching = new Image("streetfighter/Ryu/Crouching.gif", 230, 190, true, false);
-    final Image iCrouch = new Image("streetfighter/Ryu/Crouch.gif", 224, 277, true, false);
+    final Image iCrouching = new Image("streetfighter/Ryu/Crouching.gif", 176, 1900, true, false);
+    final Image iCrouch = new Image("streetfighter/Ryu/Crouch.gif", 176, 277, true, false);
     
     final Image iWin  = new Image("streetfighter/Ryu/Win.gif",224, 226, true, false);
     final Image iKO = new Image("streetfighter/Ryu/KO.gif",224, 226, true, false);
@@ -116,7 +116,7 @@ public class Ryu extends Character implements Collidable, Renderable {
                 } else if (InputManager.getKey(KeyCode.Q) && state != CharacterState.CROUCH) {
                     state = CharacterState.MOVING_LEFT;
                     this.x += -speed;
-                } else if (InputManager.getKey(KeyCode.S) && state != CharacterState.CROUCH && crouchTimer == null) {
+                } else if (InputManager.getKey(KeyCode.S) && state != CharacterState.CROUCH && state != CharacterState.CROUCHING) {
                     state = CharacterState.CROUCHING;
                     crouchTimer = new Timer();
                     TimerTask crouch = new TimerTask() {
@@ -126,8 +126,8 @@ public class Ryu extends Character implements Collidable, Renderable {
                             crouchTimer.cancel();
                         }
                     };
-                    crouchTimer.schedule(crouch, 1700);
-                } else if (InputManager.getKey(KeyCode.S) && state == CharacterState.CROUCH) {
+                    crouchTimer.schedule(crouch, 850);
+                } else if (InputManager.getKey(KeyCode.S) && state == CharacterState.CROUCH || state == CharacterState.CROUCHING) {
 
                 } else {
                     state = CharacterState.STANCE;
