@@ -87,19 +87,6 @@ public class FightManager {
         countDown = new CountDown(counterLabel,100,player1,player2);        
         startRound();
         
-   }
-   
-   public void startRound()
-   {
-        player1.canMove = true;
-        player2.canMove = true;
-        player1.resetPosition();
-        player2.resetPosition();      
-        player1.setHealthPoint(100);
-        player2.setHealthPoint(100);       
-        countDown.startTimer();
-
-
         // Game Loop
         timer = new Timer();
         TimerTask gameLoop = new TimerTask() {
@@ -144,6 +131,21 @@ public class FightManager {
             }
         };
         timer.schedule(gameLoop, 0, 16);
+        
+   }
+   
+   public void startRound()
+   {
+        player1.canMove = true;
+        player2.canMove = true;
+        player1.resetPosition();
+        player2.resetPosition();      
+        player1.setHealthPoint(100);
+        player2.setHealthPoint(100);       
+        countDown.startTimer();
+
+
+        
     }
    
    public void finishRound()
