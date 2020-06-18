@@ -21,15 +21,12 @@ public class CountDown {
     int interval;
     static Timer timer;
     SimpleIntegerProperty integer;
-    Character player1,player2;
     
     public CountDown(Label label,int interval,Character player1,Character player2)
     {
         this.interval = interval;
         integer = new SimpleIntegerProperty(this.interval);
         label.textProperty().bind(integer.asString());
-        this.player1 = player1;
-        this.player2 = player2;
 }
    
        
