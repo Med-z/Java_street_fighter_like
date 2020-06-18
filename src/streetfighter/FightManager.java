@@ -247,6 +247,8 @@ public class FightManager {
            @Override
            public void run() {
                Platform.runLater(() -> {
+                   Main.music.getMediaPlayer().stop();
+                   Main.music.playMusic();
                    // giga clear de la mort qui tue
                    ((AnchorPane)Main.getPrimaryStage().getScene().getRoot()).getChildren().remove(((AnchorPane)Main.getPrimaryStage().getScene().getRoot()).getChildren());
                    Main.startMenu(((AnchorPane)Main.getPrimaryStage().getScene().getRoot()));
