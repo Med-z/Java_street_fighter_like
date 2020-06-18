@@ -5,6 +5,5 @@ public enum CharacterState {
     ATTACKING,
     MOVING_LEFT,
     MOVING_RIGHT,
-    CROUCHING,
     CROUCH,
 }
