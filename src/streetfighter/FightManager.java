@@ -1,6 +1,7 @@
 package streetfighter;
 
 import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.shape.Rectangle;
 import streetfighter.interfaces.Renderable;
 import java.util.ArrayList;
@@ -30,7 +31,6 @@ import streetfighter.other.GameObject;
 public class FightManager {
     
     public static FightManager instance;
-    int round = 0;
     Character player1,player2;
     private CountDown countDown;
     private static List<GameObject> gameObjects;
@@ -45,9 +45,15 @@ public class FightManager {
     private final  Image iPlayer1Won = new Image("streetfighter/Menu/player1_won.png",1000, 145, true, false);
     private final Image iPlayer2Won = new Image("streetfighter/Menu/player2_won.png",1000, 145, true, false);
     private final Image iDraw = new Image("streetfighter/Menu/draw.png",1000, 145, true, false);
+    private final Image iRoundEmpty = new Image("streetfighter/Menu/RoundEmpty.png", 32, 32, true, false);
+    private final Image iRoundWon = new Image("streetfighter/Menu/RoundWon.png", 32, 32, true, false);
     private ImageView ivTextWinnerRound;
     private final int WIDTH = 1306, HEIGHT = 560;
     HealthBar HBryu,HBken;
+    ImageView R1P1;
+    ImageView R2P1;
+    ImageView R1P2;
+    ImageView R2P2;
     
     public List<Timer> listTimer;
    
@@ -66,8 +72,6 @@ public class FightManager {
    
    public void initializeFight()
    {
-        
-        actualRound = 0;
         gameObjects = new ArrayList<>();
         goWaitList = new ArrayList<>();
         goGarbage = new ArrayList<>();
@@ -99,6 +103,14 @@ public class FightManager {
         ivTextWinnerRound.setX(100);
         ivTextWinnerRound.setY(250);
         root.getChildren().add(ivTextWinnerRound);
+
+        R1P1 = new ImageView(iRoundEmpty); R1P1.relocate(10, HBryu.getY() + HBryu.getHeight() + 10);
+        R2P1 = new ImageView(iRoundEmpty); R2P1.relocate(10 + 32 + 20, HBryu.getY() + HBryu.getHeight() + 10);
+        R1P2 = new ImageView(iRoundEmpty); R1P2.relocate(WIDTH - 32 - 10, HBken.getY() + HBken.getHeight() + 10);
+        R2P2 = new ImageView(iRoundEmpty); R2P2.relocate(WIDTH - 32 - 10 - 32 - 20, HBken.getY() + HBken.getHeight() + 10);
+
+        root.getChildren().addAll(R1P1, R1P2, R2P1, R2P2);
+
         startRound();
         
         // Game Loop
@@ -128,7 +140,7 @@ public class FightManager {
                     if(!(go instanceof Background)) {
                         root.getChildren().add(rect);
                         deleteLater = new Timer();
-                        
+
                         deleteLater.schedule(new TimerTask() {
                             @Override
                             public void run() {
@@ -161,7 +173,6 @@ public class FightManager {
    
    public void startRound()
    {
-        actualRound++;
         player1.canMove = true;
         player2.canMove = true;
         player1.resetPosition();
@@ -177,7 +188,7 @@ public class FightManager {
        stopAllTimer();
        interval = 5;
        System.out.println("C'est fini ! ");
-       if(actualRound == 3)
+       if(player1.roundWon == 2 || player2.roundWon == 2)
        {
            finishFight();
        }
@@ -214,10 +225,12 @@ public class FightManager {
        else if( player1.roundWon > player2.roundWon)
        {
            System.out.println("Player 1 est le grand gagnant ! ");
+           // TODO: retour menu
        }
-        else if( player2.roundWon > player1.roundWon)
+       else if( player2.roundWon > player1.roundWon)
        {
            System.out.println("Player2 est le grand gagnant ! ");
+           // TODO: retour menu
        }
    }
    
@@ -242,6 +255,11 @@ public class FightManager {
             ivTextWinnerRound.setImage(iPlayer2Won);
             player2.win();
             player1.ko();
+            if(R1P2.getImage() == iRoundEmpty) {
+                R1P2.setImage(iRoundWon);
+            } else if(R2P2.getImage() == iRoundEmpty) {
+                R2P2.setImage(iRoundWon);
+            }
         }
         else if (player2.getHealthPoint() < player1.getHealthPoint())
         {
@@ -249,6 +267,11 @@ public class FightManager {
             ivTextWinnerRound.setImage(iPlayer1Won);
             player1.win();
             player2.ko();
+            if(R1P1.getImage() == iRoundEmpty) {
+                R1P1.setImage(iRoundWon);
+            } else if(R2P1.getImage() == iRoundEmpty) {
+                R2P1.setImage(iRoundWon);
+            }
         }
         else if (player2.getHealthPoint() ==  player1.getHealthPoint())
         {
