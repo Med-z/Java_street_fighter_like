@@ -1,6 +1,8 @@
 package streetfighter;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -19,9 +21,10 @@ public class Main extends Application {
     private final int WIDTH = 1306, HEIGHT = 560;
     Music music = new Music();
     FightManager fightManager;
-
+    private static Stage pStage;
     @Override
     public void start(Stage primaryStage) throws Exception{
+        pStage = primaryStage;
         music.playMusic();
         // Déclarations JavaFX
         AnchorPane root = new AnchorPane();
@@ -53,7 +56,13 @@ public class Main extends Application {
             root.getChildren().removeAll(root.getChildren()); // Retire tous les éléments de la collection, peu importe l'allure du splash-screen
             startMenu(root);
         });
+        
+        
     }
+    public static Stage getPrimaryStage() {
+        return pStage;
+    }
+    
     // startMenu : lancer le menu
     public void startMenu(AnchorPane root) {
         // Fond du Menu
@@ -118,6 +127,42 @@ public class Main extends Application {
         musicONOImageView.setOnMouseClicked(e-> {
                 music.getMediaPlayer().play();
             });
+        
+        // Image Texte controls orange
+        final Image controlsImageO = new Image("streetfighter/Menu/ControlsO.png", 254.1, 70, false, false);  
+        ImageView controlsImageViewO = new ImageView(controlsImageO);
+        AnchorPane.setTopAnchor(controlsImageViewO, 340.0); 
+        AnchorPane.setLeftAnchor(controlsImageViewO, 653-(controlsImageO.getWidth())/2);
+        root.getChildren().add(controlsImageViewO);
+        // Image Texte controls jaune
+        final Image controlsImageY = new Image("streetfighter/Menu/ControlsY.png", 254.1, 70, false, false);
+    
+        // Switch de couleur lorque l'on passe la souris sur l'image
+        controlsImageViewO.setOnMouseEntered(e->    { controlsImageViewO.setImage(controlsImageY); }  );
+        controlsImageViewO.setOnMouseExited(e->     { controlsImageViewO.setImage(controlsImageO); }  );
+        // Lorsque l'on clique sur controls, la fenetre des controls s'ouvre
+        controlsImageViewO.setOnMouseClicked(e-> {
+                root.getChildren().removeAll(root.getChildren()); 
+                startControls(root);
+            });
+        
+        // Image Texte Quit orange
+        final Image quitImageO = new Image("streetfighter/Menu/QuitO.png", 157.6, 80, false, false); 
+        ImageView quitImageViewO = new ImageView(quitImageO);
+        AnchorPane.setTopAnchor(quitImageViewO, 420.0); 
+        AnchorPane.setLeftAnchor(quitImageViewO, 653-(quitImageO.getWidth())/2);
+        root.getChildren().add(quitImageViewO);
+        // Image Texte Quit jaune
+        final Image quitImageY = new Image("streetfighter/Menu/QuitY.png", 157.6, 80, false, false); 
+    
+        // Switch de couleur lorque l'on passe la souris sur l'image
+        quitImageViewO.setOnMouseEntered(e->    { quitImageViewO.setImage(quitImageY); }  );
+        quitImageViewO.setOnMouseExited(e->     { quitImageViewO.setImage(quitImageO); }  );
+        // Lorsque l'on clique sur quit, la fenetre se ferme
+        quitImageViewO.setOnMouseClicked(e-> {
+                getPrimaryStage().close();
+            });
+        
         // GIFS decoration du menu
         final Image ryuMenuImage = new Image("streetfighter/Menu/RyuMenu.gif", 169.1, 573.8, false, false);
         ImageView ryuMenuImageView = new ImageView(ryuMenuImage);
@@ -152,6 +197,38 @@ public class Main extends Application {
         
         
         Platform.runLater( () -> root.requestFocus());
+    }
+    
+    public void startControls(AnchorPane root) {
+        // Fond des Controls
+        final Image menuBackgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif");
+        Background background = new Background(0,0, WIDTH, HEIGHT, menuBackgroundImageSC);
+        root.getChildren().add(background.renderer);
+
+        // IMAGE des controles
+        final Image ctrlImageO = new Image("streetfighter/Menu/ctrl.png", 1231, 254, false, false); 
+        ImageView ctrlImageViewO = new ImageView(ctrlImageO);
+        AnchorPane.setTopAnchor(ctrlImageViewO, 100.0); 
+        AnchorPane.setLeftAnchor(ctrlImageViewO, (653-(ctrlImageO.getWidth())/2-50));  
+        root.getChildren().add(ctrlImageViewO);
+        
+        // Image Texte back orange
+        final Image backImageO = new Image("streetfighter/Menu/BackO.png"); 
+        ImageView backImageViewO = new ImageView(backImageO);
+        AnchorPane.setTopAnchor(backImageViewO, 460.0); 
+        AnchorPane.setLeftAnchor(backImageViewO, 30.0); 
+        root.getChildren().add(backImageViewO);
+        // Image Texte back jaune
+        final Image backImageY = new Image("streetfighter/Menu/BackY.png"); 
+    
+        // Switch de couleur lorque l'on passe la souris sur l'image
+        backImageViewO.setOnMouseEntered(e->    { backImageViewO.setImage(backImageY); }  );
+        backImageViewO.setOnMouseExited(e->     { backImageViewO.setImage(backImageO); }  );
+        // Lorsque l'on clique sur back, la fenetre se ferme
+        backImageViewO.setOnMouseClicked(e-> {
+                root.getChildren().removeAll(root.getChildren()); 
+                startMenu(root);
+            });
     }
     
     // startGame : démarrer le Timer de la boucle principale du jeu
