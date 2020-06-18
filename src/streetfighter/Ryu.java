@@ -21,7 +21,6 @@ public class Ryu extends Character implements Collidable, Renderable {
     final Image iStance = new Image("streetfighter/Ryu/Stance.gif", 156, 222, true, false);
     final Image iWalkForward = new Image("streetfighter/Ryu/WalkForward.gif", 224, 226, true, false);
     final Image iWalkBackward = new Image("streetfighter/Ryu/WalkBackward.gif", 224, 226, true, false);
-    final Image iCrouching = new Image("streetfighter/Ryu/Crouching.gif", 176, 1900, true, false);
     final Image iCrouch = new Image("streetfighter/Ryu/Crouch.gif", 176, 277, true, false);
     
     final Image iWin  = new Image("streetfighter/Ryu/Win.gif",224, 226, true, false);
@@ -107,7 +106,6 @@ public class Ryu extends Character implements Collidable, Renderable {
     @Override
     public void update() {
         super.update();
-        System.out.println(state.toString());
         if (canMove) {
             if (state != CharacterState.ATTACKING) {
                 if (InputManager.getKey(KeyCode.D) && state != CharacterState.CROUCH) {
@@ -116,21 +114,12 @@ public class Ryu extends Character implements Collidable, Renderable {
                 } else if (InputManager.getKey(KeyCode.Q) && state != CharacterState.CROUCH) {
                     state = CharacterState.MOVING_LEFT;
                     this.x += -speed;
-                } else if (InputManager.getKey(KeyCode.S) && state != CharacterState.CROUCH && state != CharacterState.CROUCHING) {
-                    state = CharacterState.CROUCHING;
-                    crouchTimer = new Timer();
-                    TimerTask crouch = new TimerTask() {
-                        @Override
-                        public void run() {
-                            state = CharacterState.CROUCH;
-                            crouchTimer.cancel();
-                        }
-                    };
-                    crouchTimer.schedule(crouch, 850);
-                } else if (InputManager.getKey(KeyCode.S) && state == CharacterState.CROUCH || state == CharacterState.CROUCHING) {
-
+                } else if (InputManager.getKey(KeyCode.S)) {
+                    state = CharacterState.CROUCH;
+                    hitbox.getRectangle().setY(y + 76);
                 } else {
                     state = CharacterState.STANCE;
+                    System.out.println(hitbox.getRectangle().getY());
                 }
 
                 if (InputManager.getTempKey(KeyCode.A)) {
@@ -160,6 +149,8 @@ public class Ryu extends Character implements Collidable, Renderable {
         } else {
             facing = FacingDirection.LEFT;
         }
+
+        System.out.println(state.toString());
     }
 
     public void setSpecialAttack(KeyCode KC){
@@ -194,13 +185,15 @@ public class Ryu extends Character implements Collidable, Renderable {
     public void draw() {
         if(canMove && state != CharacterState.ATTACKING)
         {
-           renderer.resizeRelocate(x, y, width, height);
+           //renderer.resizeRelocate(x, y, width, height);
 
             if(facing == FacingDirection.RIGHT) {
                 renderer.setScaleX(1);
             } else {
                 renderer.setScaleX(-1);
             }
+
+            renderer.setY(y);
 
             switch (state) {
                 case STANCE:
@@ -223,15 +216,11 @@ public class Ryu extends Character implements Collidable, Renderable {
                         renderer.setImage(iWalkBackward);
                         renderer.setX(x);
                     }
-
-                    break;
-                case CROUCHING:
-                    renderer.setImage(iCrouching);
                     break;
                 case CROUCH:
                     renderer.setImage(iCrouch);
-                    break;
-
+                    renderer.setY(y + 76);
+                    System.out.println("render " + renderer.getY());
             }
         }
     }
