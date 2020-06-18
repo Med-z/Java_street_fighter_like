@@ -192,7 +192,7 @@ public class Ryu extends Character implements Collidable, Renderable {
         if(canMove && state != CharacterState.ATTACKING)
         {
            //renderer.resizeRelocate(x, y, width, height);
-
+            renderer.setX(x);
             if(facing == FacingDirection.RIGHT) {
                 renderer.setScaleX(1);
             } else {

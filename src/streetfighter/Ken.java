@@ -181,7 +181,8 @@ public class Ken extends Character implements Collidable, Renderable {
     public void draw() {
         if(canMove && state != CharacterState.ATTACKING)
         {
-           //renderer.resizeRelocate(x, y, width, height);
+            //renderer.resizeRelocate(x, y, width, height);
+            renderer.setX(x);
 
             if(facing == FacingDirection.RIGHT) {
                 renderer.setScaleX(1);
