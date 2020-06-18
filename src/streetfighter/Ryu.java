@@ -121,27 +121,32 @@ public class Ryu extends Character implements Collidable, Renderable {
                     state = CharacterState.STANCE;
                     System.out.println(hitbox.getRectangle().getY());
                 }
-
-                if (InputManager.getTempKey(KeyCode.A)) {
+                
+                if(state != CharacterState.CROUCH)
+                {
+                     if (InputManager.getTempKey(KeyCode.A)) {
                     attack(atkLightPunch);
                     setSpecialAttack(KeyCode.A);
+                    }
+                    if (InputManager.getTempKey(KeyCode.W)) {
+                        attack(atkHeavyPunch);
+                        setSpecialAttack(KeyCode.W);
+                    }
+                    if (InputManager.getTempKey(KeyCode.E)) {
+                        attack(atkLightKick);
+                        setSpecialAttack(KeyCode.E);
+                    }
+                    if (InputManager.getTempKey(KeyCode.C)) {
+                        attack(atkHeavyKick);
+                        setSpecialAttack(KeyCode.C);
+                    }
+                    if (specialAttack.equals(specialAttackFinal)) {
+                        specialAttack();
+                        specialAttack.clear();
+                    }
                 }
-                if (InputManager.getTempKey(KeyCode.W)) {
-                    attack(atkHeavyPunch);
-                    setSpecialAttack(KeyCode.W);
-                }
-                if (InputManager.getTempKey(KeyCode.E)) {
-                    attack(atkLightKick);
-                    setSpecialAttack(KeyCode.E);
-                }
-                if (InputManager.getTempKey(KeyCode.C)) {
-                    attack(atkHeavyKick);
-                    setSpecialAttack(KeyCode.C);
-                }
-                if (specialAttack.equals(specialAttackFinal)) {
-                    specialAttack();
-                    specialAttack.clear();
-                }
+
+               
             }
         }
         if(ken.getX() > x) {
