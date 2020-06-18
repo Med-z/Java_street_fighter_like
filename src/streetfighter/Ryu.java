@@ -120,7 +120,6 @@ public class Ryu extends Character implements Collidable, Renderable {
                     hitbox.getRectangle().setY(y + 76);
                 } else {
                     state = CharacterState.STANCE;
-                    System.out.println(hitbox.getRectangle().getY());
                 }
                 
                 if(state != CharacterState.CROUCH)
@@ -156,7 +155,6 @@ public class Ryu extends Character implements Collidable, Renderable {
             facing = FacingDirection.LEFT;
         }
 
-        System.out.println(state.toString());
     }
 
     public void setSpecialAttack(KeyCode KC){
@@ -227,7 +225,6 @@ public class Ryu extends Character implements Collidable, Renderable {
                 case CROUCH:
                     renderer.setImage(iCrouch);
                     renderer.setY(y + 76);
-                    System.out.println("render " + renderer.getY());
             }
         }
     }

@@ -60,11 +60,13 @@ public class Ken extends Character implements Collidable, Renderable {
     public void update() {
         super.update();
         if (canMove) {
+            hitbox.getRectangle().setY(y);
+
             if (state != CharacterState.ATTACKING) {
-                if (InputManager.getKey(KeyCode.NUMPAD6)) {
+                if (InputManager.getKey(KeyCode.NUMPAD6) && state != CharacterState.CROUCH) {
                     state = CharacterState.MOVING_RIGHT;
                     this.x += speed;
-                } else if (InputManager.getKey(KeyCode.NUMPAD4)) {
+                } else if (InputManager.getKey(KeyCode.NUMPAD4) && state != CharacterState.CROUCH) {
                     state = CharacterState.MOVING_LEFT;
                     this.x += -speed;
                 } else if (InputManager.getKey(KeyCode.NUMPAD5)) {
@@ -179,11 +181,10 @@ public class Ken extends Character implements Collidable, Renderable {
     
      @Override
     public void draw() {
-        if(canMove && state != CharacterState.ATTACKING)
+       if(canMove && state != CharacterState.ATTACKING)
         {
-            //renderer.resizeRelocate(x, y, width, height);
+           //renderer.resizeRelocate(x, y, width, height);
             renderer.setX(x);
-
             if(facing == FacingDirection.RIGHT) {
                 renderer.setScaleX(1);
             } else {
@@ -195,6 +196,7 @@ public class Ken extends Character implements Collidable, Renderable {
             switch (state) {
                 case STANCE:
                     renderer.setImage(iStance);
+                    renderer.setX(x);
                     break;
                 case MOVING_LEFT:
                     if(facing == FacingDirection.RIGHT) {
@@ -217,7 +219,6 @@ public class Ken extends Character implements Collidable, Renderable {
                 case CROUCH:
                     renderer.setImage(iCrouch);
                     renderer.setY(y + 76);
-                    System.out.println("render " + renderer.getY());
             }
         }
     }
@@ -237,6 +238,7 @@ public class Ken extends Character implements Collidable, Renderable {
     @Override
     public void resetPosition()
     {
+        System.out.println(resetXPosition);
         renderer.setX(resetXPosition);
         renderer.setY(resetYPosition);
         renderer.setImage(iStance);
