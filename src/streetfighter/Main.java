@@ -18,9 +18,9 @@ import javafx.scene.input.MouseEvent;
 import streetfighter.database.ConnexionBD;
 
 public class Main extends Application {
-    private final int WIDTH = 1306, HEIGHT = 560;
-    Music music = new Music();
-    FightManager fightManager;
+    private final static int WIDTH = 1306, HEIGHT = 560;
+    static Music music = new Music();
+    static FightManager fightManager;
     private static Stage pStage;
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -64,7 +64,7 @@ public class Main extends Application {
     }
     
     // startMenu : lancer le menu
-    public void startMenu(AnchorPane root) {
+    public static void startMenu(AnchorPane root) {
         // Fond du Menu
         final Image menuBackgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif");
         Background background = new Background(0,0, WIDTH, HEIGHT, menuBackgroundImageSC);
@@ -199,7 +199,7 @@ public class Main extends Application {
         Platform.runLater( () -> root.requestFocus());
     }
     
-    public void startControls(AnchorPane root) {
+    public static void startControls(AnchorPane root) {
         // Fond des Controls
         final Image menuBackgroundImageSC = new Image("streetfighter/Background/SplashScreenBackground.gif");
         Background background = new Background(0,0, WIDTH, HEIGHT, menuBackgroundImageSC);
@@ -233,7 +233,7 @@ public class Main extends Application {
     
     // startGame : démarrer le Timer de la boucle principale du jeu
     // root : AnchorPane : l'élement parent principal, créé dans start()
-    public void startGame(AnchorPane root) {
+    public static void startGame(AnchorPane root) {
         // Initialisations et ajouts des gameObjects
 
        

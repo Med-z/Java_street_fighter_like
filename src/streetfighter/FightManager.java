@@ -221,17 +221,33 @@ public class FightManager {
        if(player1.roundWon == player2.roundWon)
        {
            System.out.println("Egalité parfaite !");
+           sendBackToMenu();
        }
        else if( player1.roundWon > player2.roundWon)
        {
            System.out.println("Player 1 est le grand gagnant ! ");
-           // TODO: retour menu
+           sendBackToMenu();
        }
        else if( player2.roundWon > player1.roundWon)
        {
            System.out.println("Player2 est le grand gagnant ! ");
-           // TODO: retour menu
+           sendBackToMenu();
        }
+   }
+
+   public void sendBackToMenu() {
+       Timer waitBruh = new Timer();
+       waitBruh.schedule(new TimerTask() {
+           @Override
+           public void run() {
+               Platform.runLater(() -> {
+                   // giga clear de la mort qui tue
+                   ((AnchorPane)Main.getPrimaryStage().getScene().getRoot()).getChildren().remove(((AnchorPane)Main.getPrimaryStage().getScene().getRoot()).getChildren());
+                   Main.startMenu(((AnchorPane)Main.getPrimaryStage().getScene().getRoot()));
+                   timer.cancel();
+               });
+           }
+       }, 1500);
    }
    
    public void stopAllTimer()
