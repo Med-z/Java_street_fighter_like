@@ -141,19 +141,19 @@ public class FightManager {
                     }
 
                     // Permet d'afficher les hurtbox en noir, ça ne s'en va pas mais osef, c'est pour un intérêt temporaire
-                    if(!(go instanceof Background)) {
-                        root.getChildren().add(rect);
-                        deleteLater = new Timer();
-
-                        deleteLater.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                Platform.runLater(() -> {
-                                    root.getChildren().remove(rect);
-                                });
-                            }
-                        }, 16);
-                    }
+//                    if(!(go instanceof Background)) {
+//                        root.getChildren().add(rect);
+//                        deleteLater = new Timer();
+//
+//                        deleteLater.schedule(new TimerTask() {
+//                            @Override
+//                            public void run() {
+//                                Platform.runLater(() -> {
+//                                    root.getChildren().remove(rect);
+//                                });
+//                            }
+//                        }, 16);
+//                    }
                 }
 
                 CollisionManager.checkForCollisions(gameObjects);
