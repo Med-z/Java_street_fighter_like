@@ -107,6 +107,7 @@ public class Ryu extends Character implements Collidable, Renderable {
     public void update() {
         super.update();
         if (canMove) {
+            hitbox.getRectangle().setY(y);
             if (state != CharacterState.ATTACKING) {
                 if (InputManager.getKey(KeyCode.D) && state != CharacterState.CROUCH) {
                     state = CharacterState.MOVING_RIGHT;
