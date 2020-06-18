@@ -23,6 +23,7 @@ public class Ken extends Character implements Collidable, Renderable {
     final Image iWalkForward = new Image("streetfighter/Ken/WalkForward.gif", 224, 226, true, false);
     final Image iWalkBackward = new Image("streetfighter/Ken/WalkBackward.gif", 224, 226, true, false);
     final Image iWin = new Image("streetfighter/Ken/Win.gif",224, 226, true, false);
+    final Image iCrouch = new Image("streetfighter/Ken/Crounching.gif", 176, 277, true, false);
     
     final Image iKO = new Image("streetfighter/Ken/KO.gif",224, 226, true, false);
 
@@ -66,43 +67,50 @@ public class Ken extends Character implements Collidable, Renderable {
                 } else if (InputManager.getKey(KeyCode.NUMPAD4)) {
                     state = CharacterState.MOVING_LEFT;
                     this.x += -speed;
+                } else if (InputManager.getKey(KeyCode.NUMPAD5)) {
+                    state = CharacterState.CROUCH;
+                    hitbox.getRectangle().setY(y + 76);
                 } else {
                     state = CharacterState.STANCE;
                 }
-
-                if (InputManager.getTempKey(KeyCode.NUMPAD7)) {
-                    attack(atkLightPunch);
-                    setSpecialAttack(KeyCode.NUMPAD7);
-                    for (KeyCode KC : specialAttack)
-                        System.out.println(KC);
-                    System.out.println();
+                
+                if(state != CharacterState.CROUCH)
+                {
+                    if (InputManager.getTempKey(KeyCode.NUMPAD7)) {
+                        attack(atkLightPunch);
+                        setSpecialAttack(KeyCode.NUMPAD7);
+                        for (KeyCode KC : specialAttack)
+                            System.out.println(KC);
+                        System.out.println();
+                    }
+                    if (InputManager.getTempKey(KeyCode.NUMPAD1)) {
+                        attack(atkHeavyPunch);
+                        setSpecialAttack(KeyCode.NUMPAD1);
+                        for (KeyCode KC : specialAttack)
+                            System.out.println(KC);
+                        System.out.println();
+                    }
+                    if (InputManager.getTempKey(KeyCode.NUMPAD9)) {
+                        attack(atkLightKick);
+                        setSpecialAttack(KeyCode.NUMPAD9);
+                        for (KeyCode KC : specialAttack)
+                            System.out.println(KC);
+                        System.out.println();
+                    }
+                    if (InputManager.getTempKey(KeyCode.NUMPAD3)) {
+                        attack(atkHeavyKick);
+                        setSpecialAttack(KeyCode.NUMPAD3);
+                        for (KeyCode KC : specialAttack)
+                            System.out.println(KC);
+                        System.out.println();
+                    }
+                    if (specialAttack.equals(specialAttackFinal)) {
+                        System.out.println("hadoken");
+                        specialAttack();
+                        specialAttack.clear();
+                    }
                 }
-                if (InputManager.getTempKey(KeyCode.NUMPAD1)) {
-                    attack(atkHeavyPunch);
-                    setSpecialAttack(KeyCode.NUMPAD1);
-                    for (KeyCode KC : specialAttack)
-                        System.out.println(KC);
-                    System.out.println();
-                }
-                if (InputManager.getTempKey(KeyCode.NUMPAD9)) {
-                    attack(atkLightKick);
-                    setSpecialAttack(KeyCode.NUMPAD9);
-                    for (KeyCode KC : specialAttack)
-                        System.out.println(KC);
-                    System.out.println();
-                }
-                if (InputManager.getTempKey(KeyCode.NUMPAD3)) {
-                    attack(atkHeavyKick);
-                    setSpecialAttack(KeyCode.NUMPAD3);
-                    for (KeyCode KC : specialAttack)
-                        System.out.println(KC);
-                    System.out.println();
-                }
-                if (specialAttack.equals(specialAttackFinal)) {
-                    System.out.println("hadoken");
-                    specialAttack();
-                    specialAttack.clear();
-                }
+                
             }
             if(ryu.getX() > x) {
             facing = FacingDirection.RIGHT;
@@ -169,10 +177,11 @@ public class Ken extends Character implements Collidable, Renderable {
         specialAttack.add(KC);
     }
     
+     @Override
     public void draw() {
         if(canMove && state != CharacterState.ATTACKING)
         {
-           renderer.setX(x);
+           //renderer.resizeRelocate(x, y, width, height);
 
             if(facing == FacingDirection.RIGHT) {
                 renderer.setScaleX(1);
@@ -180,7 +189,7 @@ public class Ken extends Character implements Collidable, Renderable {
                 renderer.setScaleX(-1);
             }
 
-
+            renderer.setY(y);
 
             switch (state) {
                 case STANCE:
@@ -194,7 +203,6 @@ public class Ken extends Character implements Collidable, Renderable {
                         renderer.setImage(iWalkForward);
                         renderer.setX(x);
                     }
-
                     break;
                 case MOVING_RIGHT:
                     if(facing == FacingDirection.RIGHT) {
@@ -204,8 +212,11 @@ public class Ken extends Character implements Collidable, Renderable {
                         renderer.setImage(iWalkBackward);
                         renderer.setX(x);
                     }
-
                     break;
+                case CROUCH:
+                    renderer.setImage(iCrouch);
+                    renderer.setY(y + 76);
+                    System.out.println("render " + renderer.getY());
             }
         }
     }

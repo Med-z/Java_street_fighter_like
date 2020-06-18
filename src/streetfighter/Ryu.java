@@ -125,9 +125,9 @@ public class Ryu extends Character implements Collidable, Renderable {
                 
                 if(state != CharacterState.CROUCH)
                 {
-                     if (InputManager.getTempKey(KeyCode.A)) {
-                    attack(atkLightPunch);
-                    setSpecialAttack(KeyCode.A);
+                    if (InputManager.getTempKey(KeyCode.A)) {
+                        attack(atkLightPunch);
+                        setSpecialAttack(KeyCode.A);
                     }
                     if (InputManager.getTempKey(KeyCode.W)) {
                         attack(atkHeavyPunch);
