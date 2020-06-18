@@ -204,6 +204,7 @@ public class Ryu extends Character implements Collidable, Renderable {
             switch (state) {
                 case STANCE:
                     renderer.setImage(iStance);
+                    renderer.setX(x);
                     break;
                 case MOVING_LEFT:
                     if(facing == FacingDirection.RIGHT) {
