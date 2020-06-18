@@ -107,6 +107,7 @@ public class Ryu extends Character implements Collidable, Renderable {
     public void update() {
         super.update();
         if (canMove) {
+            hitbox.getRectangle().setY(y);
             if (state != CharacterState.ATTACKING) {
                 if (InputManager.getKey(KeyCode.D) && state != CharacterState.CROUCH) {
                     state = CharacterState.MOVING_RIGHT;
@@ -124,9 +125,9 @@ public class Ryu extends Character implements Collidable, Renderable {
                 
                 if(state != CharacterState.CROUCH)
                 {
-                     if (InputManager.getTempKey(KeyCode.A)) {
-                    attack(atkLightPunch);
-                    setSpecialAttack(KeyCode.A);
+                    if (InputManager.getTempKey(KeyCode.A)) {
+                        attack(atkLightPunch);
+                        setSpecialAttack(KeyCode.A);
                     }
                     if (InputManager.getTempKey(KeyCode.W)) {
                         attack(atkHeavyPunch);
@@ -203,6 +204,7 @@ public class Ryu extends Character implements Collidable, Renderable {
             switch (state) {
                 case STANCE:
                     renderer.setImage(iStance);
+                    renderer.setX(x);
                     break;
                 case MOVING_LEFT:
                     if(facing == FacingDirection.RIGHT) {
