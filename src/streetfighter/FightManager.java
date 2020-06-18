@@ -99,8 +99,8 @@ public class FightManager {
         Label counterLabel = new Label();
         counterLabel.setTranslateX(WIDTH/2);
         counterLabel.setTranslateZ(100);
-        counterLabel.setTextFill(Color.RED);
-        counterLabel.setFont(new Font(50));
+        counterLabel.setTextFill(Color.color(1, 0.5, 0));
+        counterLabel.setFont(new Font(75));
         root.getChildren().add(counterLabel);
         countDown = new CountDown(counterLabel,100,player1,player2);       
         ivTextWinnerRound = new ImageView();
