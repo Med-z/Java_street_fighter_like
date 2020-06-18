@@ -2,8 +2,12 @@ package streetfighter;
 
 import javafx.application.Platform;
 import javafx.scene.Node;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Rectangle;
 import streetfighter.interfaces.Renderable;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -236,6 +240,8 @@ public class FightManager {
    }
 
    public void sendBackToMenu() {
+       Main.music.getMediaPlayer().stop();
+       Main.music.playWinSong();
        Timer waitBruh = new Timer();
        waitBruh.schedule(new TimerTask() {
            @Override
@@ -247,7 +253,7 @@ public class FightManager {
                    timer.cancel();
                });
            }
-       }, 1500);
+       }, 10000);
    }
    
    public void stopAllTimer()

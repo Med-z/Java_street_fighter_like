@@ -42,4 +42,11 @@ public class Music
     public static MediaPlayer getMediaPlayer() {
         return mediaPlayer;
     }
+
+    public static void playWinSong() {
+        Media winSong = new Media(new File("src/streetfighter/Music/winSong.mp3").toURI().toString());
+        mediaPlayer = new MediaPlayer(winSong);
+        mediaPlayer.setAutoPlay(true);
+        mediaPlayer.setVolume(10);
+    }
 }
