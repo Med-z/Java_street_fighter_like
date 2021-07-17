@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="pts2-street_fighter">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/derby.jar!/" />
+      <root url="jar://$PROJECT_DIR$/derbynet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/derbyclient.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
